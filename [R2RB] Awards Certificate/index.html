@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html data-sign="OSL" async>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+
+      :root {
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+
+        /*Colors*/
+        --bakers-burgundy: {{{account.colors.bakers-burgundy-19rb}}};
+        --bakers-burgundy-pop: {{{account.colors.bakers-burgundy-pop-19rb}}};
+        --bakers-burgundy-pop-reversed: {{{account.colors.bakers-burgundy-pop-light-19rb}}};
+
+        --bakers-burgundy-pop-light: {{{account.colors.bakers-burgundy-pop-light-19rb}}};
+
+        --white: #fff;
+        --grey: #d5d5d5;
+      } 
+
+      html {
+        font-family: var(--font-sofa-sans);
+        font-size: 11pt;
+        font-weight: bold;
+        color: var(--bakers-burgundy);
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+      }    
+
+      .fit {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 72pt 56pt 0;
+
+      }
+
+      .body--secondary {
+        align-items: center;
+        padding-top: 150pt;
+        background: var(--bakers-burgundy);
+      }
+
+      .heading {
+        position: relative;
+        font-size: 58pt;
+        line-height: 0.83em;
+        font-weight: 700;
+      }
+
+      .name {
+        margin-bottom: 26pt;
+        min-height: 37pt;
+        line-height: 1em;
+        font-weight: normal;
+        font-family: var(--font-colby-condensed);
+      }
+
+      .name--displayLine {
+        border-bottom: 1pt solid  var(--bakers-burgundy);
+      }
+
+      .info {
+        /* display: block !important; */
+        /*  margin-bottom: 6pt;*/
+        font-size: 20.3pt;
+        line-height: 0.85em;
+
+        max-height: 2.3rem;
+      }
+
+      .logo {
+        width: 168pt;
+      }
+
+      .logo--secondary {
+        margin-right: 16pt;
+        margin-top: 4pt;
+        width: 115pt;
+      }
+
+      .col-2 .logo--secondary {
+        margin-right: 16pt;
+        width: 118pt;
+      }
+
+      .col-3 .logo--secondary {
+        margin-bottom: 8pt;
+        width: 77pt;
+      }
+
+      .footer {
+        position: relative;
+        display: flex;
+        height: 128pt;
+        color: var(--white);
+      }
+
+      .footer::before {
+        content: '';
+        position: absolute;
+        top: -1.5pt;
+        left: 0;
+        width: 100%;
+        height: 3pt;
+        background: url(https://files.outfit.io/media_library_items/136025/ellipse-hor.png) repeat-x;
+        background-size: 6pt 3pt;
+        z-index: 2;
+      }
+
+      .footer--primary{
+        background: var(--bakers-burgundy);
+      }
+
+      .footer--secondary {
+        justify-content: center;
+        height: 129pt; 
+      }
+
+      .col-1.footer--secondary { padding: 0 176pt; }
+
+      .footer__inner { 
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+        padding: 0 15pt 8.7pt;
+      }
+
+      .col-1 .footer__inner { 
+        padding: 0 10pt 8.7pt 19pt;
+      }
+
+      .col-2 .footer__inner { 
+        flex: 0 0 50%;
+      }
+
+      .col-2 .footer__inner:first-child {
+        padding: 0 38pt 10pt 45pt;      
+      }
+
+      .col-2 .footer__inner:last-child {
+        padding: 0 45pt 10pt 25pt;
+      }
+
+      .col-2 .footer__inner:last-child.js-col::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 49%;
+        width: 100%;
+        height: 123pt;
+        background: url(https://files.outfit.io/media_library_items/136026/ellipse-vert.png) repeat-y;
+        background-size: 3pt 6pt;
+        z-index: 2;
+      }
+
+      .col-3 .footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 286px;
+        padding: 25pt 35pt 8.7pt 44pt;
+      }
+
+      .col-3 .footer__inner:first-child {
+        padding: 25pt 30pt 8.7pt 53pt; 
+      }
+
+      .col-3 .footer__inner::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 67%;
+        width: 10pt;
+        height: 123pt;
+        background: url(https://files.outfit.io/media_library_items/136026/ellipse-vert.png) repeat-y;
+        background-size: 3pt 6pt;
+        z-index: 2;
+      }
+      .col-3 .footer__inner:first-child.footer__inner::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 33%;
+        width: 10pt;
+        height: 123pt;
+        background: url(https://files.outfit.io/media_library_items/136026/ellipse-vert.png) repeat-y;
+        background-size: 3pt 6pt;
+        z-index: 2;
+      }
+
+      .offer {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        flex: 1;
+        padding-left: 40pt;
+        padding: 22pt 59pt 15pt 59pt;
+      }
+
+      .offer::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 128pt;
+        height: 34pt;
+        font-size: 18pt;
+        line-height: 1em;
+        padding-top: 6pt;
+        padding-left: 9pt;       
+        background: var(--bakers-burgundy-pop-light);
+        /* background: var(--bakers-burgundy); */
+        color: var(--bakers-burgundy);
+        /* color: var(--bakers-burgundy-pop-reversed); */
+        transform: rotate(-90deg) translateY(100%);
+        transform-origin: left bottom;
+      }
+
+      .offer:nth-child(1)::before {
+        content: 'offer 1';
+        height: calc(34pt + 3mm);
+        padding-top: 3mm;
+      }
+
+      .offer:nth-child(2)::before {
+        content: 'offer 2';
+      }
+
+      .offer:nth-child(3)::before {
+        content: 'offer 3';
+      }
+
+      .col-1 .offer {
+        padding-left: 10pt;
+        padding: 22pt 58pt 15pt 59pt;
+      }
+
+      .col-2 .offer { 
+        flex: 0 0 50%;
+        padding: 30pt 13pt 20pt 52pt;
+      }
+
+      .col-2 .offer:first-child { 
+        padding-left: calc(52pt + 3mm);
+      }
+
+      .col-2 .offer:last-child  { 
+        padding-right: calc(13pt + 3mm);
+      }
+
+      .col-3 .offer { 
+        flex: none;
+        width: 284.03px;  
+        padding: 20pt 20pt 15pt 39pt;
+      }
+
+      .col-3 .offer:before {
+        height: 24.7pt;
+        font-size: 15.7pt;
+        left: -1.5pt;
+        bottom: -2pt;
+      }
+
+      .col-3 .offer:first-child:before {
+        height: calc(24pt + 3mm);
+      }
+
+      .col-3 .offer:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 98%;
+        width: 100%;
+        height: 119pt;
+        background: url(https://files.outfit.io/media_library_items/136026/ellipse-vert.png) repeat-y;
+        background-size: 3pt 6pt;
+        z-index: 2;
+      }
+
+      .col-3 .offer:last-child:after {
+        display: none;
+      }
+
+      .col-3 .offer:first-child,
+      .col-3 .offer:last-child { 
+        flex-grow: 1;  
+      }
+
+      .col-3 .offer:first-child {
+        padding-left: calc( 36pt + 3mm );
+        border-left: none;
+      }
+
+      .col-3 .offer:last-child {
+        padding-right: calc( 12pt + 3mm );
+      }
+
+      .col-3 .offer:last-child:after {
+        display: none;
+      }
+      /*
+      .col-1 .offer::before {
+      display: none;
+      }*/
+
+      .offer__column {
+        width: 4em;
+        flex-direction: column;
+      }
+
+      .offer__headline {
+        max-height: 70px;
+        margin-bottom: 11pt;
+        font-size: 22pt;
+      }
+
+      .col-2 .offer .offer__headline,
+      .col-3 .offer .offer__headline  { 
+        margin-bottom: 12pt;
+        font-size: 16pt;  
+      }
+
+      .offer__subheading {
+        font-size: 13.7pt;
+        line-height: 1em;
+        font-weight: normal;
+        font-family: var(--font-colby-condensed);
+      }
+
+      .col-2 .offer .offer__subheading {
+        font-size: 9.7pt;
+      } 
+
+      .col-3 .offer .offer__subheading {
+        font-size: 7.7pt;
+        line-height: 1.4em;
+      } 
+
+      .offer__image {
+        position: relative;
+        width: 114pt;
+        height: 69pt;
+      }
+
+      .offer__image .reposition-fix { overflow: visible; }
+
+      /*  .offer__image .reposition-fix div {
+      top: -20px !important;
+      bottom: -20px !important;
+      left: -20px !important;
+      right: -20px !important; 
+      }*/
+
+      .col-3 .offer .offer__image {
+        width: 69pt;
+      }
+
+      .terms {
+        max-height: 6em;
+        font-size: 7.4pt;
+        font-family: var(--font-colby-condensed);
+        font-weight: normal;
+        line-height: 1.15em;
+        color:  var(--bakers-burgundy);
+      }
+
+      .terms__line {
+        display: inline-block;
+        width: 51pt;
+        border-bottom: 1px solid var(--bakers-burgundy);
+      }
+
+      .col-2 .terms__validUntil { display: block; }
+
+      .headingMaster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: 1;
+      }
+
+      .js-sentence-output { position: relative; }
+
+      em {
+        color: var(--bakers-burgundy-pop);
+        font-style: normal;
+      }
+
+      .col-3 .offer__headline {
+        width: 85%;
+        max-width: 85%;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+
+
+          <div class="body body--primary">
+            <div data-max-line="8.5" style="font-size: 30px; line-height: 1.2em;">
+              {{#BD_headline--ac}}
+              <div class="heading">
+                <div class="headingMaster">  {{{BD_headline--ac}}}  </div> <!-- headingMaster -->
+                <div class="js-sentence-output"> </div> <!-- js-sentence-output -->
+              </div><!--heading-->
+              {{/BD_headline--ac}}
+              <div class="name {{^BD_name--ac}}name--displayLine{{/BD_name--ac}}">{{{BD_name--ac}}}</div><!--name-->
+              <div class="info">
+                <div class="textFit--vertical" style="line-height: 1em;">
+
+                  {{{BD_info--ac}}}
+                  
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+                  {{{ team.name }}}
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  <span>{{{team.artworkAddress1}}}</span>
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  <br>
+                  <span>{{{team.artworkAddress2}}}</span> 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+
+                  <span>{{{team.artworkAddress3}}}</span> 
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{team.mso}}</span>
+                  {{/team.mso}}  
+
+                </div><!--textFit--vertical-->
+              </div><!--info-->
+            </div> <!-- data-max-height -->
+          </div><!--body-->
+
+          <div class="footer footer--primary js-col-container">
+
+            {{#collection.BD_product-offer-ac}}
+            <div class="offer js-col">
+              <div class="offer__column offer__column--primary">
+                <div class="offer__headline js-subtrahendx">
+                  <div class="textFit--vertical">{{{BD_headline-1--ac}}}</div>
+                </div><!--offer__headline-->
+                <div class="offer__subheading" data-max-height="dynamic">{{{BD_subheading--ac}}} {{{team.artworkAddress1}}}</div><!--offer__subheading-->
+              </div><!--offer__column-->
+
+              <div class="offer__column offer__column--secondary">
+                <div class="offer__image">
+                  <div class="reposition-fix"> {{{BD_product-image--ac}}} </div> <!-- reposition-fix -->
+                </div> <!-- offer__image -->
+              </div><!--offer__column-->
+            </div><!--offer-->
+            {{/collection.BD_product-offer-ac}}
+
+          </div><!--footer primary-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+
+
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+
+          <div class="body body--secondary">
+            <img src="{{{account.logos.reversed-19rb}}}" class="logo logo--primary"><!--logo--primary-->
+          </div><!--body-->
+
+          <div class="footer footer--secondary js-col-container">
+            {{#collection.BD_product-offer-ac}}
+            <div class="footer__inner js-col">
+              <img src="{{{account.logos.primary-19rb}}}" class="logo logo--secondary"><!--logo--secondary-->
+              <div class="terms" data-max-height="css">
+                <span class="terms__validUntil"> Valid until {{^BD_valid-date--ac}}<span class="terms__line"></span>{{/BD_valid-date--ac}} {{{ BD_valid-date--ac }}}</span> at bakery listed only.
+                One offer per person, per day. Subject to availability. Voucher must be surrendered upon redemption.
+                {{{ BD_terms--ac }}} 
+              </div><!--terms-->
+            </div> <!-- footer__inner -->
+            {{/collection.BD_product-offer-ac}}
+          </div><!--footer-->
+
+
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script src="fontfaceobserver.js"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+
+
+      // Including popColorController() function from snippets
+      {{{account.snippets.popColorController}}}
+
+      const headingObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          popColorController('.headingMaster', '.js-sentence-output');
+        });
+      });      
+
+      headingObserver.observe(document.querySelector('.headingMaster'), {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });        
+
+      popColorController('.headingMaster', '.js-sentence-output');
+
+      var font = new FontFaceObserver('Colby CdReg');
+
+      font.load().then(function () {
+        console.log('Font is available');
+        maxLineCheck();
+        maxHeightCheck();
+        popColorController('.headingMaster', '.js-sentence-output');
+        TextFit.fit({
+          selector: '.textFit--vertical',
+          fitMode: 'vertical',
+          alignItems: 'center'
+        }); 
+      }, function () {
+        console.log('Font is not available');
+      });
+
+
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      function columnCount() {
+        const containers = document.querySelectorAll('.js-col-container');
+        containers.forEach(container => {
+          const cols = container.querySelectorAll('.js-col');
+          const colNumber = cols.length;
+
+          container.classList.add(`col-${colNumber}`);
+        })
+      }
+
+      detectSystem();
+      columnCount();
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat();  
+
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+
+
+
+    </script>
+
+    <script type="text/javascript">
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.dispatchEvent(new Event('printready'));
+      });
+
+    </script>
+
+  </body>
+</html>
