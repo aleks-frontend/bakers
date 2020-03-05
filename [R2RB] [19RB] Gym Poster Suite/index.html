@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html async>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main-extended.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css');
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+
+      :root {
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+
+
+        /*Colors*/
+        --healthy-solutions: {{{account.colors.healthy-solutions-19rb}}};
+        --healthy-solutions-pop: {{{account.colors.healthy-solutions-pop-19rb}}};
+        --healthy-solutions-pop-light: {{{account.colors.-bakers-burgundy-pop-light-19rb}}};
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        color: #000;
+      }
+
+      body {
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      /* Placeholder Styling */
+      .placeholder__container {
+        position: absolute;
+        top: 3mm;
+        left: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s all;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url({{{ placeholder-image }}}); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;   
+        opacity: 0.4;
+      }
+
+      .u-placeholder-show .placeholder__container {
+        opacity: 1;  
+      }
+
+      .u-placeholder-hide .placeholder__container,
+      .u-placeholder-hide .placeholder__trigger {
+        display: none;
+      }
+
+      .placeholder__trigger {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        border-bottom-left-radius: 1rem;
+        background: #467BE3;
+        transition: all 0.3s;
+        transform: translate(30%, -30%);
+        opacity: 0;
+        z-index: 9999;
+      }   
+
+      .bleed:hover .placeholder__trigger:hover {
+        cursor: pointer;
+        opacity: 1;        
+      }
+
+      .placeholder__trigger svg {
+        width: 50%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-25%, -50%);
+      }
+
+      .bleed:hover .placeholder__trigger {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }      
+
+      .bleed:hover .placeholder__trigger:hover + .placeholder__container {
+        opacity: 1;
+      }      
+
+      .placeholderBtn__container {
+        position: absolute;
+        top: 0;
+        left: -0.6rem;
+        bottom: -0.6rem;
+        right: 0;
+        transition: 0.3s all;
+        transform: rotate(-90deg);
+        transform-origin: top right;
+        opacity: 0;
+      }
+
+      .placeholder__trigger:hover .placeholderBtn__container {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+
+      .placeholderBtn {
+        position: absolute;
+        left: 0;
+        top: 0.04rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #467BE3;
+        color: #fff;
+        font-size: 0.27rem;
+        text-decoration: none;
+        line-height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }     
+
+      .placeholderBtn--plus::before {
+        content: '+';
+      }            
+
+      .placeholderBtn--minus {
+        top: 0.68rem;
+        left: 0.4rem;       
+      }    
+
+      .placeholderBtn--minus::before {
+        content: '-';        
+      }
+
+      .placeholderBtn--lock {
+        bottom: 0;
+        top: auto;
+        right: 0.04rem;
+        left: auto;
+      }
+
+      .placeholderBtn--lock::before {
+        content: 'L';
+      }
+
+      .u-placeholder-locked .placeholderBtn--lock::before {
+        content: 'U';
+      }      
+
+      /* End Placeholder Styling */
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative; }
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -1;
+        background-image: url('{{{BDgps_background-image}}}');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }    
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 70pt 59.9pt 0;
+        letter-spacing: -0.5pt;
+      }
+
+      .heading {
+        display: block !important;
+        position: relative;
+        font-size: 55.6pt;
+        font-family: var(--font-sofa-sans);
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 0.9em;
+        color: var(--healthy-solutions); 
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+
+      .heading strong {
+        font-size: 83.4pt;
+      }
+      .heading__container {
+        display: block !important;
+        max-height: 247.5pt;
+      }
+
+      .is-export-mode .heading__container { max-height: 640pt; } 
+
+      .badge {
+        position: absolute;
+        top: 310pt;
+        right: 61.5pt;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 189pt;
+        height: 189pt;
+        border-radius: 50%;
+        box-sizing: border-box;
+        text-align: center;
+        background: var(--healthy-solutions);
+        font-size: 24pt;
+        line-height: 1.2em;
+        color: #fff;
+      }
+
+      .badge:before {
+        content: ""; 
+        width: 91%;
+        height: 91%;
+        position: absolute;     
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%); 
+        border: 2pt solid #fff;       
+        border-radius: 50%;       
+        box-sizing: border-box;
+      }
+
+      .badge--alt {
+        font-size: 22pt;       
+        line-height: 1.05em;
+      }
+
+      .badge__heading {
+        position: relative;
+        display: block;
+        margin-bottom: 6pt;
+      }
+
+      .badge__heading--alt {
+        margin-bottom: 10pt;
+      }      
+
+      .badge__text {
+        font-size: 18pt;
+        line-height: 1.1em;
+      }
+
+      .textFitBadge__container {
+        display: block !important;
+        max-height: 155pt;
+      }
+
+      .textFitBadge2__container {
+        display: block !important;
+        justify-content: center;
+        padding: 0 10%;
+        max-height: 70pt;
+      }      
+
+      .footer {
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: #fff;
+      }
+
+      .logo__container {
+        width: 170pt;
+        height: 141pt;
+        margin-right: 17.2pt;
+        flex-shrink: 0;
+        padding: 15.1pt 18.6pt 0;
+        font-size: 13pt;
+        border-radius: 5pt;
+        background: var(--healthy-solutions); 
+      }
+
+      .footer__content {  
+        color: #231F20;
+        display: none;
+        position: absolute;
+        left: 38%;
+        top: 50%;
+        width: 402px;
+        transform: translateY(-50%);
+      }
+
+      .footer__inner {
+        display: block !important;
+        max-height: 5.5em;
+        font-size: 10pt;
+        line-height: 1.1em;
+      }
+
+      .is-export-mode .footer__inner {
+        max-height: 15em;
+      }
+
+      .footer__content--secondary {
+        display: none;
+      }
+
+      .theme1 .footer__content {
+        display: none;
+      } 
+
+      .theme2 .footer__content {
+        display: none;
+      }   
+
+      .theme1 .footer__content--primary {
+        display: block !important;
+      }
+
+      .theme2 .footer__content--secondary {
+        display: block !important;
+      }  
+
+      .theme1Free .footer__content--primaryFree {
+        display: block;
+      }
+
+      .theme2Free .footer__content--secondaryFree {
+        display: block;
+      }
+
+      .theme2Free .footer__content--secondary {  
+        display: none;
+      }
+
+      .theme2Free .footer__content--primary {
+        display: none;
+      }
+
+      .logo__heading {
+        margin-bottom: 4.8pt;
+        padding-bottom: 6.1pt;
+        padding-right: 51pt;
+        border-bottom: 1pt solid #fff;
+        font-size: 14.1pt;
+        line-height: 1.1em;
+        text-transform: uppercase;
+      }
+
+      .logo__label {
+        margin-bottom: 14pt;    
+        font-size: 13.3pt;
+      }
+
+      .logo {
+        width: 136pt;
+      }
+
+      .headingMaster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: 1;
+      }
+
+      .js-sentence-output {
+        position: relative;
+      }
+
+      em {
+        color: var(--healthy-solutions-pop);
+        font-style: normal;
+      }
+
+      .heading strong {
+        font-family: var(--font-3d-sketch);
+        font-size: 1.5em;
+      }
+
+      .badge strong,
+      .footer strong {
+        font-weight: normal;
+      }
+
+      .textFit--footer,
+      .textFitBadge,
+      .textFitBadge2 {
+        display: block !important;
+      }
+
+      .span { display: inline-block !important; }
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle }} {{ BDgps_theme }} {{ BDgps_theme2 }}">    
+
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container fit">
+
+          <div class="backgroundImage"></div>
+          <div class="heading__container">
+            <div class="heading textFit--heading">
+              <div class="headingMaster">
+                Bakers Delight
+                {{^team.mso}}
+                {{^team.artworkAddress1}}                          
+                (Bakery Name) {{{ team.name }}}             
+                {{/team.artworkAddress1}}                            
+                {{/team.mso}}
+
+                {{^team.mso}}
+                {{#team.artworkAddress1}}
+                <div>{{{team.artworkAddress1}}}</div>
+                {{/team.artworkAddress1}}
+                {{/team.mso}}
+
+                {{#team.mso}}
+                <span class="js-mso">{{team.mso}}</span>
+                {{/team.mso}}  
+                is partnering with {{{BDgps_gym-name-1}}}
+              </div> <!-- headingMaster -->
+              <div class="js-sentence-output"> </div> <!-- js-sentence-output -->
+            </div><!-- end heading -->
+          </div><!-- end heading__container -->
+          <div class="badge {{#BDgps_number}} badge--alt {{/BDgps_number}}">
+            <div class="badge__heading {{#BDgps_number}} badge__heading--alt {{/BDgps_number}}"	>
+              {{#BDgps_number}}
+              <div class="textFitBadge__container">
+                <div class="textFitBadge" style="line-height:1em">
+                  Get a FREE<br> Health Loaf<br> when you<br> spend $<span data-char-limit="5">{{ BDgps_number}}</span><br>
+                </div><!-- end textFitBadge -->
+              </div><!-- end textFitBadge__container -->
+              {{/BDgps_number}}
+              {{^BDgps_number}}
+              Get a <br>FREE Health<br>Loaf on us!<br>
+              {{/BDgps_number}}
+            </div><!-- end badge__heading -->
+            <div class="textFitBadge2__container">
+              <div class="badge__text textFitBadge2" style="line-height:1em">For all {{{BDgps_gym-name-1}}}<br> members</div> 
+            </div><!-- end textFitBadge2__container -->
+          </div>
+          <div class="footer">
+            <div class="logo__container">
+              <div class="logo__heading">Healthy solutions</div>
+              <div class="logo__label">Make the switch</div>
+              <img class="logo" src="https://files.outfit.io/media_library_items/83828/BD_Logo_White.svg" />
+            </div>
+            <div class="footer__content footer__content--primary">
+              <div class="footer__inner">
+                <div class="textFit--footer" style="line-height: 1.05em;">
+                  Only available at 
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+                  Bakers Delight {{{ team.name }}}
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  {{{team.artworkAddress1}}} 
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  {{{team.artworkAddress2}}} 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  {{{team.artworkAddress3}}}
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{team.mso}}</span>
+                  {{/team.mso}}                    
+                  and {{{BDgps_gym-name-1}}}. {{#BD_valid-date--gps}}Valid until <span data-char-limit="8">{{BD_valid-date--gps}}</span>.{{/BD_valid-date--gps}} Subject to availability and variation. One offer per person, per day. Cannot be redeemed for cash or with any other offer. Health Loaf includes Wholegrain LowFOD&trade;, Hi-Fibre Lo-GI, Cape Seed, Lekkerbrot and Chia Omega-3 Loaves. {{{BDgps_gym-name-1}}} members must show gym membership upon redemption. {{#BDgps_number}}${{{BDgps_number}}} must be spent in one transaction.{{/BDgps_number}}
+                </div> <!-- textFit--footer -->
+              </div> <!-- footer__inner -->
+            </div>
+            <div class="footer__content footer__content--secondary">
+              <div class="footer__inner">
+                <div class="textFit--footer" style="line-height: 1.05em;">
+                  Only available at 
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+                  Bakers Delight {{{ team.name }}}
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  {{{team.artworkAddress1}}}
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  {{{team.artworkAddress2}}} 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  {{{team.artworkAddress3}}}
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{team.mso}}</span>
+                  {{/team.mso}}                        
+                  and {{{BDgps_gym-name-1}}}. {{#BD_valid-date--gps}}Valid until <span data-char-limit="8">{{BD_valid-date--gps}}</span>.{{/BD_valid-date--gps}} Subject to availability and variation. One offer per person, per day. Cannot be redeemed for cash or with any other offer. Health Loaf includes Wholegrain LowFOD&trade;, Hi-Protein Wholegrain, Hi-Fibre Lo-GI, Cape Seed and Chia Omega-3 Loaves. {{{BDgps_gym-name-1}}} members must show gym membership upon redemption.     
+                </div> <!-- textFit--footer -->
+              </div> <!-- footer__inner -->
+            </div>            
+
+            <div class="footer__content footer__content--primaryFree">
+              <div class="footer__inner">
+                <div class="textFit--footer" style="line-height: 1.05em;">
+                  Only available at 
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+                  Bakers Delight {{{ team.name }}}
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  {{{team.artworkAddress1}}} 
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  {{{team.artworkAddress2}}} 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  {{{team.artworkAddress3}}}
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{team.mso}}</span>
+                  {{/team.mso}}                        
+                  and {{{BDgps_gym-name-1}}}. {{#BD_valid-date--gps}}Valid until <span data-char-limit="8">{{BD_valid-date--gps}}</span>.{{/BD_valid-date--gps}} Subject to availability and variation. One offer per person, per day. Cannot be redeemed for cash or with any other offer. Health Loaf includes Wholegrain LowFOD&trade;, Hi-Protein Wholegrain, Hi-Fibre Lo-GI, Cape Seed and Chia Omega-3 Loaves. {{{BDgps_gym-name-1}}} members must show gym membership upon redemption.  
+                </div> <!-- textFit--footer -->
+              </div> <!-- footer__inner -->
+            </div>   
+
+            <div class="footer__content footer__content--secondaryFree">
+              <div class="footer__inner">
+                <div class="textFit--footer" style="line-height: 1.05em;">
+                  Only available at 
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+                  Bakers Delight {{{ team.name }}}
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  {{{team.artworkAddress1}}} 
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  {{{team.artworkAddress2}}}
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  {{{team.artworkAddress3}}}
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{team.mso}}</span>
+                  {{/team.mso}}                        
+                  and {{{BDgps_gym-name-1}}}. {{#BD_valid-date--gps}}Valid until <span data-char-limit="8">{{BD_valid-date--gps}}</span>.{{/BD_valid-date--gps}} Subject to availability and variation. One offer per person, per day. Cannot be redeemed for cash or with any other offer. Health Loaf includes Wholegrain LowFOD&trade;, Hi-Protein Wholegrain, Hi-Fibre Lo-GI, Cape Seed and Chia Omega-3 Loaves. {{{BDgps_gym-name-1}}} members must show gym membership upon redemption.    
+                </div> <!-- textFit--footer -->
+              </div> <!-- footer__inner -->
+            </div>   
+
+          </div>
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+
+                                                         if (window.showCrop) {
+                                                           document.querySelector('body').classList.add('show-crop');
+                                                         } else {
+                                                           document.querySelector('body').classList.add('hide-crop');
+                                                         }                                               
+    </script>
+    <script src="main.js"></script>   
+    <script src="char-limit.js"></script>
+    <script src="prefixfree.js"></script>
+    <script>
+
+      // Check Overflow function
+      function checkHeight(element) {
+        for (i = 0 ; i < element.length ; i++ ) {
+          var currentElement = element[i];
+          var height         = currentElement.offsetHeight;
+          var parent         = currentElement.parentNode;
+          var parentHeight   = parent.offsetHeight;
+
+          if (height > parentHeight) {
+            parent.classList.add('overflow');
+          } else {
+            parent.classList.remove('overflow');
+          }
+
+          if ((currentElement).parentNode.classList.contains('overflow')) {
+            document.body.classList.add('overflow-true');
+          } else {
+            document.body.classList.remove('overflow-true'); 
+          }
+        }
+      }   
+
+      // Adding class 'is-export-mode' to the body element in case template is in the export mode
+      function checkExport() {
+        var isExportPage = window.location.href.indexOf('exports') > -1;
+
+        if (isExportPage) {
+          document.body.classList.add('is-export-mode');
+        }
+      }            
+
+      function loop() {
+        checkHeight(document.getElementsByClassName('check-overflow'));
+        charLimit();
+      } setInterval(loop, 1000);  
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }  
+
+      // Dynamic controls for the placeholder image
+      function lockPlaceholder() {
+        let lockState = localStorage.getItem('lockState') || 'unlocked';
+
+        if ( lockState == 'unlocked' ) {
+          document.body.classList.add('u-placeholder-locked');
+          localStorage.setItem('lockState', 'locked');
+        } else {
+          document.body.classList.remove('u-placeholder-locked');
+          localStorage.setItem('lockState', 'unlocked');          
+        }        
+      }
+
+      function opacityControl() {
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        placeholders.forEach(placeholder => {
+          let compStyles = window.getComputedStyle(placeholder);
+          let currentOpacity = parseFloat(compStyles.getPropertyValue('opacity'));
+          let operation = this.dataset.operation;          
+
+          if ( operation == 'plus' && currentOpacity < 1 ) {
+            placeholder.style.opacity = currentOpacity + 0.1; 
+          } else if ( operation == 'minus' && currentOpacity > 0 ) {
+            placeholder.style.opacity = currentOpacity - 0.1; 
+          }    
+
+          localStorage.setItem('opacityState', currentOpacity);          
+        });       
+      }
+
+      function placeholderControler() {
+        const operationButtons = document.querySelectorAll('.placeholderBtn--operation');
+        const lockButtons = document.querySelectorAll('.placeholderBtn--lock');
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        if ( localStorage.getItem('lockState') == 'locked' ) {
+          document.body.classList.add('u-placeholder-locked');          
+        }
+
+        if ( localStorage.getItem('opacityState') !== undefined ) {
+          placeholders.forEach(placeholder => {
+            placeholder.style.opacity = localStorage.getItem('opacityState');
+          });
+        }
+
+        operationButtons.forEach(button => {
+          button.addEventListener('click', opacityControl);        
+        });        
+
+        lockButtons.forEach(lockButton => {
+          lockButton.addEventListener('click', lockPlaceholder);
+        });
+      }    
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      // Including popColorController() function from snippets
+      {{{account.snippets.popColorController}}}
+
+      const headingObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          popColorController('.headingMaster', '.js-sentence-output');
+        });
+      });      
+
+      headingObserver.observe(document.querySelector('.headingMaster'), {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });        
+
+      popColorController('.headingMaster', '.js-sentence-output');
+
+      document.fonts.ready.then(() => {
+        popColorController('.headingMaster', '.js-sentence-output', true);
+      });
+
+
+      msoFormat();  
+      placeholderControler();  
+      checkCrop();  
+      checkExport(); 
+
+    </script>
+
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js"></script>
+
+    <script>
+      TextFit.fit({
+        selector: '.textFit--heading',
+        fitMode: 'vertical'
+      });   
+
+      TextFit.fit({
+        selector: '.textFitBadge',
+        fitMode: 'vertical',
+        alignItems: 'center'
+      });
+
+      TextFit.fit({
+        selector: '.textFitBadge2',
+        fitMode: 'vertical'
+      }); 
+
+      TextFit.fit({
+        selector: '.textFit--footer',
+        fitMode: 'vertical',
+        alignItems: 'center'
+      });
+    </script>
+
+    <script type="text/javascript">
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.dispatchEvent(new Event('printready'));
+      });
+
+      setTimeout(function() {
+        document.dispatchEvent(new Event('printready'));
+      }, 1000);
+
+      document.dispatchEvent(new Event('printready'));
+    </script>
+
+  </body>
+</html>
