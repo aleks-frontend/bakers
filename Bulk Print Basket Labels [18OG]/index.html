@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Print Generic</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="crop.css">
+    <style>
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/bakersAndesRounded110119/stylesheet.css");
+      .token-value {
+        font-size: inherit;
+      }      
+      * {
+        -webkit-font-smoothing: antialiased;
+        font-family: 'Bakers Andes Rounded', sans-serif;
+        font-size: 14.774px;
+      }
+
+      .crop-marks {
+        display: none;
+      }
+
+      .bleed--custom {
+        top: 5mm !important;
+        bottom: 5mm !important;
+        left: 5mm !important;
+        right: 5mm !important;
+      }
+
+      h1, h2, h3, h4, h5, h6 { font-weight: 900; }
+
+      .cover {
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .blend {
+        background-blend-mode: screen;
+      }
+
+      .center-children {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .content {
+        position: relative;
+        margin: 0 0 3mm;
+        padding: 1rem;
+        background-size: cover;
+        background-position: center;        
+      }
+      
+      .dough {
+        font-size: 33.5pt;
+        line-height: 1em;
+        margin: 0 0 0.35rem;
+        font-weight: 800;
+      }
+
+      .content--custom .dough {
+        max-width: 72.5%;
+      }
+
+      .content--nutella .dough {
+        max-width: 100%;
+      }      
+
+      .flavour {
+        font-size: 27pt;
+        line-height: 1em;
+        margin: 0 0 0.68rem;   
+        font-weight: 400;
+      }
+      .format {
+        font-size: 27pt;
+        line-height: 1em;
+        margin: 0 0 0.3rem;
+      }      
+      .kjs,
+      .price {
+        font-size: 36pt;
+        line-height: 0.8;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+      }
+      .kjs {
+        align-items: flex-end;
+      }
+      .price {
+        align-items: flex-start;
+      }
+      .kjs .sup,
+      .price sup {
+        font-size: 0.8em;
+        line-height: 0.7;
+      }
+      .kjs .sup{
+        
+      }
+      .kjs *,
+      .price * {
+        font-size: inherit;
+      } 
+      .bottom-row {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: flex-end;
+        font-size: 1em;
+      }
+      .wrapper {
+        margin: 0 0 3mm;
+        padding: 1.4rem 1rem 1rem;        
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+      }
+      .wrapper p {
+        font-size: 29pt;
+        text-transform: uppercase;        
+      }
+      .backTitle {
+        font-size: 36pt;
+      }
+      .content,
+      .wrapper {
+        width: 128.7mm;
+        height: 58.4mm;
+      }
+      .label__master {
+        display: none;
+      }
+      .label__container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex: 1;
+        padding: 0;
+      }
+
+
+      .center-children {
+        justify-content: flex-start;  
+      }
+
+      .label__container {
+        flex: none;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0 auto;
+        margin-top: 26mm;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }    
+
+      .label__wrapper {
+        position: relative;
+        margin: 2.4mm 3mm 7mm;
+        padding: 4.4mm;
+        border: 1px solid #000;
+      }
+
+      .label__wrapper .content,
+      .label__wrapper .wrapper {
+        width: 138.7mm;
+        height: 68.4mm;
+        /*width: 129.2mm;
+        height: 63.8mm;*/
+        margin: 0;
+        padding: 8mm 10mm 10mm 10mm;
+      }
+
+      .bottom-row {
+        bottom: 2.9rem;
+        left: 2.6rem;
+        right: 2.6rem;
+      }
+
+
+      .label__bottom {
+        display: none;
+        position: absolute;
+        bottom: 2.5pt;
+        font-size: 5.3pt;
+        color: #000;
+      }
+
+      .label__bottom {
+        display: block;
+      }
+
+      @media screen and (min-width: 1500px) {
+        .label__bottom {
+          display: block;
+        }
+      }
+
+      .label__bottom--left {
+        left: 36pt;
+      }
+
+      .label__bottom--right {
+        right: 36pt;
+      }
+
+      /* Crop marks styling */
+      .cropMark {
+        display: none;
+        position: absolute;
+        background: #000;
+      }
+      .cropMark {
+        display: block;
+      }
+
+      @media screen and (min-width: 1500px) {
+        .cropMark {
+          display: block;
+        }
+      }      
+
+      .cropMark--horizontal {
+        width: 5mm;
+        height: 1pt;
+      }
+
+      .cropMark--vertical {
+        height: 5mm;
+        width: 1pt;
+        background: #000;
+      }      
+
+      .cropMark--horizontalTop {
+        top: 9mm;
+      }
+
+      .cropMark--horizontalBottom {
+        bottom: 9mm;
+      }      
+
+      .cropMark--verticalTop {
+        top: 0;
+      }      
+
+      .cropMark--verticalBottom {
+        bottom: 0;
+      }
+
+      .cropMark--horizontalLeft {
+        left: 0;
+      }
+
+      .cropMark--horizontalRight {
+        right: 0;
+      }
+
+      .cropMark--verticalLeft {
+        left: 9mm;
+      }
+
+      .cropMark--verticalRight {
+        right: 9mm;
+      }      
+
+      .hide {
+        display: none;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        opacity: 0.3;
+      }
+
+      .back__page {
+        direction:rtl;
+      }
+      
+      .is-export-mode .label__wrapper{
+        background: red;
+      }
+    </style>
+  </head>
+  <body style="background: white">
+    <div class="label__master">
+      {{#spreadsheet.priceLabels}}
+      <!--
+{{{Qty}}}
+{{{Code}}}
+{{{Dough}}}
+{{{TM}}}
+{{{Flavour}}}
+{{{Format}}}
+{{{Background}}} <!-- Broken
+{{{Price}}}
+{{{kJ_value}}} <!-- Broken 
+{{{kJ}}}
+{{{Front}}} <!-- Broken
+-->
+      <div class="label__wrapper" data-qty="{{{Qty}}}">
+        <div class="cropMark cropMark--vertical cropMark--verticalBottom cropMark--verticalLeft"></div>
+        <div class="cropMark cropMark--vertical cropMark--verticalBottom cropMark--verticalRight"></div>
+        <div class="cropMark cropMark--vertical cropMark--verticalTop cropMark--verticalLeft"></div>
+        <div class="cropMark cropMark--vertical cropMark--verticalTop cropMark--verticalRight"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalBottom cropMark--horizontalLeft"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalBottom cropMark--horizontalRight"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalTop cropMark--horizontalLeft"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalTop cropMark--horizontalRight"></div>           
+        <div class="content" data-front="{{{Front}}}" data-code="{{{Code}}}">       
+          <h1 class="dough">{{{Dough}}} {{^Dough}}&nbsp;{{/Dough}}{{#TM}}<sup>TM</sup>{{/TM}}</h1>
+          <p class="flavour">{{{Flavour}}} {{^Flavour}}&nbsp;{{/Flavour}}</p>
+          <p class="format">{{{Format}}} {{^Format}}&nbsp;{{/Format}}</p>
+          <div class="bottom-row">
+            <p class="kjs"><span>{{{kJ_Value}}}<span class="sup">{{{kJ}}}</span></span><!--<sub>{{{kJ}}}</sub>--></p>
+            <p class="price"><sup>$</sup><span>{{{Price}}}</span></p>
+          </div>
+        </div>
+        <div class="wrapper" data-background="{{{Background}}}">
+          <h1 class="backTitle"></h1>
+          <p>Staff Facing Side</p>
+        </div>
+        <div class="label__bottom label__bottom--left">Price Label Product AUS-1  1</div><!--lable lable--bottomLeft-->
+        <div class="label__bottom label__bottom--right">28/11/2018  5:36:51 PM</div><!--lable lable--bottomRight-->        
+      </div>
+      {{/spreadsheet.priceLabels}}
+    </div>
+
+    <div class="page">
+      <div class="bleed bleed--custom center-children">
+        <div class="label__container">
+        </div>
+      </div>
+    </div>
+    <script>
+
+      function checkCrop() {
+        if ({{show-crop}} === true) {
+          document.body.classList.add('crop-marks-true')
+        } else {
+          document.body.classList.add('crop-marks-false')
+        }
+      }
+
+      checkCrop();
+
+      window.showCrop = {{show-crop}};
+    </script>
+    <script>
+
+
+    </script>
+    <script src="main.js"></script>
+    <script src="label-controller.js"></script>
+    <script src="prefixfree.js"></script>
+  </body>
+</html>
