@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html data-sign='OSS'>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main-extended.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/CosmopolitanScript/stylesheet.css');
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+
+      :root {
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+
+
+        /*Colors*/
+        --healthy-solutions: {{{account.colors.healthy-solutions-19rb}}};
+        --healthy-solutions-pop: {{{account.colors.healthy-solutions-pop-19rb}}};
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        font-size: 11pt;
+        color: #fff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      /* Placeholder Styling */
+      .placeholder__container {
+        position: absolute;
+        top: 3mm;
+        left: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s all;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url({{{ placeholder-image }}}); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;   
+        opacity: 0.4;
+      }
+
+      .u-placeholder--show .placeholder__container {
+        opacity: 1;  
+      }
+
+      .u-placeholder--hide .placeholder__container,
+      .u-placeholder--hide .placeholder__trigger {
+        display: none;
+      }
+
+      .placeholder__trigger {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        border-bottom-left-radius: 1rem;
+        background: #467BE3;
+        transition: all 0.3s;
+        transform: translate(30%, -30%);
+        opacity: 0;
+        z-index: 9999;
+      }   
+
+      .bleed:hover .placeholder__trigger:hover {
+        cursor: pointer;
+        opacity: 1;        
+      }
+
+      .placeholder__trigger svg {
+        width: 50%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-25%, -50%);
+      }
+
+      .bleed:hover .placeholder__trigger {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }      
+
+      .bleed:hover .placeholder__trigger:hover + .placeholder__container {
+        opacity: 1;
+      }      
+
+      .placeholderBtn__container {
+        position: absolute;
+        top: 0;
+        left: -0.6rem;
+        bottom: -0.6rem;
+        right: 0;
+        transition: 0.3s all;
+        transform: rotate(-90deg);
+        transform-origin: top right;
+        opacity: 0;
+      }
+
+      .placeholder__trigger:hover .placeholderBtn__container {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+
+      .placeholderBtn {
+        position: absolute;
+        left: 0;
+        top: 0.04rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #467BE3;
+        color: #fff;
+        font-size: 0.27rem;
+        text-decoration: none;
+        line-height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }     
+
+      .placeholderBtn--plus::before {
+        content: '+';
+      }            
+
+      .placeholderBtn--minus {
+        top: 0.68rem;
+        left: 0.4rem;       
+      }    
+
+      .placeholderBtn--minus::before {
+        content: '-';        
+      }
+
+      .placeholderBtn--lock {
+        bottom: 0;
+        top: auto;
+        right: 0.04rem;
+        left: auto;
+      }
+
+      .placeholderBtn--lock::before {
+        content: 'L';
+      }
+
+      .u-placeholder-locked .placeholderBtn--lock::before {
+        content: 'U';
+      }      
+
+      /* End Placeholder Styling */
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem #000;
+        background: rgba(0, 0, 0, 0.4);
+        position: relative;
+        color: red !important;
+        z-index: 9999;}
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid black;
+        color: black;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: black;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -1;
+        background-image:url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/9eeec4136144327cfeaaeb5ce129979c/trading-hours-bg.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }    
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .container {
+        padding: 1.9189rem 2.0037rem;
+        text-align: center;
+      }
+
+      .heading {
+        position: relative;
+        margin-top: 0.05rem;
+        font-size: 1.6741em;
+        font-family: var(--font-3d-sketch);
+        font-weight: 400;
+        white-space: nowrap;
+      }
+
+      .heading::before {
+        content: '';
+        position: absolute;
+        top: -0.48rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3.7607rem;
+        height: 0.7706rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/f9a94ab67dd01c5e9174fe4e6d904fa0/delightfull.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      .table {
+        position: relative;
+        width: 95%;
+        font-size: 0.48rem;
+        margin: 2.4737rem 0.2851rem;
+      }
+
+      .table::before,
+      .table::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4.4851rem;
+        height: 1.4333rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      .table::before {
+        top: -1.7262rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/ec11ccb49730b3bb2618f9fe854613b2/leaves-top.png);
+      }
+
+      .table::after {
+        left: 27%;
+        bottom: -1.7956rem;
+        transform: rotate(180deg);
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/ec11ccb49730b3bb2618f9fe854613b2/leaves-top.png);
+      }
+
+      .table td {
+        height: 0.79rem;
+        border-bottom: 0.03119rem solid #fff;
+        text-align: left;
+        white-space: nowrap;
+        font-size: 0.4161rem;
+      }
+
+      .table td:last-child {
+        border-right: none;
+      }
+
+      .table td:nth-child(1) {
+        width: 3.5449rem;
+      }
+
+      .table td:nth-child(2) {
+        width: 3.2136rem;
+      }
+
+      .table td:nth-child(3) {
+        width: 3.2598rem;
+        text-align: right;
+        text-transform: uppercase;
+      }
+
+      .table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .table__hours {
+        display: inline-block;
+        width: 1.9380rem;
+      }
+
+      .footerLogo {
+        position: absolute;
+        bottom: 1.05rem;
+        right: 50%;
+        transform: translateX(50%);
+        width: 3.2rem;
+      }
+
+      @media only screen and (min-width: 790px) and (max-width: 800px) {
+        .heading {
+          margin-top: 0.09rem;
+          font-size: 1.56em;
+        }
+
+        .heading::before {
+          top: -0.45rem;
+          width: 3.5607rem;
+        }
+
+        .table {
+          margin: 2.4rem 0.24rem;
+        }
+
+        .table::before, 
+        .table::after {
+          width: 4.2851rem;
+        }
+
+        td {
+          height: 0.78rem;
+        }
+
+        .footerLogo {
+          bottom: 1.1rem;
+          width: 3.1rem;
+        }
+      }
+
+      .hours__container {
+        display: none;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder--{{ placeholder-toggle }}">    
+
+    <div class="hours__container">
+      {{#spreadsheet.BDth_hours}}
+      <div class="hours js-hours-src" data-day="{{BDth_day}}" data-open="{{BDth_open}}" data-close="{{BDth_close}}"></div>
+      {{/spreadsheet.BDth_hours}}      
+    </div><!-- end hours__container -->
+
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container fit">
+
+          <div class="backgroundImage"></div>
+
+          <div class="heading">Trading Hours</div>
+
+          <table class="table">
+            <tr>
+              <td>Christmas Eve</td>
+              <td>24 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>Christmas Day</td>
+              <td>25 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>Boxing Day</td>
+              <td>26 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>27 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td>28 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8"class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>Friday</td>
+              <td>29 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>Saturday</td>
+              <td>30 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>New Years Eve</td>
+              <td>31 December</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>New Years Day</td>
+              <td>1 January</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+            <tr>
+              <td>Tuesday</td>
+              <td>2 January</td>
+              <td class="js-hours-target"><span data-char-limit="8" class="js-open-hours table__hours"></span> - <span data-char-limit="8" class="js-closing-hours table__hours"></span></td>
+            </tr>
+          </table>
+
+          <img src="{{{account.logos.reversed-19rb}}}" class="footerLogo">
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+
+                                                         if (window.showCrop) {
+                                                           document.querySelector('body').classList.add('show-crop');
+                                                         } else {
+                                                           document.querySelector('body').classList.add('hide-crop');
+                                                         }                                               
+    </script>
+
+    <script src="main.js"></script>   
+    <script src="prefixfree.js"></script>
+    <script src="char-limit.js"></script>
+
+    <script>
+
+      // Check Overflow function
+      function checkHeight(element) {
+        for (i = 0 ; i < element.length ; i++ ) {
+          var currentElement = element[i];
+          var height         = currentElement.offsetHeight;
+          var parent         = currentElement.parentNode;
+          var parentHeight   = parent.offsetHeight;
+
+          if (height > parentHeight) {
+            parent.classList.add('overflow');
+          } else {
+            parent.classList.remove('overflow');
+          }
+
+          if ((currentElement).parentNode.classList.contains('overflow')) {
+            document.body.classList.add('overflow-true');
+          } else {
+            document.body.classList.remove('overflow-true'); 
+          }
+        }
+      }   
+
+      // Adding class 'is-export-mode' to the body element in case template is in the export mode
+      function checkExport() {
+        var isExportPage = window.location.href.indexOf('exports') > -1;
+
+        if (isExportPage) {
+          document.body.classList.add('is-export-mode');
+        }
+      }            
+
+      function loop() {
+        checkHeight(document.getElementsByClassName('check-overflow'));
+        charLimit();
+      } setInterval(loop, 1000);  
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }  
+
+      // Dynamic controls for the placeholder image
+      function lockPlaceholder() {
+        let lockState = localStorage.getItem('lockState') || 'unlocked';
+
+        if ( lockState == 'unlocked' ) {
+          document.body.classList.add('u-placeholder-locked');
+          localStorage.setItem('lockState', 'locked');
+        } else {
+          document.body.classList.remove('u-placeholder-locked');
+          localStorage.setItem('lockState', 'unlocked');          
+        }        
+      }
+
+      function opacityControl() {
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        placeholders.forEach(placeholder => {
+          let compStyles = window.getComputedStyle(placeholder);
+          let currentOpacity = parseFloat(compStyles.getPropertyValue('opacity'));
+          let operation = this.dataset.operation;          
+
+          if ( operation == 'plus' && currentOpacity < 1 ) {
+            placeholder.style.opacity = currentOpacity + 0.1; 
+          } else if ( operation == 'minus' && currentOpacity > 0 ) {
+            placeholder.style.opacity = currentOpacity - 0.1; 
+          }    
+
+          localStorage.setItem('opacityState', currentOpacity);          
+        });       
+      }
+
+      function placeholderControler() {
+        const operationButtons = document.querySelectorAll('.placeholderBtn--operation');
+        const lockButtons = document.querySelectorAll('.placeholderBtn--lock');
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        if ( localStorage.getItem('lockState') == 'locked' ) {
+          document.body.classList.add('u-placeholder-locked');          
+        }
+
+        if ( localStorage.getItem('opacityState') !== undefined ) {
+          placeholders.forEach(placeholder => {
+            placeholder.style.opacity = localStorage.getItem('opacityState');
+          });
+        }
+
+        operationButtons.forEach(button => {
+          button.addEventListener('click', opacityControl);        
+        });        
+
+        lockButtons.forEach(lockButton => {
+          lockButton.addEventListener('click', lockPlaceholder);
+        });
+      }    
+
+      function hoursInject() {
+        const hoursSrc = document.querySelectorAll('.js-hours-src');
+        const hoursTargets = document.querySelectorAll('.js-hours-target');        
+
+        hoursTargets.forEach((hoursTarget, index) => {
+          if ( hoursSrc[index] !== undefined ) {
+            hoursTarget.querySelector('.js-open-hours').innerHTML = hoursSrc[index].dataset.open;
+            hoursTarget.querySelector('.js-closing-hours').innerHTML = hoursSrc[index].dataset.close;  
+          }
+        });
+      }
+
+      hoursInject();
+
+      placeholderControler();  
+      checkCrop();  
+      checkExport(); 
+
+    </script>
+
+  </body>
+</html>
