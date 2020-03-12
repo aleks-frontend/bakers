@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html data-sign="OSM" async>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+      :root {
+        --white: #fff;
+        --primary: {{{account.colors.bakers-burgundy-19rb}}};
+        --bakers-burgundy-pop-light: {{{account.colors.bakers-burgundy-pop-light-19rb}}};
+      }
+
+      html {
+        font-family: 'Sofa Sans';
+        font-size: 11pt;
+        color: var(--white);
+        word-break: break-word;
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper classes */
+      .u-hide { display: none; }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }
+
+      .reposition-fix div {
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .fit {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fit--front {
+        padding: 21pt 10pt 15pt 11pt;
+        background-color: var(--primary);
+      }
+
+      .fit--back {
+        padding: 15.6pt 15pt 11pt 16.4pt;
+      }
+
+      .body {   
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      .body--back {
+        justify-content: space-between;
+      }
+
+      .heading__container {  
+        position: relative;
+        height: 75pt;
+      }
+
+      .heading {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        font-size: 36pt;
+        text-align: center;
+        line-height: 0.9;
+        letter-spacing: -0.1pt;
+        font-weight: 700;
+        /* height: 74pt;
+        display: flex;
+        align-items: center;
+        justify-content: center; */
+      }
+
+      .logo {
+        width: 156pt;
+        display: flex;
+        align-self: center;
+      }
+
+      .logo--alt {
+        width: 76pt;
+      }
+
+      .website__container {
+        height: 23pt;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .website {
+        font-family: 'Colby CdReg';
+        font-size: 8.8pt;
+        text-align: center;
+        line-height: 1.05em;
+      }
+
+      .details {
+        font-family: 'Colby CdReg';
+        color: var(--primary);
+        margin-bottom: 9pt;
+      }
+
+      .details__heading {
+        margin-bottom: 3pt;
+      }
+
+      .details__name {
+        font-family: 'Colby CdBld';
+        font-size: 9pt;
+        line-height: 1.2em;
+      }
+      .details__position {
+        font-size: 9pt;
+        line-height: 1.2em;
+      }
+
+      .details__item {
+        display: flex;
+      }
+
+      .details__label {
+        font-family: 'Colby CdBld';
+        font-size: 9pt;
+        line-height: 1.2em;
+      }
+
+      .details__value {
+        flex: 1;
+        font-size: 9pt;
+        line-height: 1.2em;
+      }
+
+      .info__title {
+        font-family: 'Colby CdBld';
+        font-size: 9pt;
+        color: var(--primary);
+        line-height: 1.2em;
+      }
+
+      .info {
+        font-family: 'Colby CdReg';  
+        font-size: 0;
+        color: var(--primary);
+        max-height: 25pt;
+      }
+
+      .footer {
+        margin-top: 12pt;
+      }
+
+      /* pop colour */    
+      .headingMaster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: 1;
+      }
+
+      .js-sentence-output { position: relative; }
+
+      em {
+        color: var(--bakers-burgundy-pop-light);
+        font-style: normal;
+      }
+      /* end pop colour */   
+
+      /* Underline */
+      .heading span,
+      .heading span.lastLine {
+        position: relative;
+        text-decoration: none !important;
+      }
+
+      .heading span::after,
+      .heading span.lastLine::after{
+        content: '';
+        position: absolute;
+        width: 94%;
+        height: 9px;
+        bottom: 10px;
+        left: 0;
+        background: url(https://files.outfit.io/media_library_items/133659/Underline%2520Business%2520Card.svg);
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      .heading span.lastLine::after{
+        width: 100%;
+        background-position: bottom left;
+        left: -3px;
+        bottom: -4px;
+        height: 12px;
+      }
+
+      .master {
+        display: none;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="master">
+      <div class="headingMaster">{{{BD_heading--bc}}}</div>
+      <div class="js-inject-src" data-target-id="website">{{{BD_websites--bc}}}</div>
+    </div><!--master-->
+    {{#spreadsheet.BD_details--bc}}
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit fit--front">
+
+          <div class="body">
+            <div class="heading__container">
+              <div class="heading js-custom-heading-target" >
+                <div class="js-sentence-output" data-max-height="1800"></div> <!--js-sentence-output-->
+              </div><!--heading-->
+            </div><!--heading__container-->
+            <img class="logo" src="{{{account.logos.reversed-19rb}}}">
+            <div class="website__container">
+              <div class="website" data-target="website" data-max-line="2"></div><!--website-->
+            </div><!--website__container-->
+          </div><!--body-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit fit--back">
+
+          <div class="body body--back">
+            <div class="details" data-max-height="100">
+              <div class="details__heading">
+                <div class="details__name">{{cardholder-name}}</div><!--details__heading-->
+                <div class="details__position">{{cardholder-position}}</div><!--details__position-->
+              </div><!--details__heading-->
+              {{#phone-number}}
+              <div class="details__item">
+                <div class="details__label">Phone:&nbsp;&nbsp;</div><!--details__label-->
+                <div class="details__value">{{phone-number}}</div><!--details__value-->
+              </div><!--details__item-->
+              {{/phone-number}}
+              {{#mobile-number}}
+              <div class="details__item">
+                <div class="details__label">Mobile:&nbsp;&nbsp;</div><!--details__label-->
+                <div class="details__value">{{mobile-number}}</div><!--details__value-->
+              </div><!--details__item-->
+              {{/mobile-number}}
+              {{#email-address}}
+              <div class="details__item">
+                <div class="details__label">Email:&nbsp;&nbsp;&nbsp;</div><!--details__label-->
+                <div class="details__value">{{email-address}}</div><!--details__value-->
+              </div><!--details__item-->   
+              {{/email-address}}
+            </div><!--details-->
+            <div class="info__container">
+
+              <div class="info__title">
+                Bakers Delight
+
+                {{^team.mso}}
+                {{{ team.name }}}             
+                {{/team.mso}}
+              </div><!--info__title-->
+
+              <div class="info">
+                <span class="textFit--vertical" style="line-height: 1.2em; font-size: 8.8pt;">
+                  {{^team.mso}}
+                  {{^team.address}}               
+
+                  {{/team.address}} 
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.address}}
+                  <div>{{{team.address}}}</div>
+                  {{/team.address}}                
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{{team.mso}}}</span><!--js-mso-->
+                  {{/team.mso}}
+                </span><!--textFit-->
+              </div><!--info-->
+            </div><!--info__container-->
+          </div><!--body-->
+          <div class="footer">
+            <img class="logo logo--alt" src="{{{account.logos.primary-19rb}}}">
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+    {{/spreadsheet.BD_details--bc}}
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="js/dynamic-inject.js"></script>
+    <script src="js/pop-color-controller.js"></script>
+    <script src="js/text-fit-min.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+          hideEmptyTitles();
+        });
+      });
+
+      const injectObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          injectDynamicContent();
+        });
+      });   
+
+      const headingObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          popColorController('.headingMaster', '.js-sentence-output', true);
+        });
+      });      
+
+      headingObserver.observe(document.querySelector('.headingMaster'), {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });        
+
+      document.fonts.ready.then(() => {
+        popColorController('.headingMaster', '.js-sentence-output', true);
+      });
+
+      const injectSources = document.querySelectorAll('[data-target-id]');
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      if ( injectSources.length > 0 ) {
+        injectSources.forEach(src => {
+          injectObserver.observe(src, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });            
+        });
+      }    
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+        injectDynamicContent();
+        hideEmptyTitles();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      TextFit.fit({
+        selector: '.textFit--vertical',
+        fitMode: 'vertical',
+      }); 
+
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat(); 
+
+
+
+    </script>
+
+    <script type="text/javascript">
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.dispatchEvent(new Event('printready'));
+      });
+
+      setTimeout(function() {
+        document.dispatchEvent(new Event('printready'));
+      }, 1500);
+
+      document.dispatchEvent(new Event('printready'));
+    </script>
+  </body>
+</html>
