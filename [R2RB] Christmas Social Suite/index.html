@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html data-sign="OSB">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main-extended.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/CosmopolitanScript/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+
+      html {
+        font-family: 'Bakers Andes Rounded';
+        font-size: 11pt;
+        color: #fff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      /* Placeholder Styling */
+      .placeholder__container {
+        position: absolute;
+        top: 3mm;
+        left: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s all;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url({{{ placeholder-image }}}); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;   
+        opacity: 0.4;
+      }
+
+      .u-placeholder-locked .placeholder__container {
+        opacity: 1;  
+      }
+
+      .u-placeholder-hidden .placeholder__container,
+      .u-placeholder-hidden .placeholder__trigger {
+        display: none;
+      }
+
+      .placeholder__trigger {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        border-bottom-left-radius: 1rem;
+        background: #467BE3;
+        transition: all 0.3s;
+        transform: translate(30%, -30%);
+        opacity: 0;
+        z-index: 9999;
+      }   
+
+      .bleed:hover .placeholder__trigger:hover {
+        cursor: pointer;
+        opacity: 1;        
+      }
+
+      .placeholder__trigger svg {
+        width: 50%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-25%, -50%);
+      }
+
+      .bleed:hover .placeholder__trigger {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }      
+
+      .bleed:hover .placeholder__trigger:hover + .placeholder__container {
+        opacity: 1;
+      }      
+
+      .placeholderBtn__container {
+        position: absolute;
+        top: 0;
+        left: -0.6rem;
+        bottom: -0.6rem;
+        right: 0;
+        transition: 0.3s all;
+        transform: rotate(-90deg);
+        transform-origin: top right;
+        opacity: 0;
+      }
+
+      .placeholder__trigger:hover .placeholderBtn__container {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+
+      .placeholderBtn {
+        position: absolute;
+        left: 0;
+        top: 0.04rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #467BE3;
+        color: #fff;
+        font-size: 0.27rem;
+        text-decoration: none;
+        line-height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }     
+
+      .placeholderBtn--plus::before {
+        content: '+';
+      }            
+
+      .placeholderBtn--minus {
+        top: 0.68rem;
+        left: 0.4rem;       
+      }    
+
+      .placeholderBtn--minus::before {
+        content: '-';        
+      }
+
+      .placeholderBtn--lock {
+        bottom: 0;
+        top: auto;
+        right: 0.04rem;
+        left: auto;
+      }
+
+      .placeholderBtn--lock::before {
+        content: 'L';
+      }
+
+      .u-placeholder-locked .placeholderBtn--lock::before {
+        content: 'U';
+      }      
+
+      /* End Placeholder Styling */
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative; }
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        z-index: -1;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .backgroundImage-1 {
+        background-image:url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/10cbcfdb7baafefc86b9eaeeff07801c/christmas-poster-bg-red.jpg);
+      }    
+
+      .backgroundImage-2 {
+        background-image:url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/2fae386f831ea60c3ed072d9d351728b/background-image.png);
+      }     
+
+      .backgroundImage-3 {
+        background-image:url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/10cbcfdb7baafefc86b9eaeeff07801c/christmas-poster-bg-red.jpg);
+      }
+
+      .backgroundImage-4 {
+        background-image:url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/1ecce5c54e40f64a38a68952dce698af/christmas-poster-2-bg-green.jpg);
+      }     
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }    
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .container {
+        text-align: center;
+      }
+
+
+      .heading {
+        font-family: 'Cosmopolitan Script';
+        padding: 1.731rem 0rem 0.179rem 0rem;
+        font-size: 1.881rem;
+        width: 12.910rem;
+        left: 48.9%;
+        font-weight: bold;
+        top: 0.1rem;
+        letter-spacing: -0.3975pt;
+        transform: translateX(-50%);
+        word-spacing: 0.030rem;
+        position: absolute;
+      }
+
+      .heading--primary {
+        margin-left: 11.25pt;
+      }
+
+      .heading--secondary {
+        padding: 1.104rem 0rem 0.179rem 0rem;
+        text-transform: uppercase;
+        color: #ef2c2a;
+        font-family: 'Bakers Andes Rounded';
+        font-size: 0.851rem;
+        font-weight: 800;
+        line-height: 0.881rem;
+        left: 51%;
+        top: -0.07rem;
+        word-spacing: -3pt;
+      }
+
+      .heading--tertiary {
+        font-size: 2.403rem;
+        padding-top: 1.269rem;
+        left: 51%; 
+        word-spacing: 0.139rem;
+        letter-spacing: 0.04rem;
+      }
+
+      .heading--quaternary {
+        padding-top: 1.194rem;
+        font-size: 2.582rem;
+        width: 10.821rem;
+        word-spacing: -0.060rem;
+        letter-spacing: 0.015rem;
+        left: 52%;
+      }
+
+      .heading--tertiary::before {
+        content: "";
+        position: absolute;
+        top: -0.543rem;
+        left: 48.6%;
+        transform: translateX(-50%);
+        width: 2.627rem;
+        height: 3.970rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/7e0d92ccea41b03dcbd3c1768c6eb6ef/header-top.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }     
+
+      .heading--tertiary::after {
+        content: "";
+        position: absolute;
+        bottom: -1.970rem;
+        left: 48.7%;
+        transform: translateX(-50%);
+        width: 4.906rem;
+        height: 3.970rem;
+        word-spacing: 0.194rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/ae0450e07c294c5879433bd0382dface/header-bottom.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }    
+
+      .heading--quaternary::before {
+        content: "";
+        position: absolute;
+        top: -0.593rem;
+        left: 46%;
+        transform: translateX(-50%);
+        width: 2.388rem;
+        height: 3.970rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/bbe7da4826580e9df20cf546569d324d/header-bottom.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      .heading--quaternary::after{
+        content: "";
+        position: absolute;
+        transform: translateX(-50%);
+        height: 3.970rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/ae0450e07c294c5879433bd0382dface/header-bottom.png);
+        bottom: -1.866rem;
+        left: 46%;
+        width: 5.134rem;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      .merry-croissant-mas .heading__decorator {
+        font-size: 1rem;
+        font-family: 'Bakers Andes Rounded';
+        text-transform: uppercase;
+        font-weight: 800;       
+        letter-spacing: 2px;
+      }
+
+      .delicious-christmas-cake .heading__decorator--left {
+        margin-left: -0.232rem
+      }
+
+      .delicious-christmas-cake .heading__decorator--right {
+        margin-left: -0.246rem;
+      }
+
+      .mainImage {
+        position: absolute;
+        width: 13.012rem;
+        top: 5.707rem;
+        left: 53%;
+        transform: translateX(-50%);
+      }
+
+      .mainImage--tertiary {
+        width: 7.857rem;
+        top: 5.14rem;
+        left: 51%;
+      }
+
+      .mainImage--quaternary {
+        top: 5.364rem;
+        left: 50.3%;
+        height: 9.37rem;
+        width: auto;
+      }
+
+      .content {
+        position: absolute;
+        padding: 0 1.701rem;
+        font-size: 0.328rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        top: 13.627rem;
+        line-height: 0.179rem;
+      }
+
+      .content--secondary {
+        width: 100%;
+        top: unset;
+        bottom: 2.175rem;
+        color: #ef2c2a;
+        text-transform: none;
+        font-size: 0.582rem;
+        letter-spacing: -0.225px;
+        word-spacing: -0.015rem;
+        font-weight: 800;
+      }
+
+      .logo {
+        position: absolute;
+        bottom: 1.164rem;
+        width: 3.961rem;
+        transform: translate(-50%);
+      }
+
+      .page {
+        display: none;
+      }
+
+      .merry-croissant-mas .page--1 {
+        display: block;
+      }
+
+      .candy-cane-brioche-delight-4-pack .page--2 {
+        display: block;
+      }
+
+      .delicious-christmas-cake .page--3 {
+        display: block;
+      }
+
+      .delicious-christmas-tarts .page--4 {
+        display: block;
+      }
+
+      .badge {
+        position: absolute;
+        background-color: #088345;
+        width: 4.104rem;
+        height: 4.104rem;
+        left: 38.8%;
+        top: 40.8%;
+        border-radius: 50%;
+        display: block;
+        padding: 0.955rem 0rem;
+        font-size: 0.507rem;
+        line-height: 0.507rem;
+        font-weight: 800;
+        letter-spacing: -0.015rem;
+      }
+
+      .badge::before{
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 90%;
+        height: 90%;
+        display: inline-block;
+        transform: translate(-50%, -50%);
+        border: -0.015rem solid #fff;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+
+      .pricing {
+        font-size: 1.075rem;
+        display: block;
+        margin-top: 0.299rem;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 1.388rem;
+        color: black;
+        text-align: center;
+        width: 100%;
+        font-size: 0.179rem;
+        font-weight: 600;
+        letter-spacing: -0.45pt;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="{{ placeholder-toggle }} {{BDcss_theme}}{{^BDcss_theme}}merry-croissant-mas{{/BDcss_theme}}">    
+
+    <div class="page page--1">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container fit">
+
+          <div class="backgroundImage backgroundImage-1"></div>
+
+          <div class="heading heading--primary"> Merry <span class="heading__decorator"> Croissant-mas</span> </div><!--heading-->
+
+          <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/13a455d3d7ace97beca1fd9b10707223/croisant.png" alt="" class="mainImage mainImage"><!--mainImage-->
+          <img src="{{{ account.logos.reversed }}}" alt="" class="logo"><!--logo-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page--1-->
+
+
+    <div class="page page--2">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container fit">
+
+          <div class="backgroundImage backgroundImage-2"></div>
+
+          <div class="heading heading--secondary"> 
+            The sweetest <br /> 
+            gift of all 
+          </div><!--heading-->
+          <div class="badge">
+            Candy Cane Brioche Delight <br />
+            4-Pack <br />
+            <span class="pricing">$10<span>
+              </div><!--badge--> 
+
+              <div class="content content--secondary"> Available for a sweet time only</div><!--content--> 
+              <div class="footer"> Valid until 10/01/19. Subject to availability. </div><!--footer-->  
+
+              </div><!--container fit-->
+
+          </div><!--bleed-->
+
+        </div><!--page2-->
+
+
+        <div class="page page--3">
+
+          <div class="bleed center-children">
+
+            <span class="placeholder__trigger">   
+              <div class="placeholderBtn__container">
+                <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+                <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+                <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+              </div>
+              <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+                <g>
+                  <title>background</title>
+                  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+                </g>
+                <g>
+                  <title>Layer 1</title>
+                  <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+                </g>
+              </svg>
+            </span><!-- end placeholder__trigger -->
+            <div class="placeholder__container">
+              <div class="placeholder"></div>
+            </div><!-- end placeholder__container -->
+
+            <div class="container fit">
+
+              <div class="backgroundImage backgroundImage-3"></div>
+              <div class="heading heading--tertiary"><span class="heading__decorator--left">Christmas</span> <span class="heading__decorator--right">Cake </span></div><!--heading-->
+              <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/7b659b4b9dca97e927077324b3ac6029/tree.png" alt="" class="mainImage mainImage--tertiary"><!--mainImage-->
+              <img src="{{{ account.logos.reversed }}}" alt="" class="logo"><!--logo-->
+            </div><!--container fit-->
+
+          </div><!--bleed-->
+
+        </div><!--page--3-->
+
+
+        <div class="page page--4">
+
+          <div class="bleed center-children">
+
+            <span class="placeholder__trigger">   
+              <div class="placeholderBtn__container">
+                <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+                <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+                <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+              </div>
+              <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+                <g>
+                  <title>background</title>
+                  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+                </g>
+                <g>
+                  <title>Layer 1</title>
+                  <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+                </g>
+              </svg>
+            </span><!-- end placeholder__trigger -->
+            <div class="placeholder__container">
+              <div class="placeholder"></div>
+            </div><!-- end placeholder__container -->
+
+            <div class="container fit">
+
+              <div class="backgroundImage backgroundImage-4"></div>
+
+              <div class="heading heading--quaternary">Christmas Tarts</div><!--heading-->
+
+              <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/3a2431e9edd313da12070f625ef7d098/christmas-poster-2-image.png" alt="" class="mainImage mainImage--quaternary"><!--mainImage-->
+              <img src="{{{ account.logos.reversed }}}" alt="" class="logo"><!--logo-->
+
+            </div><!--container fit-->
+
+          </div><!--bleed-->
+
+        </div><!--page4-->
+
+
+        <script>
+          window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+
+                                                             if (window.showCrop) {
+                                                               document.querySelector('body').classList.add('show-crop');
+                                                             } else {
+                                                               document.querySelector('body').classList.add('hide-crop');
+                                                             }                                               
+        </script>
+
+        <script src="main.js"></script>   
+        <script src="prefixfree.js"></script>
+
+        <script>
+
+          // Check Overflow function
+          function checkHeight(element) {
+            for (i = 0 ; i < element.length ; i++ ) {
+              var currentElement = element[i];
+              var height         = currentElement.offsetHeight;
+              var parent         = currentElement.parentNode;
+              var parentHeight   = parent.offsetHeight;
+
+              if (height > parentHeight) {
+                parent.classList.add('overflow');
+              } else {
+                parent.classList.remove('overflow');
+              }
+
+              if ((currentElement).parentNode.classList.contains('overflow')) {
+                document.body.classList.add('overflow-true');
+              } else {
+                document.body.classList.remove('overflow-true'); 
+              }
+            }
+          }   
+
+          // Adding class 'is-export-mode' to the body element in case template is in the export mode
+          function checkExport() {
+            var isExportPage = window.location.href.indexOf('exports') > -1;
+
+            if (isExportPage) {
+              document.body.classList.add('is-export-mode');
+            }
+          }            
+
+          function loop() {
+            checkHeight(document.getElementsByClassName('check-overflow'));
+          } setInterval(loop, 1000);  
+
+          // Fix for the resizable background images - fullscreen and digital vairaitons only
+          function checkCrop() {
+            if (window.showCrop === true) {
+            } else {
+              [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+                el.parentNode.style.left = '0';
+                el.parentNode.style.right = '0';
+                el.parentNode.style.top = '0';
+                el.parentNode.style.bottom = '0';
+                el.parentNode.style.width = '100%';
+                el.parentNode.style.height = '100%';
+              });
+            }
+          }  
+
+          // Dynamic controls for the placeholder image
+          function lockPlaceholder() {
+            let lockState = localStorage.getItem('lockState') || 'unlocked';
+
+            if ( lockState == 'unlocked' ) {
+              document.body.classList.add('u-placeholder-locked');
+              localStorage.setItem('lockState', 'locked');
+            } else {
+              document.body.classList.remove('u-placeholder-locked');
+              localStorage.setItem('lockState', 'unlocked');          
+            }        
+          }
+
+          function opacityControl() {
+            const placeholders = document.querySelectorAll('.placeholder');
+
+            placeholders.forEach(placeholder => {
+              let compStyles = window.getComputedStyle(placeholder);
+              let currentOpacity = parseFloat(compStyles.getPropertyValue('opacity'));
+              let operation = this.dataset.operation;          
+
+              if ( operation == 'plus' && currentOpacity < 1 ) {
+                placeholder.style.opacity = currentOpacity + 0.1; 
+              } else if ( operation == 'minus' && currentOpacity > 0 ) {
+                placeholder.style.opacity = currentOpacity - 0.1; 
+              }    
+
+              localStorage.setItem('opacityState', currentOpacity);          
+            });       
+          }
+
+          function placeholderControler() {
+            const operationButtons = document.querySelectorAll('.placeholderBtn--operation');
+            const lockButtons = document.querySelectorAll('.placeholderBtn--lock');
+            const placeholders = document.querySelectorAll('.placeholder');
+
+            if ( localStorage.getItem('lockState') == 'locked' ) {
+              document.body.classList.add('u-placeholder-locked');          
+            }
+
+            if ( localStorage.getItem('opacityState') !== undefined ) {
+              placeholders.forEach(placeholder => {
+                placeholder.style.opacity = localStorage.getItem('opacityState');
+              });
+            }
+
+            operationButtons.forEach(button => {
+              button.addEventListener('click', opacityControl);        
+            });        
+
+            lockButtons.forEach(lockButton => {
+              lockButton.addEventListener('click', lockPlaceholder);
+            });
+          }    
+
+          placeholderControler();  
+          checkCrop();  
+          checkExport(); 
+
+        </script>
+
+        <!-- <script src="char-limit.js"></script> 
+
+<script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js"></script>
+
+<script>
+
+TextFit.fit({
+selector: '.textFitBadge',
+fitMode: 'vertical',
+alignItems: 'center'
+});
+
+</script>
+
+-->
+
+        </body>
+      </html>
