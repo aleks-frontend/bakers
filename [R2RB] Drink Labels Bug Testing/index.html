@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Print Generic</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="crop.css">
+    <style>
+      @import url("https://outfit-assets-production.s3.amazonaws.com/fonts/bakersAndesRounded110119/stylesheet.css");
+      .token-value {
+        font-size: inherit;
+      }      
+      * {
+        -webkit-font-smoothing: antialiased;
+        font-family: 'Bakers Andes Rounded', sans-serif;
+        font-size: 14.774px;
+      }
+
+      .crop-marks {
+        display: none;
+      }
+
+      .bleed--custom {
+        top: 5mm !important;
+        bottom: 5mm !important;
+        left: 5mm !important;
+        right: 5mm !important;
+      }
+
+      h1, h2, h3, h4, h5, h6 { font-weight: 900; }
+
+      .cover {
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .blend {
+        background-blend-mode: screen;
+      }
+
+      .center-children {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+      }
+
+      .content {
+        position: relative;
+        margin: 0 0 3mm;
+        padding: 1rem;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+		flex-direction: column;
+		justify-content: center;
+      }
+      
+      .dough {
+        font-size: 20.5pt;
+        line-height: 1em;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .content--custom .dough {
+        max-width: 72.5%;
+      }
+
+      .content--nutella .dough {
+        max-width: 100%;
+      }      
+
+      .flavour {
+        font-size: 16pt;
+        line-height: 1em;
+        margin: 0 0 0.5rem;   
+        font-weight: 500;
+      }
+      .format {
+        font-size: 16pt;
+        line-height: 1em;
+        margin: 0 0 0.2rem;
+      }      
+      .kjs,
+      .price {
+        font-size: 20pt;
+        line-height: 1em;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+      }
+      .kjs {
+        align-items: flex-end;
+      }
+      .price {
+        align-items: flex-start;
+      }
+      .kjs sub,
+      .price sup {
+        font-size: 0.6em;
+        line-height: 0.8em;
+      }
+      .kjs *,
+      .price * {
+        font-size: inherit;
+      } 
+      .bottom-row {
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+        right: 1rem;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-end;
+        align-items: flex-end;
+        font-size: 1em;
+        width: 260px;
+      }
+      .wrapper {
+        margin: 0 0 3mm;
+        padding: 1.4rem 1rem 1rem;        
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+      }
+      .wrapper p {
+        font-size: 29pt;
+        text-transform: uppercase;        
+      }
+      .backTitle {
+        font-size: 36pt;
+      }
+      .content,
+      .wrapper {
+        width: 128.7mm;
+        height: 58.4mm;
+      }
+      .label__master {
+        display: none;
+      }
+      .label__container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex: 1;
+        padding: 0;
+      }
+
+
+      .center-children {
+        justify-content: flex-start;  
+      }
+
+      .label__container {
+        flex: none;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 0 auto;
+        margin-top: 31.8mm;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }    
+
+      .label__wrapper {
+        position: relative;
+        /*margin: 2.4mm 3mm 3.5mm;*/
+        margin: 0;
+        padding: 4.4mm;
+        border: 1px solid #000;
+        padding-left: 5.1mm;
+      }
+
+      .label__wrapper .content,
+      .label__wrapper .wrapper {
+        width: 86.3mm;
+        height: 47.5mm;
+        margin: 0;
+        padding: 7.5mm 0 8.5mm 7mm;
+      }
+
+      .bottom-row {
+        /*bottom: 1.5rem;*/
+        bottom: 2rem;
+        left: 2.6rem;
+        right: 2.4rem;
+      }
+
+
+      .label__bottom {
+        display: none;
+        position: absolute;
+        bottom: 2.5pt;
+        font-size: 5.3pt;
+        color: #000;
+      }
+
+      .label__bottom {
+        display: block;
+      }
+
+      @media screen and (min-width: 1500px) {
+        .label__bottom {
+          display: block;
+        }
+      }
+
+      .label__bottom--left {
+        left: 36pt;
+      }
+
+      .label__bottom--right {
+        right: 36pt;
+      }
+
+      /* Crop marks styling */
+      .cropMark {
+        display: none;
+        position: absolute;
+        background: #000;
+      }
+      .cropMark {
+        display: block;
+      }
+
+      @media screen and (min-width: 1500px) {
+        .cropMark {
+          display: block;
+        }
+      }      
+
+      .cropMark--horizontal {
+        width: 5mm;
+        height: 1pt;
+      }
+
+      .cropMark--vertical {
+        height: 5mm;
+        width: 1pt;
+        background: #000;
+      }      
+
+      .cropMark--horizontalTop {
+        top: 8mm;
+      }
+
+      .cropMark--horizontalBottom {
+        bottom: 8mm;
+      }      
+
+      .cropMark--verticalTop {
+        top: 0;
+      }      
+
+      .cropMark--verticalBottom {
+        bottom: 0;
+      }
+
+      .cropMark--horizontalLeft {
+        left: 0;
+      }
+
+      .cropMark--horizontalRight {
+        right: 0;
+      }
+
+      .cropMark--verticalLeft {
+        left: 8mm;
+      }
+
+      .cropMark--verticalRight {
+        right: 8mm;
+      }      
+
+      .hide {
+        display: none;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 999;
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      .back__page {
+        direction:rtl;
+      }
+    </style>
+  </head>
+  <body style="background: white">
+    <div class="label__master">
+      {{#spreadsheet.drinkLabels}}
+      <!--
+{{{Qty}}}
+{{{Code}}}
+{{{Dough}}}
+{{{TM}}}
+{{{Flavour}}}
+{{{Format}}}
+{{{Background}}} <!-- Broken
+{{{Price}}}
+{{{kJ_value}}} <!-- Broken 
+{{{kJ}}}
+{{{Front}}} <!-- Broken
+-->
+      <div class="label__wrapper" data-qty="{{{Qty}}}">
+        <div class="cropMark cropMark--vertical cropMark--verticalBottom cropMark--verticalLeft"></div>
+        <div class="cropMark cropMark--vertical cropMark--verticalBottom cropMark--verticalRight"></div>
+        <div class="cropMark cropMark--vertical cropMark--verticalTop cropMark--verticalLeft"></div>
+        <div class="cropMark cropMark--vertical cropMark--verticalTop cropMark--verticalRight"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalBottom cropMark--horizontalLeft"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalBottom cropMark--horizontalRight"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalTop cropMark--horizontalLeft"></div>
+        <div class="cropMark cropMark--horizontal cropMark--horizontalTop cropMark--horizontalRight"></div>           
+        <div class="content" data-front="{{{Front}}}" data-code="{{{Code}}}">       
+          <h1 class="dough">{{{Brand}}} {{^Brand}}&nbsp;{{/Brand}}</h1>
+          <p class="flavour">{{{Flavour}}} {{^Flavour}}&nbsp;{{/Flavour}}</p>
+          <p class="format">{{{Size}}} {{^Size}}&nbsp;{{/Size}}</p>
+          <div class="bottom-row">
+            <p class="price"><sup>$</sup><span>{{{New-rrp}}}</span></p>
+          </div>
+        </div>
+        <div class="wrapper" data-background="{{{Background}}}">
+          <h1 class="backTitle"></h1>
+          <p>Staff Facing Side</p>
+        </div>
+      </div>
+      {{/spreadsheet.drinkLabels}}
+    </div>
+
+    <div class="page">
+      <!--<img src="https://files.outfit.io/media_library_items/64424/drink-label-placeholder.jpg" class="placeholder" />-->
+      <div class="bleed bleed--custom center-children">
+        <div class="label__container">
+        </div>
+      </div>
+    </div>
+    <script>
+      function checkCrop() {
+        if ({{show-crop}} === true) {
+          document.body.classList.add('crop-marks-true')
+        } else {
+          document.body.classList.add('crop-marks-false')
+        }
+      }
+
+      checkCrop();
+
+      window.showCrop = {{show-crop}};
+    </script>
+    <script>
+      console.clear();
+      document.addEventListener("DOMContentLoaded", function(event) {
+
+        // Set Front Page Colour
+        var labelFronts = document.querySelectorAll(".content");
+		  labelFronts.forEach(function(front) {
+          var frontColour = front.dataset.front;
+          // Check to see what colour we should use          
+          switch(frontColour) {             
+            case "nutella.ai":
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/19f37715502f660c4b2b476e3c660112/nutella.png)";
+              break;
+
+            case "lowfod.ai":
+              front.classList.add('content--custom');              
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/544455e4294e44528545db8b44d54498/lowfod.png)";
+              break;
+
+            case "vegemite.ai":
+              front.classList.add('content--custom');              
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/f77036e19d6277de24e9250e86c027ae/vegemite.png)";
+              break;
+
+            case "marmite.ai":
+              front.classList.add('content--custom');              
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/239a23f3fd0066722f7d62e4025cca58/marmite.png)";
+              break;
+
+            case "cadburyms.ai":
+              front.classList.add('content--custom');              
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/9b79dc116566593c9e9f1637c24b99e1/cadburyms.png)";
+              break;
+
+            case "cadburyhxb.ai":
+              front.classList.add('content--custom');              
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/0444d902c1d0893c1fef83450383eef4/cadburyhxb.png)";
+              break;
+
+            case "cadbury6hxb.ai":
+              front.classList.add('content--custom');              
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/a80bfeacec6509ca3026a2801759ba24/cadbury6hxb.png)";
+              break;
+
+            case "cadbury.ai":
+              front.classList.add('content--custom');              
+              front.style.color = "white";
+              front.style.backgroundImage = "url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/7d5687d622f34aaa281e110c25257218/cadbury.png)";
+              break;
+
+            default:
+              front.style.color = "white";
+              front.style.backgroundColor = "#000";
+          }
+        });
+
+        // Set Backpage Colour + Text
+        var backPages = document.querySelectorAll(".wrapper");
+        backPages.forEach(function(back) {
+          // Check to see what colour we should use
+          var backColour = back.dataset.background;
+          var backTitle = back.querySelector(".backTitle");
+          var backText = back.querySelector("p");
+
+          if(backColour.includes("artisan")) {
+            backTitle.innerHTML = "Artisan";
+            back.style.backgroundColor = "black";
+          }
+          else if(backColour.includes("combo")) {
+            backTitle.innerHTML = "Combo";
+            back.style.backgroundColor = "#E42313";
+          }
+          else if(backColour.includes("health")) {
+            backTitle.innerHTML = "Health";            
+            back.style.backgroundColor = "#EB5D0B";
+          }          
+          else if(backColour.includes("savoury")) {
+            backTitle.innerHTML = "Savoury";            
+            back.style.backgroundColor = "#F4A100";
+          }
+          else if(backColour.includes("sweet")) {
+            backTitle.innerHTML = "Sweet";            
+            back.style.backgroundColor = "#850F66";
+          }         
+          else if(backColour.includes("traditional")) {
+            backTitle.innerHTML = "Traditional";            
+            back.style.backgroundColor = "#8a8a8a";
+          }         
+          else if(backColour.includes("miscellaneous")) {
+            backTitle.innerHTML = "Miscellaneous";   
+            backTitle.style.color = "#000";
+            backText.style.color = "#000";
+            back.style.backgroundColor = "#fff";
+          }                   
+          else {
+            backTitle.innerHTML = "Trial Product";            
+            back.style.backgroundColor = "#6e0335";
+          }                             
+        })
+      });
+
+      var labelMaster = document.querySelector(".label__master");
+      // Check to see if we need to duplicate any labels
+      var allLabels = document.querySelectorAll(".label__wrapper");
+      allLabels.forEach(function(label) {
+        // Grab the QTY
+        var qty = label.dataset.qty;
+        if(qty > 1) {
+          for(var i = 2; i <= qty; i++) {
+            // Clone node
+            var copy = label.cloneNode(true);
+            labelMaster.insertBefore(copy, label);
+          }
+        }
+      });
+
+      // Get the Body so we can put all the labels in
+      var body = document.querySelector("body");
+
+      // Add Labels to Correct Pages
+      var pageTemplate = document.querySelector(".page");
+
+      // Query the Label Master Container 
+      var dynamicLabels = labelMaster.children;
+
+      var currentFrontPage = pageTemplate.cloneNode(true);
+      var currentBackPage = pageTemplate.cloneNode(true);
+      
+      var counter = 0;
+      
+      for(var j = 0; j < dynamicLabels.length; j++) {
+        var label = dynamicLabels[j];
+        var front = label.cloneNode(true);
+
+        // Remove the back page
+        var frontWrapper = front.querySelector(".wrapper");
+        front.removeChild(frontWrapper);
+
+        // Add to page
+        var frontPageInner = currentFrontPage.querySelector(".label__container");
+        frontPageInner.appendChild(front);        
+
+        body.appendChild(currentFrontPage);
+        counter++;
+        if(counter == 8){
+          currentFrontPage = pageTemplate.cloneNode(true);
+          counter = 0;
+        }
+      }
+
+
+      // Finally hide the first page
+      var pages = document.querySelectorAll(".page");
+      var p1 = pages.item(0);
+      p1.classList.add("hide");
+
+    </script>
+    <script src="main.js"></script>
+    <script src="prefixfree.js"></script>
+  </body>
+</html>
