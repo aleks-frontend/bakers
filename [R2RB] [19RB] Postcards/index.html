@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html data-sign="OSB OSL" async>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+
+      :root {
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+
+
+        /*Colors*/
+        --bakers-burgundy: {{{account.colors.bakers-burgundy-19rb}}};
+        --bakers-burgundy-pop: {{{account.colors.bakers-burgundy-pop-19rb}}};
+        --bakers-burgundy-pop-light: {{{account.colors.-bakers-burgundy-pop-light-19rb}}};
+
+        --grey: #e6e7e8;
+        --everyday: {{{account.colors.everyday-classics-19rb}}};
+        --health: {{{account.colors.healthy-solutions-19rb}}};
+        --artisan: {{{account.colors.artisan-collections-19rb}}};
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        font-size: 7pt;
+        color: #000;
+      }
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative;
+        z-index: 999;}
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .bgImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-size: cover;
+        background-repeat: no-repeat;  
+        background-position: center;
+        overflow: hidden;
+      }
+
+      .bgImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }   
+
+      .everyday .bgImage {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/d72a838f782a0242fc74f35af5376fcf/everyday-breads.png");
+        background-position: 20%;
+      }    
+
+      .health .bgImage {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/99cc3576a8e0e344a00be5fd42cb87c7/healthy-breads.png");
+        background-position: 20%;
+      }     
+
+      .artisan .bgImage {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/ba4d5d0592cc7818ef30dbe566115409/artisan-breads.png");
+      }
+
+
+
+
+      .box {   
+        display: none;
+        position: absolute;
+        bottom: 0;
+        left: 25.8pt;
+        width: 78.9pt;
+        height: 78.5pt;
+        padding: 6.5pt 6.4pt 0 8pt;
+        border-top-left-radius: 2pt;
+        border-top-right-radius: 2pt;
+        font-size: 13pt;
+        color: #fff;   
+      }
+
+      .box--everyday {
+        width: 78.9pt;
+        height: 78.5pt;
+        background: var(--everyday);  
+      }  
+
+      .box--health {
+        background: var(--health); 
+      }
+
+      .box--artisan {
+        width: 78.9pt;
+        height: 78.5pt;
+        background: var(--artisan);
+      }
+
+      .everyday .box--everyday {
+        display: block;
+      }
+
+      .health .box--health {
+        display: block;
+      }
+
+      .artisan .box--artisan {
+        display: block;
+      }
+
+      .box__heading {
+        margin-bottom: 1.1pt;
+        margin-right: 1pt;
+        padding-bottom: 2.1pt;
+        padding-right: 11pt;
+        font-size: 9.4pt;
+        line-height: 1.2em;
+        font-family: "Colby CdBld";
+        text-transform: uppercase;
+        border-bottom: 1pt solid #fff;
+      }
+
+      .artisan .box__heading {
+        margin-bottom: 2.6pt;
+        margin-right: 2pt;
+        padding-bottom: 3pt;
+        font-size: 9.5pt;
+        line-height: 1.11em;
+        border-color: #5a5a5a;
+      }
+
+      .box__subheading {
+        margin-bottom: 8pt;
+        font-size: 7.8pt;
+        font-weight: 300;      
+      }
+
+      .health .box__subheading {
+        margin-bottom: 8pt;
+      }
+
+      .artisan .box__subheading {
+        margin-bottom: 8pt;
+        font-size: 7.5pt;
+        line-height: 1.1em;
+      }
+
+      .box__logo {
+        width: 63pt;
+      } 
+
+      .artisan .box__logo {
+        width: 63pt;
+      }
+
+      .fit--front {
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .fit--back {
+        display: flex;
+        flex-direction: column;
+        margin: 0 26pt;
+      }
+
+      .banner {
+        position: relative;
+        display: flex;
+        flex: 1;
+        align-items: center;
+        justify-content: flex-start;
+        height: 85pt;
+        background: rgba(255, 255, 255, 0.75);
+      }
+
+      .bakerInfo__container {
+        margin-left: 125pt;
+        margin-right: 10pt;
+      }
+
+      .bakerInfo {
+        max-height: 3.25em;
+        font-size: 11pt;
+      }
+
+      .header {
+        display: none;
+        height: 83.9pt;
+        padding: 30.2pt 0 0 0pt;
+        font-weight: 700;
+        font-size: 26pt;
+        font-family: var(--font-sofa-sans);
+        text-transform: uppercase;
+        line-height: 0.95em;
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+      .everyday .header--everyday,
+      .health .header--health,
+      .artisan .header--artisan {
+        display: block;
+      }
+
+      .everyday .header {
+        color: var(--everyday)
+      }
+
+      .health .header {
+        color: var(--health)
+      }
+
+      .artisan .header {
+        color: var(--artisan)
+      }
+
+      .u-offers-2 .header {
+        height: 84.9pt;
+      }
+
+      .offer__container {
+        display: flex;
+        flex: 1;  
+      } 
+
+      .offer {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+        padding-top: 26.1pt;
+        padding-bottom: 11pt;         
+        border: 1px solid var(--everyday); 
+        border-left: none;
+      }
+
+      .everyday .offer {
+        border-color: var(--everyday); 
+      }
+
+      .health .offer {
+        border-color: var(--health); 
+      }
+
+      .artisan .offer {
+        border-color: var(--artisan); 
+      }
+
+      .u-offers-1 .offer {
+        padding: 0;
+        border: none;    
+      }
+
+      .u-offers-2 .offer {
+        max-width: 193pt;
+      }      
+
+      .u-offers-3 .offer {
+        padding-top: 27.7pt;
+        padding-bottom: 8.4pt;
+        max-width: 124pt;
+      }
+
+      .u-offers-3 .offer:nth-child(2) {
+        min-width: 136.9pt;
+      }
+
+      .u-offers-4 .offer {
+        padding-top: 23.8pt;
+        padding-bottom: 8pt;
+        max-width: 91.4pt;
+      }
+
+      .u-offers-4 .offer:nth-child(2),
+      .u-offers-4 .offer:nth-child(3) {
+        min-width: 101pt;
+      }
+
+      .offer:first-child {
+        border-left: none;
+      }
+
+      .offer:last-child {
+        border-right: none;
+      }
+
+      .offer::before {
+        content: "Offer 1";
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 55.6pt;
+        height: 17.7pt;
+        font-size: 12pt;            
+        text-align: center;
+        color: #fff;
+      }
+
+      .everyday .offer::before {
+        background: var(--everyday); 
+      }
+
+      .health .offer::before {
+        background: var(--health); 
+      }
+
+      .artisan .offer::before  {
+        background: var(--artisan); 
+      }
+
+      .u-offers-1 .offer::before {
+        display: none;
+      }
+
+      .u-offers-4 .offer::before  {
+        width: 50.6pt;
+        height: 15.4pt;
+        font-size: 10.6pt;
+      }
+
+      .offer:nth-child(2)::before {
+        content:"Offer 2";
+      }
+
+      .offer:nth-child(3)::before {
+        content:"Offer 3";
+      }
+
+      .offer:nth-child(4)::before {
+        content:"Offer 4";
+      }      
+
+      .offer__text {
+        width: 151pt;
+        padding-left: 9pt;
+        padding-right: 15pt;
+        font-size: 12pt;
+        text-transform: uppercase;      
+        letter-spacing: 0.2pt;
+        word-spacing: -1.3pt; 
+        word-break: break-word;
+        color: {{{account.colors.bakers-burgundy-19rb}}}; 
+        display: flex;
+        flex-flow: column nowrap;
+        height: 2.5rem;
+      }
+
+      .everyday .offer__text{
+        color:  var(--everyday); 
+      }
+
+      .health .offer__text {
+        color: var(--health); 
+      }
+
+      .artisan .offer__text  {
+        color: var(--artisan); 
+      }
+
+      .offer__text .max-height {
+        max-height: 4em;
+        /*max-height: 2.5em;*/
+      }
+
+      .u-offers-1 .offer__text {
+        display: none;
+      }
+
+      .u-offers-2 .offer__text {
+        font-size: 12pt;
+      }
+
+      .u-offers-3 .offer__text {
+        font-size: 10.9pt;
+        line-height: 1.15;
+        word-spacing: 1pt;
+        letter-spacing: 0;
+      }
+
+      .u-offers-4 .offer__text {
+        font-size: 10.4pt;
+        padding-right: 8pt;
+        line-height: 1.1em;
+      }
+
+      .offer:first-child .offer__text {
+        padding-left: 0;
+      }
+
+      .u-offers-3 .offer__text .max-height {
+        max-height: 4.6em;
+      }
+
+      .badge {
+        position: absolute;
+        top: -39pt;
+        right: 5.6pt; 
+        width: 122.3pt;
+        height: 122.3pt;
+        padding: 20.8pt 18pt 16.15pt;
+        border-radius: 50%;
+        box-sizing: border-box;
+        text-align: center;              
+        z-index: 1;
+      }
+
+      .badge:before {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 92%;
+        height: 92%;
+        transform: translate(-50%, -50%);
+        border: 1pt solid #fff;
+        border-radius: 50%;
+        box-sizing: border-box;
+      }
+
+      .badge__text {
+        margin-bottom: 1pt;
+        font-family: "Colby CdBld";
+        font-size: 18.2pt;
+        line-height: 1.05em;
+        color: #fff;
+      }
+
+      .badge__text--small {
+        padding: 0 18.3pt;
+        font-size: 9.4pt;       
+        line-height: 1.2em;
+      }
+
+      .health .badge {
+        background-color: var(--health);
+      }
+      .artisan .badge {
+        background: var(--artisan);
+      }
+      .everyday .badge {
+        background-color: var(--everyday);
+      }
+
+      .offer__images {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-right: 9.1pt;
+        padding-left: 9.1pt;
+      }  
+
+      .u-offers-4 .offer__images {
+        flex-direction: column-reverse;
+      }
+
+      .offer:first-child .offer__images {
+        padding-left: 0;
+      }
+
+      .offer:last-child .offer__images {
+        padding-right: 0;
+      }
+
+      .offer__stamp {
+        display: flex;
+        align-items: center;
+        width: 45pt;
+        height: 45pt;
+        padding: 0 4pt;
+        border-radius: 5pt;
+        font-size: 10pt;
+        background: var(--grey);
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 1.1em
+      }
+
+      .u-offers-1 .offer__stamp {
+        position: absolute;
+        right: 0;
+        bottom: -88pt;
+      }
+
+      .u-offers-3 .offer__stamp {
+        height: 38pt;
+        width: 38pt;
+        font-size: 8pt;      
+      }   
+
+      .u-offers-3 .offer:nth-child(2) .offer__stamp {
+        margin-left: 4pt;
+      }
+
+      .u-offers-4 .offer__stamp {
+        width: 35pt;
+        height: 35pt;
+        margin-top: 7pt;
+        font-size: 8pt;
+      }
+
+      .offer__image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 72pt;
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        font-size: 16pt;
+        color: #d1d3d4;
+        line-height: 0.9em;
+        text-align: center;       
+        text-transform: uppercase;        
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center bottom;       
+      }
+
+      .u-border {
+        border: 1pt solid var(--grey);
+      }
+
+      .u-offers-1 .offer__image {
+        position: absolute;
+        top: 13pt;
+        right: 67pt;
+        width: 204pt;
+        height: 146pt;     
+        padding: 0 41pt;
+        background-position: center;
+        z-index: 1;
+      }
+
+      .u-offers-2 .offer__image {
+        width: 121pt;
+        height: 73pt;
+        padding-top: 2pt;
+      }
+
+      .u-offers-3 .offer__image {
+        width: 66pt;
+        height: 59pt;
+        font-size: 11.4pt;     
+      }
+
+      .u-offers-4 .offer__image {
+        width: 82pt;
+        height: 48pt;
+        padding: 0 11pt;
+        font-size: 11.2pt;
+        line-height: 0.9em;
+        background-position: center;
+      }
+
+      .footer {
+        height: 77.4pt;
+        padding-top: 7.6pt;
+        font-size: 10pt;
+      }
+
+      .u-offers-1 .footer {
+        flex-direction: column;
+        height: 114.4pt;
+        padding-top: 0;  
+        padding-bottom: 24pt;
+      } 
+
+      .footer__info {
+        display: none;
+        width: 5.4rem;
+      }
+
+      .everyday .footer__info {
+        color: var(--everyday); 
+      }
+
+      .health .footer__info {
+        color: var(--health); 
+      }
+
+      .artisan .footer__info {
+        color: var(--artisan); 
+      }
+
+      .footer__label { font-size: 0.6rem; }
+
+      .footer__label:first-child { margin-bottom: 0.1rem;}      
+      .u-offers-1 .footer__info { display: block; }
+
+      div[class^="bakerInfo"] {
+        /*  padding-right: 20pt; */ /* removed by Blake 13th March 2019 - was causing Ts & Cs to run off end of page */
+        color: {{{account.colors.bakers-burgundy-19rb}}}; 
+      }
+
+      .everyday div[class^="bakerInfo"] {
+        color:  var(--everyday); 
+      }
+
+      .health div[class^="bakerInfo"] {
+        color: var(--health); 
+      }
+
+      .artisan div[class^="bakerInfo"] {
+        color: var(--artisan); 
+      }
+
+      .u-offers-1 .bakerInfo {
+        width: 103pt;
+        padding-right: 0;         
+      }
+
+      .bakerInfo__text {
+        font-size: 12pt;
+        line-height: 1.1em;
+      }
+
+      .bakerInfo__text--label {
+        margin-bottom: 4pt;
+      }
+
+      .u-offers-1 .bakerInfo__text--label {
+        margin-bottom: 5.4pt;
+      }
+
+      .footer__content {
+        width: 49.5%;
+        padding-top: 6.9pt;
+        font-size: 8.8pt;
+        font-weight: 300;
+      }
+
+      .u-offers-1 .footer__content {
+        width: 60.5%;
+        font-size: 8.2pt;
+        line-height: 1.1em;
+      }
+
+      .badge {
+        display: none;
+      }
+
+      .u-offers-1 .offer_label,
+      .u-offers-1 .offer_text {
+        display: none;
+      }
+
+      .u-offers-1 .badge {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      /* Helpper classes */
+      .u-offers-1 .u-block-on-offer-1 {
+        display: block;
+      }
+
+      .header em {
+        font-style: normal;
+        color: {{{account.colors.everyday-classics-pop-19rb}}};
+      }
+
+      .artisan .header em {
+        color: {{{account.colors.artisan-collection-pop-19rb}}};
+      }
+
+      .health .header em {
+        color: {{{account.colors.healthy-solutions-pop-19rb}}};
+      }
+
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" data-crop="{{show-crop}}" class="u-placeholder-{{ placeholder-toggle }}{{^placeholder-toggle}}hide{{/placeholder-toggle}} {{BD_theme--pc}}{{^BD_theme--pc}}everyday{{/BD_theme--pc}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
+    </div><!-- end placeholderMaster -->
+
+    <!--page 1-->
+
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <div class="container fit fit--front">
+
+          <div class="bgImage"></div><!--bgImage-->
+
+
+          <div class="banner">
+            <div class="box box--everyday">
+              <div class="box__heading">everyday classics</div><!--box__heading-->
+              <div class="box__subheading">Our family staples</div><!--box__subheading-->
+              <img class="box__logo" src="https://files.outfit.io/media_library_items/83828/BD_Logo_White.svg"/><!--box__logo-->
+            </div><!--box--everyday-->
+            <div class="box box--health">
+              <div class="box__heading">healthy solutions</div><!--box__heading-->
+              <div class="box__subheading">Make the switch</div><!--box__subheading-->
+              <img class="box__logo" src="https://files.outfit.io/media_library_items/83828/BD_Logo_White.svg"/><!--box__logo-->
+            </div><!--box--health-->
+            <div class="box box--artisan">
+              <div class="box__heading">artisan collection</div><!--box__heading-->
+              <div class="box__subheading">Authentically handcrafted</div><!--box__subheading-->
+              <img class="box__logo" src="https://files.outfit.io/media_library_items/83828/BD_Logo_White.svg"/><!--box__logo-->
+            </div><!--box--artisan-->
+            <div class="bakerInfo__container">
+              <div class="bakerInfo__text bakerInfo__text--label">Redeem at:</div><!--bakerInfo__text-->
+              <div class="bakerInfo">
+                <span class="textFit--vertical" style="line-height: 1.1em;">
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+
+                  Bakers Delight {{{ team.name }}}
+
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  <div>{{{team.artworkAddress1}}}</div>
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  <div>{{{team.artworkAddress2}}} </div> 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  <div>{{{team.artworkAddress3}}} </div> 
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}<span class="js-mso">{{{team.mso}}}</span><!-- js-mso -->{{/team.mso}}
+                </span><!--textFit--vertical-->
+              </div><!--bakerInfo-->
+
+            </div><!--bakerInfo__container-->
+          </div><!--banner-->
+
+        </div><!--container fit--front-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+    <!--page 2-->
+
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <div class="container fit fit--back">
+
+          <div class="header header--everyday">Try our Everyday<br /> Classics today!</div><!--header-->
+          <div class="header header--health">Try our Healthy<br /> Solutions today!</div><!--header-->
+          <div class="header header--artisan">Try our Artisan<br /> Collection today!</div><!--header-->     
+          <div class="offer__container">
+            {{#collection.BD_offers--pc}}
+            {{#block.BD_offer--pc}}
+            <div class="offer">
+              <div class="offer__text">
+                <div class="fitted-text">
+                  {{{BD_offer-text--pc}}}
+                </div> <!-- fitted-text -->
+              </div><!--offer__text-->
+
+              <!--<div class="offer__text">
+                <div class="max-height">
+                  <div class="check-overflow">
+                    {{{BD_offer-text--pc}}}
+                  </div>
+                </div> 
+              </div><!-- Commented out -->
+              <div class="badge">
+                <div class="badge__text">Get a FREE</div><!--badge__text-->
+                <div class="badge__text">   
+                  {{#BD_product-name--pc}} 
+                  <div style="max-height: 3em">
+                    <div class="check-overflow">
+                      {{{BD_product-name--pc}}}
+                    </div> <!-- check-overflow -->
+                  </div> <!-- max-height-->
+                  {{/BD_product-name--pc}}
+                </div><!--badge__text-->
+                <div class="badge__text badge__text--small">
+                  <div style="max-height: 2.5em">
+                    <div class="check-overflow">
+                      {{{ BD_offer_small_print }}}
+                    </div> <!-- check-overflow -->
+                  </div> <!-- max-height-->
+                </div><!--badge__text--small-->
+              </div><!--badge-->
+              <div class="offer__images">
+                <div class="offer__stamp">stamp here</div><!--offer__stamp-->
+                {{^BD_product-image--pc}}
+                <div class="offer__image u-border">Place product image here</div><!--offer__image-->
+                {{/BD_product-image--pc}}
+                {{#BD_product-image--pc}}
+                <div class="offer__image" style="background-image: url({{BD_product-image--pc}});"></div><!--offer__image-->         
+                {{/BD_product-image--pc}}
+              </div><!--offer__images-->
+            </div><!--offer-->
+            {{/block.BD_offer--pc}}
+            {{/collection.BD_offers--pc}}
+          </div><!--offer__container-->
+          <div class="footer">
+
+            <div class="footer__info">
+              <div class="footer__label">  Redeem at: </div> <!-- footer__label -->
+              <div class="footer__label">
+                {{{team.name}}} <br>
+                {{{team.address}}}
+              </div> <!-- footer__label -->
+            </div> <!-- footer__info -->
+
+            <div class="footer__content" data-max-line="5">Valid until: <span data-char-limit="8">{{{ BD_valid-date--pc }}}</span>. Only available at {{^team.mso}}bakery{{/team.mso}}{{#team.mso}}bakeries{{/team.mso}} listed. <br> 
+              {{{ BD_TCs_text--pc }}}
+            </div><!--footer__content-->
+          </div><!--footer-->
+
+        </div><!--container fit--back-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};                                      
+    </script>
+    <script src="main.js"></script>   
+    <script src="prefixfree.js"></script>
+    <script src="placeholder-controller.js"></script>
+    <script src="char-limit.js"></script>
+    <script src="check-export-mode.js"></script>
+    <script src="check-height.js"></script>    
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script src="js/max-line-check.js"></script>
+    <script type="text/javascript">
+
+      TextFit.fit({
+        selector: '.textFit--vertical',
+        fitMode: 'vertical',
+        alignItems: 'flex-start'
+      }); 
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat(); 
+
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        document.dispatchEvent(new Event('printready'));
+      });
+
+      setTimeout(function() {
+        document.dispatchEvent(new Event('printready'));
+      }, 1000);
+
+      document.dispatchEvent(new Event('printready'));
+    </script> 
+
+    <script>      
+      function loop() {
+        checkHeight(document.getElementsByClassName('check-overflow'));
+        charLimit();
+        maxLineCheck();
+      } setInterval(loop, 1000);  
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }
+
+      // Checking the number of Offer blocks
+      function checkOffers() {
+        const offers = document.querySelectorAll('.offer');
+        const body = document.body;        
+
+        body.classList.add(`u-offers-${offers.length}`);
+      }
+
+      // Including popColorController() function from snippets
+      {{{account.snippets.popColorController}}}
+
+      popColorController('.header--everyday', '.header--everyday');
+      popColorController('.header--health', '.header--health');
+      popColorController('.header--artisan', '.header--artisan');
+
+      // This mutation is not needed in this scenario where we have static text
+      // We left the option here if one day client decides that we should put text input here
+      const headingObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          popColorController('.headerMaster', '.js-source');
+        });  
+      }); 
+
+      /*
+      headingObserver.observe(document.querySelector('.headerMaster'), {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });   */
+
+      document.fonts.ready.then(() => {
+        popColorController('.header--everyday', '.header--everyday');
+        popColorController('.header--health', '.header--health');
+        popColorController('.header--artisan', '.header--artisan');
+      });
+
+      checkOffers();
+      placeholderController();
+      checkCrop();  
+      checkExport(); 
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      /*
+        TextFit.fit({
+          selector: '.textFit'
+        });      
+        */
+      TextFit.fit({
+        selector: '.footer__inner',
+        fitMode: 'vertical',
+        alignItems: 'flex-start'
+      });
+
+      TextFit.fit({
+        selector: '.fitted-text',
+        fitMode: 'vertical',
+        alignItems: 'flex-start'
+      });
+
+
+
+    </script>
+
+  </body>
+</html>
