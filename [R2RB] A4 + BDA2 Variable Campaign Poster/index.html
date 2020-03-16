@@ -646,31 +646,33 @@
     </script>
     
     <script type="text/javascript">
-      // Add many fallbacks for Print Ready
+      
+      // Calling text size restriction functions once the fonts are loaded
       document.addEventListener('DOMContentLoaded', function(event) {
-        var font = new FontFaceObserver('Colby CdReg');
+        const fonts = ['Bakers Andes Rounded', 'Sofa Sans', '3D Sketch', 'Sofa Sans Mono', 'Bakerie Smooth Wide', 'Colby CdBld'];
+        const fontObservers = [];
 
-        font.load().then(function () {
-          console.log('Font is available');
-          
-          
+        fonts.forEach(font => {
+          const obs = new FontFaceObserver(font);
+          fontObservers.push(obs.load())
+        });
+
+        Promise.all(fontObservers).then(() => {
           maxLineCheck();
           maxHeightCheck();
 
           TextFit.fit({
             selector: '.textFit'
           });
-          
+
           TextFit.fit({
             selector: '.textFit--vertical',
             fitMode: 'vertical',
             alignItems: 'center'
           }); 
+
           document.dispatchEvent(new Event('printready'));
-          console.log('Print Ready');
-        }, function () {
-          console.log('Font is not available');
-        });
+        });     
       });
 
     </script>  
