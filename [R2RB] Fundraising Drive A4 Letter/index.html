@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+      /* {{{BD_hero-image--pdl}}} */
+      /* {{{BD_body-text--pdl}}} */
+      /* {{{BD_heading-text-colour--pdl}}} */
+      /* {{{BD_franchisee-name--pdl}}} */
+      /* {{{BD_bakery-phone-number--pdl}}} */
+      /* {{{BD_terms-conditions--pdl}}} */
+
+      :root {
+        --primary: {{{account.colors.bakers-burgundy-19rb}}};
+        --black: {{{account.colors.artisan-collections-19rb}}};
+      }
+
+      html {
+        font-family: "Colby CdReg";
+        font-size: 11pt;
+        color: var(--black);
+      }
+
+      h1 {
+        margin-bottom: 8pt;
+        font-size: 18pt;
+        font-family: 'Colby CdBld';
+        line-height: 1.2em;
+      }
+
+      h2 {
+        font-size: 14pt;
+        line-height: 1.2em;
+        margin-bottom: 9pt;
+      }
+
+      p {
+        font-size: 12pt;
+        margin-bottom: 10.5pt;
+      }
+
+      h1:last-child,
+      h2:last-child,
+      p:last-child {
+        margin-bottom: 0;
+      }
+
+      .tinymce_style--dark {
+        color: {{{BD_heading-text-colour--pdl}}};
+      }
+
+      strong {
+        font-family: 'Colby CdBld';
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-size: 100%;
+        overflow: hidden;
+      }
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }       
+
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        position: relative;
+        height: 273pt;
+      }
+
+      .body {
+        flex: 1;
+        padding: 22pt 30pt 23pt 57pt;
+        word-break: break-word;
+      }
+
+      .info {
+        margin-top: 5.7pt;
+      }
+
+      .info__item {
+        font-size: 12pt;
+      }
+
+      .footer {
+        display: flex;
+        align-items: center;
+        padding: 0 56.3pt;
+      }
+
+      .logo__container {
+        position: relative;
+        width: 157.3pt;
+        height: 77.2pt;
+        margin-right: 46.6pt;
+        background: {{BD_logo_bgcolor--pdl}};
+        border-radius: 6.1pt 6.1pt 0 0;
+      }
+
+      .logo {
+        position: absolute;
+        bottom: 21.4pt;
+        left: 16.6pt;
+        width: 125pt;
+        border-radius: 2.6pt 2.6pt 0 0;
+      }
+
+      .logo path {
+        fill: {{BD_logo_colour--pdl}};
+      }
+
+      .disclaimer {
+        flex: 1; 
+        padding-bottom: 6.6pt;
+        font-size: 7pt;
+        text-transform: uppercase;
+        line-height: 1.1em;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header">
+            <div class="backgroundImage">
+              <div class="reposition-fix">{{{BD_hero-image--pdl}}}</div><!--reposition-fix-->
+            </div><!--backgroundImage-->
+          </div><!--header-->
+          <div class="body">
+            <div class="content" data-max-height="520">{{{BD_body-text--pdl}}}</div><!--content-->
+            <div class="info">
+              <div class="info__item">{{{BD_franchisee-name--pdl}}}</div><!--info__item-->
+              <div class="info__item">
+                {{^team.mso}}
+                {{^team.artworkAddress1}}              
+                {{^team.artworkAddress2}}              
+                {{^team.artworkAddress3}}              
+
+                Bakers Delight {{{ team.name }}} Franchisee
+
+                {{/team.artworkAddress3}}              
+                {{/team.artworkAddress2}}              
+                {{/team.artworkAddress1}}                            
+                {{/team.mso}}
+
+                {{^team.mso}}
+                {{#team.artworkAddress1}}
+                <div>{{{team.artworkAddress1}}}</div>
+                {{/team.artworkAddress1}}                
+                {{#team.artworkAddress2}}
+                <div>{{{team.artworkAddress2}}} </div> 
+                {{/team.artworkAddress2}}
+                {{#team.artworkAddress3}} 
+                <div>{{{team.artworkAddress3}}} </div> 
+                {{/team.artworkAddress3}}
+                {{/team.mso}}
+                
+                {{#team.mso}}<div class="js-mso">{{team.mso}}</div>{{/team.mso}}
+              </div><!--info__item-->
+              {{#BD_bakery-phone-number--pdl}}
+              <div class="info__item">T: {{{BD_bakery-phone-number--pdl}}}</div><!--info__item-->
+              {{/BD_bakery-phone-number--pdl}}
+            </div><!--info-->
+
+          </div><!--body-->
+          <div class="footer">
+            <div class="logo__container">
+              <div class="logo">
+
+                <!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In  -->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     width="125pt" viewBox="0 0 1682.97 389.13" style="enable-background:new 0 0 1682.97 389.13;"
+                     xml:space="preserve">
+                  <defs>
+                  </defs>
+
+                  <path fill="#000000" d="M180.94,137.08c0,0,2.5-0.95,13.29-6.85c11.5-6.29,52.65-25.52,54.78-66.78c1.03-19.95-5.44-29.57-8.46-34.39
+                                          c0,0-14.73-20.74-89.71-27.38C75.85-4.97,16.95,10.12,10.76,12.59C4.61,15.06-2.97,17.46,1.2,26.96c4.17,9.53,18,39.06,45.81,40.5
+                                          c27.81,1.43,58.55-17.44,79.19-21.03c20.63-3.6,55.81,0.08,72.13,7.89c16.34,7.82,19.89,12.39,14.3,34
+                                          c-4.9,18.95-20.88,24.24-30.21,30.49c-9.54,6.39-21.06,12.81-31.37,13.78c-6.5,0.61-17.64,0.37-25.56,0.33
+                                          c-19.08-0.1-26.7-1.07-25.69,6.43c1,7.51,11.08,6.62,18.01,6.98c6.95,0.35,20.18,0.1,37.21,3.76c17.01,3.68,38.93,10.54,31.4,35.48
+                                          c-6.02,19.95-22.55,46.01-71.59,44.18c-41.3-1.53-43.9-4.44-44.04-33.31c-0.03-6.02,2.91-47.19,21.48-83.51
+                                          c17.1-33.44,20.96-36.7,23.26-39.7c3.02-3.93,4.56-6.42,1.7-8.82c-3.56-2.98-5.33-2.41-13.09,3.7
+                                          c-7.77,6.12-34.06,26.62-52.33,63.19c-6.34,12.69-20.04,40.57-25.95,74.36c-4.8,27.47-11.59,72.17,77.92,67.24
+                                          c78.15-4.3,99.13-33.02,111.73-78.78C229.47,143.43,180.94,137.08,180.94,137.08 M757.38,167.5c-5.6-17.92,12.6-27.87,6.22-34.21
+                                          c-6.65-6.61-27.86-6.83-36.94,5.36c-10.71,14.38,4.58,23.32-1.27,30.88c-2.69,3.47-4.85,5.98-10.6,12.89
+                                          c-7.05,8.47-4.61,5.22-18.54,22.42c-13.94,17.17-23.12,21.85-34.27,20.93c-11.13-0.95-5.06-9.8-2.07-14.86
+                                          c3.27-5.53,13.44-16.71,20.39-28.32c6.98-11.59,7.49-22.06,5.17-27.62c-2.31-5.57-9.3-6.87-21.73-5.64
+                                          c-4.84,0.48-7.47,0.95-15.74,0.31c-2.39-0.19-4.63-0.65-6.66-1.02c0.17-0.45,0.33-0.91,0.51-1.35c2.51-6.04,11.15-17.69,4.85-20.84
+                                          c-7.38-3.69-19.39-5.4-30.78,2.06c-12.93,8.48-6.91,20.49-1.38,26.48c6.46,6.97-0.28,25.28-17.45,46.18
+                                          c-17.17,20.89-33.19,32.03-49.45,32.03c-10.02,0-17.9-3.9-22.48-11.13c5.39-2.33,11.8-5.18,18.28-8.3
+                                          c11.79-5.67,39.62-22.91,41.83-40.67c3.36-26.9-21.68-29.2-32.72-29.69c-31.85-1.41-62.13,18.59-65.68,65.56
+                                          c-0.38,4.95,0.02,9.38,0.93,13.4c-4.83,2.68-8.92,5.04-10.03,5.6c-14.23,7.27-19.18,8.45-26.35,6.86
+                                          c-8.34-1.85-15.87-22.99-15.41-26.25c0.45-3.24,6.03-3.71,15.78-7.89c9.74-4.17,27.85-12.52,27.85-32.49
+                                          c0-15.8-15.24-20.68-20.89-20.9c-11.58-0.45-23.33,6.22-34.43,12.77c-6.14,3.61-10.39,6.28-12.3,7.5c1.79-5.1,3.56-10.03,5.3-14.6
+                                          c0.42-1.09,0.7-2.03,0.92-2.9c10.8-29.07,30.34-80.01,31.18-82.19c4.65-12.08,10.46-25.55,3.74-30.06
+                                          c-6.29-4.23-27.53,9.56-37.91,36.28c-11.69,30.1-36.95,102.94-45.69,130.14l0.01-0.01c-9.63,27.16-11.1,34.1-19.39,34.11
+                                          c-12.1,0.02-10.59-14.76-8.52-26.7c2.09-12.07,9.6-35.55,17.96-49.48c8.37-13.96,3.72-15.79-3.72-14.86
+                                          c-7.42,0.9-13.46,3.71-22.76,9.29c-2.01,1.21-3.77,2.71-5.37,4.37c-1.03-6.24-18.59-19.7-35.95-19.23
+                                          c-14.84,0-58.84,13.25-62.69,62.22c-3.34,42.59,16.19,52.93,42.26,52.49c25.5-0.43,46.91-26.94,46.91-26.94
+                                          c3.09,15.96,12.56,27.73,29.88,28.8c18.25,1.13,31.36-8.6,38.55-22.65c5.46-10.66,11.61-28.27,17.79-46.35
+                                          c9.96-6.32,28.58-13.18,31.92-14.13c5.57-1.57,11.61-2.79,11.61,3.24c0,6.04-7.87,11.62-20.89,16.26c-13,4.65-21.35,5.57-22.74,9.28
+                                          c-1.4,3.72,1.39,16.72,8.81,28.78c7.43,12.08,14.63,24.43,25.95,24.43c13.78,0,38.71-10.08,55.73-20.02
+                                          c11.42,14.14,32.16,18.81,45.25,18.81c0,0,34.15,2.79,65.24-32.96c22.48-25.85,27.71-44.79,31.6-59.88c8,0.62,18.02,1.24,17.74,6.23
+                                          c-0.23,4.19-9.06,16.49-17.42,30.41c-8.35,13.95-17.82,31.63-13.87,43.26c2.99,8.77,16.77,19.81,40.86,11.68
+                                          c18.29-6.18,33.22-25.01,33.22-25.01c6.97-7.43,37.44-44.1,38.84-44.1c1.39,0,6.55,9.47,10.72,16.9c4.19,7.43,8.14,13.7,7.84,21.02
+                                          c-0.27,6.49-6.93,19.97-19.47,17.69c-11.25-2.05-17-13.53-20.72-13.99c-3.71-0.46-9.83,1.4-9.35,6.52
+                                          c0.45,5.1,16.73,23.47,36.85,23.62c23.86,0.19,39.73-10.6,36.69-39.47C776.72,196.38,760.07,176.11,757.38,167.5 M317.82,185
+                                          c-1.37,12.15-12.49,40.08-40.83,41.26c-22.76,0.91-13.89-43.95,1.81-56.31c6.1-4.8,16.41-11.36,28.53-7.45
+                                          c5.64,1.82,12.76,10.79,11.31,16.32c-0.17,0.63-0.08,0.68,0.16,0.38C318.39,181.08,318.04,183.01,317.82,185 M548.07,157.76
+                                          c11.02,0.19,12.48,8.91,10.54,17.64c-1.44,6.46-8.35,15.42-25.09,23.77c-6.03,3.01-10.03,4.75-12.79,6.05
+                                          c0-0.12-0.03-0.21-0.03-0.34C520.7,186.76,525.83,157.4,548.07,157.76 M961.71,6.02C931,3.45,865.51,11.04,851.14,16.16
+                                          c-20.55,7.32-22.25,5.33-11.79,27.02c6.05,12.54,24.08,31.28,43.18,30.08c50.64-3.17,61.75-33.03,130.41-18.93
+                                          c19.71,4.05,39.67,6.14,37.57,46.99c-2.1,40.86-15.15,66.1-19.77,77.67c-2.22,5.57-11.99,25.48-28.97,39.04
+                                          c-15.73,12.56-37.88,13.77-57.02,12.96c-13.42-0.57-26.11-1.17-32.22-5.7c-5.31-3.95-7.19-12.06-6.57-27.27
+                                          c0.8-19.71,4.28-37.58,13.4-64.92c12.73-38.12,26.23-49.98,32.93-60.35c1.71-2.65,2.94-4.32-0.72-7.02
+                                          c-3.14-2.32-5.69-1.61-12.62,4.06c-12.56,10.3-32.01,26.54-46.12,51.82c-13.18,23.64-26.25,49.15-32.87,89.93
+                                          c-2.66,16.36-2.38,29.43,3.72,39.84c8.69,14.86,28.07,23.42,54.08,23.29c3.51-0.02,82.5,6.04,114.41-37.36
+                                          c20.46-27.85,38.85-67.5,41.02-133.24C1076.26,10.74,1022.04,11.08,961.71,6.02 M1305.66,140.55c8.84,0,17.64-2.79,17.64-18.58
+                                          c0-15.79-13.93-16.72-15.8-16.72c-10.21,0-19.5,7.91-19.5,19.03C1288,135.44,1296.84,140.55,1305.66,140.55 M1670.42,115.12
+                                          c-5.12-0.46-8.92,0.54-7.27-3.5c1.61-3.95-1.32,2.16,3.31-9.89c4.65-12.08,7.19-25.11,1.26-27.14
+                                          c-7.84-2.69-26.55,12.13-35.04,34.78c-1.09,2.9-2.04,5.42-2.9,7.73c-1.45,0.01-2.36,0.07-2.36,0.07
+                                          c-6.48,0.23-24.47,2.04-24.47,15.97c0,6.45,12.04,6.75,18.25,6.76c-1.46,3.91-3.09,8.3-5.6,15.07c-6.85,18.54-15.97,47.2-22.09,61.2
+                                          c-4.28,9.8-24.11,23.96-38.27,21.89c-4.6-0.68-5.31-6.01-2.61-13.5c0.65-1.79,7.53-16.78,12.01-26.41
+                                          c4.64-9.95,8.54-16.15,10.77-28.02c4.14-21.99-18.61-25.25-26.54-25.34c-7.64-0.08-20.24,0.56-33.32,10.18
+                                          c-0.01,0-0.02,0.03-0.03,0.04c0.24-0.65,0.46-1.25,0.71-1.91l-0.05-0.12c9.12-26.24,28.47-82.2,29.37-84.55
+                                          c4.65-12.08,10.47-25.55,3.75-30.06c-6.3-4.23-27.54,9.57-37.92,36.28c-8.64,22.26-23.44,68.18-34.1,101.61
+                                          c-3.5,7.92-7.38,13.03-13.17,18.29c-10.81,9.83-33.07,23.02-42.33,29.55c8.38-23.89,22.05-60.87,22.05-66.83
+                                          c0-7.43-3.02-8.37-7.63-8.71c-4.91-0.37-14.18-0.08-20.04,13.72c-0.49,1.13-0.93,2.37-1.66,3.48c0.06-0.24,0.1-0.43,0.1-0.54
+                                          c0-1.88-9.3-20.49-32.55-20.49c-28.59,0-59.82,40.33-64.74,68.14c-0.02,0.03-0.03,0.02-0.04,0.05
+                                          c-3.07,8.52-10.32,13.44-13.94,15.72c-8.69,5.47-14.52,5.67-20.09,5.23c-5.56-0.48-6.92-4.15-6.92-9.72
+                                          c0-5.57,4.56-16.89,11.69-33.07c6.56-14.88,16.34-31.93,16.34-37.05c0-5.12-3.26-8.81-9.29-7.89c-6.04,0.93-17.83,5.1-22.01,10.68
+                                          c-4.17,5.56-12.47,24.4-17.6,37.88c-3.88,10.21-7.2,18.8-9.21,23.2l-0.01-0.55c-4.11,11.9-13.69,16.52-20.44,16.52
+                                          c-9.92,0-11.88-5.94-11.74-11.99c0.16-6.88,12.45-46.22,18.66-64.45c8.23-23.66,29.96-86.5,30.92-89
+                                          c4.65-12.08,10.46-25.55,3.74-30.06c-6.3-4.23-27.54,9.57-37.92,36.28c-9.26,23.84-25.56,74.77-36.3,108.48
+                                          c-8.65,21.55-18.19,29.48-28.34,37.02c-16.42,12.2-27.21,12.48-32.51,12.63c-9.8,0.28-17.97-4.46-21.63-11.1
+                                          c6.94-2.67,17.9-8.02,19.95-9.13c5.2-2.82,41.07-19.18,40.41-45.44c-0.51-19.98-18.71-24.17-37.91-24.17
+                                          c-33,0-57.06,22.59-60.55,63.96c-3.16,37.42,34.83,49.29,50.25,49.29c18.95,0,40.84-5.5,63.22-28.26
+                                          c4.18,16.73,6.17,28.26,23.32,28.26c16.99,0,33.55-11.69,37.22-15.77c5.47,8.23,9.15,15.31,23.21,15.31
+                                          c26.39,0,49.9-18.69,49.9-18.69c0-0.05,0-0.15-0.01-0.21c5.83,13.77,18.43,18.7,25.66,19.82c13.81,2.14,23.58,0.2,29.75-1.78
+                                          c-19.22,12.37-39.33,22.45-55.4,45.35c-11.42,16.27-16.63,30.31-17.94,42.14l-0.16-0.18c0,0.46,0.04,0.85,0.05,1.31
+                                          c-1.1,12.19,1.99,21.93,6.74,29.19c4.66,7.9,10.88,11.98,16.13,14.03c0.07,0.03,0.15,0.08,0.23,0.11
+                                          c19.73,8.29,41.2-6.56,50.41-28.38c6.05-14.35,16.23-44.72,25.08-71.58c7.17-21.73,9.97-27.62,14.3-39.45
+                                          c16.65-10.92,43.61-28.36,50.8-34.15c-6.66,19.23-12.27,35.64-11.44,38.05c1.37,4.17,6.64,4.32,17.35,3.7
+                                          c13.47-0.78,12.77-13.86,22.72-38.99c3.23-8.16,6.23-17.14,9.64-27.27c-0.08,0.29-0.13,0.49-0.13,0.49
+                                          c3.28-6.59,5.19-11.87,14.06-17.69c5.48-3.59,13.07-4.9,17.96-3.96c5.03,0.96,7.39,2.02,7.39,7.12c0,11.15-17.98,37.69-20.99,54.11
+                                          c-0.95,5.18-8.85,27.85,18.07,27.85c26.94,0,41.85-12.05,46.95-12.05c5.09,0,6.53,10.94,20.42,11.92
+                                          c18.35,1.31,43.48-9.67,50.45-21.29c2.45-4.08-0.05-14.43-4.25-10.13c-7.02,7.19-37.73,19.87-33.03,0.58
+                                          c0.66-2.73,5.21-12.2,13.57-33.91c9.21-23.89,19.07-54.27,19.07-54.27s15.29,0.77,19.91-1.54c4.65-2.33,9.87-5.98,9.87-15.71
+                                          C1682.96,114.65,1675.54,115.58,1670.42,115.12 M1132.09,157.37c7.81-0.01,12.85,2.48,12.85,12.13c0,9.41-5.54,16.3-17.05,24.24
+                                          c-3.02,2.08-18.23,9.85-21.63,10.71C1105.76,192.81,1109.94,157.38,1132.09,157.37 M1350.93,216.7c0-13.47,11.56-51.84,35.7-52.04
+                                          c12.08-0.11,19.19,8.77,18.9,16.68c-0.01,0.18-0.02,0.12-0.02,0.04c-4.29,10.62-9.56,28.43-16.2,45.51c0,0-13.19,6.97-21.13,6.97
+                                          C1360.32,233.85,1350.93,230.15,1350.93,216.7 M1353.87,329.59c-6.6,19.46-13.28,29.4-21.13,25.7c-9.21-4.35-5.6-25.12,1.65-39.82
+                                          c7.73-15.68,16.57-24.54,22.52-29.27c7.17-5.69,13.2-9.81,16.36-11.73C1373.28,274.47,1361.95,305.78,1353.87,329.59"/>
+                </svg>
+
+
+
+              </div>
+            </div><!--logo__container-->
+            <div class="disclaimer" data-max-height="27">{{{BD_terms-conditions--pdl}}}</div><!--disclaimer-->
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat();     
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();      
+
+    </script>
+
+
+  </body>
+</html>

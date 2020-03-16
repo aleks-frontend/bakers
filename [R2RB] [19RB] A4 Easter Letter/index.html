@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html data-sign="OSB">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="placeholder-controller.css">
+
+    <style>
+      /*
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css');     
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/CosmopolitanScript/stylesheet.css');
+      */
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+
+
+      :root {
+        --white: #fff;
+
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        font-size: 11pt;
+        color: #000;
+      }
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative;
+        z-index: 999;}
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0;
+        right: 0;
+        height: 0.1rem;
+        width: 0.1em;
+        min-width: 0;
+        min-height: 0;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }   
+
+      .fit {
+        display: flex;
+        flex-direction: column;
+        padding: 17.7pt 16pt;
+      }
+
+      .header {
+        position: relative;
+        height: 228.2pt;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: url("{{{ BD_backgroundImage--al }}}") no-repeat center; 
+        background-size: cover;
+        z-index: -1;
+      }
+
+      .heading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 134pt;
+        padding: 41pt 259pt 0 22pt;
+        font-family: var(--font-sofa-sans);
+        font-size: 39.7pt;
+        line-height: 1;
+        text-align: center;
+        color: #fff;
+      }
+
+      .heading h1 {
+        font-weight: bold;
+      }
+
+      .subheading {
+        position: absolute;
+        bottom: 41pt;
+        left: 68pt;
+        font-family: var(--font-3d-sketch);
+        font-size: 41pt;
+        color: #db85ba;
+        text-align: center;
+      }
+
+      .body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content {
+        flex: 1;
+        padding: 6.5pt 37pt;
+      }      
+
+      .content h1 {
+        font-size: 21pt;
+        font-weight: bold;
+        margin-bottom: 8.1pt;
+      }
+
+      .content h2 {
+        font-size: 13.95pt;
+        line-height: 1.25em;
+        font-weight: bold;
+        margin-bottom: 5.6pt;
+      }     
+
+      .content p {
+        font-size: 11.95pt;
+        line-height: 1.25em;
+        margin-bottom: 11.6pt;
+      }
+
+      .tinymce_style--dark {
+        color: #2f006f;
+      }
+
+      .signOff__container {
+        padding: 6.5pt 37pt 5.9pt 37pt;
+      }
+
+      .signOff {
+        font-size: 14pt;
+        font-weight: bold;
+        line-height: 1.2em;
+      }
+
+      .signOff--secondary {
+        font-weight: normal;
+        margin-bottom: 10pt;
+      }
+
+      .footer {
+        padding: 0 37pt 6.2pt 37pt
+      }
+
+      .footer__content {
+        margin-top: 7pt;
+        padding: 0 1.8pt;
+        font-size: 9pt;
+      }
+
+      .footer__logos {
+        display: flex;
+      }
+
+      .footer__row {
+        height: 69pt;
+      }
+
+      .footer__row--primary {
+        width: 140pt; 
+        padding-top: 17pt;
+      }
+
+      .footer__row--secondary {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 113pt;
+        margin-left: 23pt;
+      }
+
+      .logo path {
+        fill: #2f006f;
+      }
+
+      .logo--secondary {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle }}{{^placeholder-toggle}}hide{{/placeholder-toggle}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+          <div class="header">
+            <div class="backgroundImage"> </div> <!-- backgroundImage -->
+            {{#BD_heading--al}}
+            <div class="heading" data-max-height="220">
+              {{{ BD_heading--al }}}
+            </div> <!-- heading -->
+            {{/BD_heading--al}}
+            {{#BD_subheading--al}}
+            <div class="subheading" data-max-line="1">
+              {{{ BD_subheading--al }}}
+            </div> <!-- subheading -->
+            {{/BD_subheading--al}}
+          </div> <!-- header -->
+          <div class="body">
+            <div class="content">
+              <div class="content__inner" data-max-height="550">
+                {{{ BD_body-content--al }}}
+              </div> <!-- content__inner -->
+            </div> <!-- content -->
+            <div class="signOff__container">
+              <div class="signOff signOff--secondary">
+                Happy Easter,
+              </div> <!-- signOff -->
+              {{#BD_franchisee-name--al}}
+              <div class="signOff" data-max-line="1">
+                {{{ BD_franchisee-name--al }}}
+              </div> <!-- signOff -->
+              {{/BD_franchisee-name--al}}
+
+              {{#team.name}}
+              <div class="signOff" data-max-line="1">
+                Bakers Delight {{team.name}} Franchisee
+              </div> <!-- signOff -->
+              {{/team.name}}
+
+              {{#BD_phone-name--al}}
+              <div class="signOff" data-max-line="1">
+                T: {{{ BD_phone-name--al }}}
+              </div> <!-- signOff -->
+              {{/BD_phone-name--al}}
+            </div> <!-- signOff__container -->
+          </div> <!-- body -->
+          <div class="footer">
+            <div class="footer__logos">
+              <div class="footer__row footer__row--primary">
+                <svg viewBox="0 0 1950 452" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo">
+                  <path d="M210.031 159.282C210.031 159.282 212.922 158.18 225.414 151.353C238.731 144.068 286.379 121.806 288.838 74.031C290.03 50.933 282.532 39.795 279.042 34.215C279.042 34.215 261.98 10.201 175.176 2.51599C88.356 -5.18701 20.155 12.285 12.997 15.151C5.86802 18.004 -2.90798 20.792 1.92002 31.792C6.74302 42.822 22.759 77.022 54.96 78.685C87.161 80.344 122.749 58.489 146.651 54.333C170.539 50.164 211.264 54.424 230.16 63.466C249.083 72.52 253.188 77.817 246.714 102.832C241.038 124.768 222.534 130.9 211.736 138.13C200.688 145.533 187.358 152.963 175.412 154.083C167.888 154.791 154.995 154.507 145.813 154.46C123.715 154.343 114.898 153.221 116.075 161.904C117.235 170.595 128.9 169.572 136.928 169.988C144.982 170.396 160.291 170.099 180.013 174.336C199.701 178.598 225.083 186.541 216.376 215.416C209.403 238.518 190.268 268.68 133.49 266.568C85.669 264.795 82.662 261.425 82.498 228.004C82.465 221.029 85.872 173.361 107.373 131.314C127.173 92.595 131.643 88.817 134.302 85.352C137.802 80.8 139.587 77.914 136.273 75.141C132.148 71.692 130.096 72.355 121.119 79.422C112.13 86.506 81.687 110.238 60.524 152.584C53.179 167.278 37.322 199.557 30.483 238.678C24.928 270.481 17.066 322.235 120.705 316.532C211.184 311.55 235.481 278.294 250.064 225.321C266.214 166.637 210.031 159.282 210.031 159.282Z" fill="white"/>
+                  <path d="M877.441 194.512C870.957 173.764 892.028 162.242 884.644 154.903C876.952 147.249 852.391 146.991 841.87 161.106C829.465 177.756 847.169 188.108 840.405 196.868C837.298 200.888 834.797 203.784 828.129 211.786C819.962 221.591 822.792 217.829 806.658 237.745C790.513 257.622 779.886 263.052 766.976 261.977C754.088 260.877 761.114 250.629 764.578 244.78C768.37 238.378 780.141 225.436 788.185 211.989C796.267 198.567 796.853 186.452 794.173 180.007C791.491 173.552 783.408 172.054 769.012 173.476C763.413 174.031 760.364 174.572 750.783 173.837C748.013 173.624 745.428 173.089 743.075 172.655C743.273 172.135 743.452 171.602 743.666 171.091C746.571 164.107 756.574 150.616 749.277 146.967C740.735 142.698 726.83 140.712 713.641 149.353C698.666 159.166 705.634 173.081 712.049 180.007C719.531 188.077 711.729 209.278 691.845 233.476C671.96 257.667 653.42 270.562 634.595 270.562C622.999 270.562 613.874 266.042 608.559 257.679C614.8 254.984 622.22 251.679 629.726 248.068C643.373 241.504 675.596 221.543 678.163 200.984C682.051 169.834 653.06 167.175 640.285 166.611C603.408 164.982 568.348 188.129 564.24 242.513C563.804 248.243 564.258 253.367 565.32 258.033C559.724 261.14 554.99 263.865 553.701 264.523C537.224 272.935 531.492 274.308 523.192 272.464C513.537 270.318 504.821 245.849 505.355 242.071C505.879 238.315 512.339 237.776 523.629 232.936C534.908 228.11 555.877 218.448 555.877 195.317C555.877 177.024 538.233 171.372 531.689 171.114C518.284 170.593 504.674 178.317 491.821 185.891C484.714 190.077 479.789 193.166 477.581 194.575C479.655 188.663 481.708 182.96 483.72 177.669C484.201 176.403 484.53 175.319 484.79 174.314C497.297 140.66 519.924 81.68 520.886 79.158C526.265 65.177 533.001 49.581 525.217 44.352C517.93 39.452 493.339 55.4229 481.321 86.3619C467.785 121.213 438.534 205.546 428.417 237.03L428.427 237.024C417.276 268.471 415.578 276.495 405.981 276.522C391.971 276.54 393.722 259.428 396.118 245.608C398.541 231.631 407.233 204.446 416.918 188.315C426.606 172.157 421.219 170.026 412.61 171.114C404.016 172.157 397.032 175.415 386.261 181.87C383.932 183.274 381.892 185.007 380.045 186.931C378.858 179.704 358.521 164.122 338.42 164.665C321.235 164.665 270.296 180.011 265.843 236.702C261.98 286.015 284.587 297.985 314.775 297.473C344.301 296.973 369.091 266.274 369.091 266.274C372.667 284.758 383.639 298.376 403.687 299.62C424.816 300.929 439.997 289.661 448.32 273.399C454.634 261.053 461.758 240.659 468.919 219.729C480.45 212.411 502.012 204.467 505.882 203.375C512.328 201.553 519.329 200.145 519.329 207.131C519.329 214.131 510.217 220.58 495.139 225.953C480.087 231.33 470.42 232.404 468.811 236.701C467.186 241.006 470.42 256.056 479.014 270.025C487.621 284.011 495.956 298.31 509.066 298.31C525.016 298.31 553.886 286.636 573.594 275.13C586.821 291.499 610.834 296.911 625.99 296.911C625.99 296.911 665.525 300.141 701.523 258.753C727.557 228.821 733.6 206.896 738.112 189.427C747.371 190.138 758.975 190.861 758.656 196.642C758.395 201.496 748.165 215.736 738.487 231.853C728.82 247.999 717.854 268.468 722.432 281.941C725.897 292.099 741.842 304.879 769.74 295.461C790.917 288.309 808.205 266.504 808.205 266.504C816.272 257.9 851.548 215.438 853.175 215.438C854.78 215.438 860.761 226.401 865.589 235.008C870.443 243.606 875.013 250.869 874.661 259.352C874.35 266.862 866.64 282.475 852.115 279.834C839.087 277.463 832.431 264.166 828.131 263.633C823.837 263.094 816.755 265.254 817.304 271.186C817.827 277.09 836.676 298.354 859.975 298.536C887.604 298.749 905.98 286.255 902.457 252.839C899.828 227.95 880.56 204.475 877.441 194.512ZM368.504 214.764C366.922 228.827 354.044 261.17 321.234 262.53C294.885 263.587 305.15 211.641 323.327 197.335C330.385 191.776 342.33 184.181 356.363 188.708C362.892 190.812 371.134 201.196 369.458 207.608C369.264 208.342 369.368 208.399 369.641 208.044C369.165 210.237 368.76 212.469 368.504 214.764ZM635.095 183.233C647.863 183.446 649.544 193.544 647.301 203.649C645.633 211.124 637.634 221.508 618.254 231.167C611.27 234.651 606.637 236.667 603.443 238.169C603.438 238.034 603.409 237.919 603.409 237.778C603.408 216.809 609.35 182.809 635.095 183.233Z" fill="white"/>
+                  <path d="M1114.02 7.54599C1078.46 4.56599 1002.63 13.359 986 19.288C962.208 27.763 960.24 25.459 972.35 50.568C979.35 65.083 1000.23 86.78 1022.34 85.397C1080.98 81.732 1093.84 47.16 1173.33 63.478C1196.15 68.166 1219.27 70.583 1216.83 117.887C1214.4 165.193 1199.29 194.418 1193.95 207.808C1191.37 214.257 1180.07 237.302 1160.4 253.005C1142.19 267.542 1116.54 268.956 1094.38 268.015C1078.84 267.353 1064.14 266.661 1057.07 261.421C1050.92 256.855 1048.75 247.454 1049.47 229.843C1050.39 207.021 1054.42 186.329 1064.98 154.679C1079.72 110.549 1095.36 96.807 1103.11 84.805C1105.09 81.734 1106.51 79.808 1102.28 76.68C1098.65 73.996 1095.69 74.811 1087.66 81.386C1073.11 93.308 1050.6 112.114 1034.27 141.389C1019.01 168.759 1003.87 198.29 996.203 245.513C993.125 264.452 993.451 279.587 1000.51 291.642C1010.57 308.847 1033 318.755 1063.12 318.605C1067.18 318.587 1158.64 325.601 1195.59 275.347C1219.28 243.103 1240.57 197.199 1243.09 121.076C1246.64 13.007 1183.87 13.404 1114.02 7.54599Z" fill="white"/>
+                  <path d="M1512.25 163.299C1522.48 163.299 1532.67 160.07 1532.67 141.792C1532.67 123.504 1516.54 122.432 1514.38 122.432C1502.56 122.432 1491.8 131.591 1491.8 144.462C1491.8 157.39 1502.04 163.299 1512.25 163.299Z" fill="white"/>
+                  <path d="M1627.86 210.571C1627.87 210.557 1627.87 210.532 1627.88 210.51C1627.86 210.409 1627.86 210.495 1627.86 210.571Z" fill="white"/>
+                  <path d="M1934.57 133.856C1928.65 133.322 1924.25 134.48 1926.16 129.8C1928.02 125.229 1924.63 132.306 1929.99 118.349C1935.37 104.362 1938.31 89.278 1931.45 86.923C1922.37 83.812 1900.71 100.974 1890.88 127.194C1889.62 130.547 1888.53 133.473 1887.52 136.147C1885.84 136.157 1884.79 136.222 1884.79 136.222C1877.28 136.482 1856.45 138.579 1856.45 154.716C1856.45 162.182 1870.39 162.532 1877.58 162.544C1875.89 167.073 1874 172.155 1871.1 179.991C1863.17 201.454 1852.61 234.637 1845.52 250.85C1840.57 262.196 1817.61 278.588 1801.21 276.196C1795.89 275.413 1795.06 269.237 1798.19 260.559C1798.93 258.485 1806.91 241.131 1812.1 229.985C1817.46 218.458 1821.98 211.286 1824.57 197.542C1829.36 172.079 1803.02 168.304 1793.84 168.206C1784.99 168.106 1770.4 168.858 1755.26 179.985C1755.25 179.991 1755.24 180.022 1755.22 180.028C1755.51 179.278 1755.75 178.577 1756.05 177.823L1755.99 177.678C1766.55 147.3 1788.95 82.508 1789.99 79.781C1795.38 65.798 1802.11 50.198 1794.33 44.972C1787.04 40.073 1762.45 56.048 1750.43 86.981C1740.42 112.75 1723.29 165.914 1710.94 204.629C1706.89 213.801 1702.4 219.715 1695.7 225.807C1683.18 237.19 1657.41 252.455 1646.68 260.022C1656.38 232.36 1672.21 189.547 1672.21 182.639C1672.21 174.041 1668.72 172.951 1663.38 172.555C1657.69 172.125 1646.96 172.465 1640.18 188.44C1639.62 189.743 1639.11 191.178 1638.26 192.461C1638.34 192.184 1638.38 191.963 1638.38 191.836C1638.38 189.664 1627.61 168.119 1600.7 168.119C1567.6 168.119 1531.43 214.816 1525.74 247.008C1525.73 247.043 1525.71 247.024 1525.7 247.065C1522.15 256.936 1513.75 262.624 1509.56 265.27C1499.5 271.606 1492.75 271.834 1486.3 271.323C1479.86 270.759 1478.28 266.514 1478.28 260.067C1478.28 253.62 1483.56 240.504 1491.82 221.774C1499.41 204.553 1510.73 184.807 1510.73 178.878C1510.73 172.952 1506.96 168.677 1499.98 169.747C1492.99 170.821 1479.34 175.647 1474.5 182.114C1469.67 188.548 1460.06 210.362 1454.12 225.969C1449.64 237.791 1445.78 247.733 1443.46 252.836L1443.45 252.201C1438.69 265.98 1427.6 271.324 1419.78 271.324C1408.29 271.324 1406.03 264.447 1406.19 257.445C1406.37 249.482 1420.61 203.927 1427.79 182.822C1437.32 155.432 1462.48 82.671 1463.58 79.78C1468.96 65.797 1475.69 50.197 1467.92 44.971C1460.63 40.072 1436.03 56.047 1424.01 86.98C1413.29 114.577 1394.41 173.548 1381.99 212.575C1371.97 237.53 1360.92 246.71 1349.18 255.434C1330.17 269.561 1317.67 269.887 1311.54 270.057C1300.19 270.379 1290.74 264.891 1286.5 257.202C1294.52 254.112 1307.22 247.923 1309.6 246.636C1315.62 243.37 1357.15 224.427 1356.39 194.025C1355.8 170.894 1334.73 166.046 1312.49 166.046C1274.29 166.046 1246.43 192.202 1242.39 240.105C1238.73 283.427 1282.72 297.168 1300.58 297.168C1322.51 297.168 1347.86 290.809 1373.77 264.449C1378.61 283.824 1380.92 297.168 1400.78 297.168C1420.45 297.168 1439.62 283.641 1443.87 278.91C1450.21 288.441 1454.46 296.635 1470.75 296.635C1501.31 296.635 1528.52 274.994 1528.52 274.994C1528.52 274.928 1528.52 274.818 1528.51 274.748C1535.27 290.693 1549.85 296.404 1558.22 297.701C1574.21 300.174 1585.52 297.931 1592.66 295.638C1570.41 309.96 1547.12 321.628 1528.52 348.146C1515.3 366.982 1509.27 383.246 1507.75 396.931L1507.57 396.722C1507.56 397.261 1507.62 397.712 1507.62 398.236C1506.35 412.347 1509.92 423.631 1515.43 432.027C1520.83 441.17 1528.02 445.894 1534.1 448.271C1534.18 448.308 1534.28 448.361 1534.37 448.4C1557.21 457.994 1582.06 440.808 1592.73 415.541C1599.73 398.932 1611.52 363.762 1621.77 332.672C1630.07 307.506 1633.31 300.693 1638.33 286.99C1657.61 274.342 1688.81 254.156 1697.14 247.451C1689.43 269.719 1682.95 288.717 1683.89 291.51C1685.48 296.338 1691.58 296.518 1703.98 295.799C1719.57 294.899 1718.77 279.756 1730.29 250.653C1734.03 241.212 1737.5 230.815 1741.45 219.083C1741.36 219.421 1741.3 219.649 1741.3 219.649C1745.1 212.024 1747.31 205.907 1757.59 199.163C1763.93 195.001 1772.72 193.491 1778.39 194.577C1784.21 195.69 1786.94 196.915 1786.94 202.819C1786.94 215.729 1766.12 246.46 1762.63 265.469C1761.54 271.469 1752.39 297.715 1783.56 297.715C1814.75 297.715 1832.01 283.762 1837.91 283.762C1843.81 283.762 1845.48 296.42 1861.56 297.569C1882.8 299.085 1911.9 286.374 1919.98 272.913C1922.82 268.183 1919.92 256.21 1915.06 261.19C1906.92 269.506 1871.37 284.198 1876.81 261.86C1877.58 258.704 1882.84 247.733 1892.53 222.596C1903.19 194.94 1914.61 159.758 1914.61 159.758C1914.61 159.758 1932.31 160.654 1937.67 157.979C1943.06 155.28 1949.1 151.063 1949.1 139.787C1949.09 133.323 1940.5 134.398 1934.57 133.856ZM1311.28 182.782C1320.32 182.774 1326.16 185.653 1326.16 196.829C1326.16 207.725 1319.75 215.7 1306.43 224.897C1302.93 227.311 1285.31 236.301 1281.38 237.299C1280.8 223.809 1285.64 182.793 1311.28 182.782ZM1564.66 251.467C1564.66 235.875 1578.05 191.446 1606 191.209C1619.99 191.084 1628.21 201.359 1627.88 210.516C1627.87 210.725 1627.86 210.655 1627.86 210.569C1622.89 222.862 1616.79 243.483 1609.1 263.26C1609.1 263.26 1593.82 271.328 1584.64 271.328C1575.53 271.329 1564.66 267.047 1564.66 251.467ZM1568.07 382.182C1560.43 404.715 1552.69 416.225 1543.61 411.934C1532.95 406.901 1537.13 382.846 1545.52 365.825C1554.47 347.665 1564.71 337.407 1571.59 331.94C1579.9 325.354 1586.87 320.577 1590.54 318.364C1590.54 318.364 1577.42 354.614 1568.07 382.182Z" fill="white"/>
+                </svg>      
+              </div> <!-- footer__row -->
+              <div class="footer__row footer__row--secondary">
+                <img src="{{BD_sponsor-logo--al }}" class="logo logo--secondary" />
+              </div> <!-- footer__row -->
+            </div> <!-- footer__logos -->
+            <div class="footer__content" data-max-line="1">
+              {{{ BD_footer__content--al }}}
+            </div> <!-- footer__content -->
+          </div> <!-- footer -->   
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};                                      
+    </script>
+    <script src="main.js"></script>   
+    <script src="prefixfree.js"></script>
+    <script src="placeholder-controller.js"></script>
+    <script src="char-limit.js"></script>
+    <script src="check-export-mode.js"></script>
+    <script src="check-height.js"></script>    
+    <script src="max-line-check.js"></script>    
+    <script src="max-height-check.js"></script>    
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.3.min.js" type="text/javascript"></script>
+    <script>
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          checkHeight(document.getElementsByClassName('check-overflow')); 
+          maxLineCheck(); 
+          maxHeightCheck(); 
+        });
+      });    
+
+      const maxLineChecks = document.querySelectorAll('[data-max-line]');
+      const maxHeightChecks = document.querySelectorAll('[data-max-height]');
+      const checkOverflows = document.querySelectorAll('.check-overflow');
+
+      if ( maxLineChecks.length !== 0) {
+        maxLineChecks.forEach(maxLineCheck => {
+          overflowObserver.observe(maxLineCheck, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });
+      }
+
+      if ( maxHeightChecks.length !== 0) {
+        maxHeightChecks.forEach(maxHeightCheck => {
+          overflowObserver.observe(maxHeightCheck, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });
+      }      
+
+      if ( checkOverflows.length !== 0) {      
+        checkOverflows.forEach(checkOverflow => {
+          overflowObserver.observe(checkOverflow, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });      
+      }
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        checkHeight(document.getElementsByClassName('check-overflow')); 
+        maxLineCheck(); 
+        maxHeightCheck();         
+      });
+
+      placeholderController();
+      checkCrop();  
+      checkExport(); 
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      /*
+        TextFit.fit({
+          selector: '.textFit'
+        });      
+        */
+
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html data-sign="OSB">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="placeholder-controller.css">
+
+    <style>
+      /*
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css');     
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/CosmopolitanScript/stylesheet.css');
+      */
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+
+
+      :root {
+        --red-color: #ee2a2c;
+
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        font-size: 11pt;
+        color: #fff;
+      }
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative;
+        z-index: 999;}
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }  
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-repeat: no-repeat;
+        background-size: cover;   
+        background-position: center center
+      }     
+
+      .theme--1 .backgroundImage {
+        background-image: url(https://files.outfit.io/media_library_items/92935/CAM4695_Voucher-new-1.png);
+      }           
+
+      .theme--2 .backgroundImage {
+        background-image: url(https://files.outfit.io/media_library_items/92937/CAM4695_Voucher_HR-Josh.png);
+      }              
+
+      .theme--3 .backgroundImage {
+        background-image: url(https://files.outfit.io/media_library_items/92939/CAM4695_Voucher_HR-JOSH-2.png);
+      }     
+
+      .theme--4 .backgroundImage {
+        /*background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/b0f15b4f845bd9dd2ed1f47dc11e38d5/voucher-bg-3.png);*/
+        background-image: url(https://files.outfit.io/media_library_items/57589/CAM4834_Bounceback%2520voucher%25202_90%2520x%252055%2520mm_HR.jpg); /*CMYK JPG*/
+        background-image: url(https://files.outfit.io/media_library_items/92936/CAM4834_Bounceback%2520voucher%25202_90%2520x%252055%2520mm_HRJOSH.png); /*RGB JPG*/
+      }     
+
+      .footer {
+        display: none;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding-left: 16.7pt;
+      }
+
+      .footer--2 {
+        padding-left: 21pt;
+      }
+
+      .footer--3 {
+        padding-right: 25pt;
+      }
+
+      .footer--3,
+      .footer--4 {
+        padding-left: 20.7pt;
+      } 
+
+      .theme--1 .footer--1,
+      .theme--2 .footer--2,
+      .theme--3 .footer--3,
+      .theme--4 .footer--4 {
+        display: flex;
+      }
+
+      .offer {
+        padding-left: 2.3pt;
+        font-size: 12pt;
+        font-weight: bold;
+        line-height: 1.2em;
+        /*color: #b9e5fa;*/
+      }
+
+      .offer--2 {
+        padding-left: 0.5pt;
+        font-size: 9.3pt;
+      }
+
+      .offer--3 {
+        padding-left: 0.2pt;
+        font-size: 9.3pt;
+      }
+
+      .offer--4 {
+        padding-left: 0.2pt;
+        font-size: 9.6pt;
+        line-height: 1.1em;
+      }
+
+      .logo__container {
+        height: 44.3pt;
+        width: 82pt;
+        margin-top: 3.4pt;
+        padding-top: 10.3pt;
+        background: rgba(255,255,255,0.25);
+        border-radius: 4%;
+        text-align: center;
+        opacity: 0;
+      }
+
+      .logo__container--2 {
+        height: 50.3pt;
+        width: 75.4pt;
+        margin-top: 7.5pt;
+      }
+
+      .logo__container--3 {
+        height: 50.3pt;
+        width: 76pt;
+        margin-top: 3.8pt;
+      }
+
+      .logo__container--4 {
+        height: 50.3pt;
+        width: 76pt;
+        margin-top: 4.4pt;
+      }
+
+      .logo {
+        max-width: 65.7pt;
+      }
+
+      .logo--2 {
+        max-width:60.6pt;
+      }
+
+      .logo--3 {
+        max-width:60.6pt;
+      }
+
+      .logo--4 {
+        max-width: 60.3pt;
+      }
+
+      .fit--back {
+        display: flex;
+        flex-direction: column;
+        padding: 15.3pt 17pt;
+        background: #bde3e8;
+        color: #00a9b7;
+        justify-content: space-between;
+      }
+
+      .header {
+        margin-bottom: 0;
+        flex: 0 0 auto;
+      }
+
+      .heading {
+        font-size: 12.5pt;
+        font-weight: bold;
+      }
+
+      .heading--secondary {
+        display: flex;
+        flex-flow: column nowrap;
+        margin-bottom: 3pt;
+        max-height: 50px;
+      }
+
+      .body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 0 0 auto;
+        overflow: hidden;
+      }
+
+      .featureImage__container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;        
+      }
+
+      .featureImage {
+        max-width: 95%;
+        max-height: 95%;     
+      }
+
+      .footer--secondary {
+        display: block;
+        position: relative;
+        left: auto;
+        bottom: auto;
+        padding: 0;
+        margin: 3pt 0 0;
+        font-size: 14px;
+        line-height: 0.9em;
+        max-height: 38%;
+      }
+
+      .theme--1 .footer--secondary {
+        line-height: 1em;
+      }
+
+      .issueDate {
+        display: flex;
+        align-items: flex-end;
+        padding-bottom: 2pt;
+      }
+
+      .issueDate__value {
+        flex: 1;
+        padding-left: 1pt;
+        border-bottom: 1px solid #00a9b7;
+      }
+
+      .theme--1 .bakeryMetadata,
+      .theme--1 .issueDate {
+        display: none;
+      }   
+
+      .disclaimerSpent {
+        display: none;
+      }
+
+      .theme--3 .disclaimerSpent {
+        display: inline;
+      }  
+
+
+
+      /**Broken Featured Image**/
+
+      .featureImage:before { 
+        content: " ";
+        display: block;
+        position: absolute;
+        top: -10px;
+        font-size: 0;
+        left: 0;
+        height: calc(100% + 10px);
+        width: 100%;
+        background-color: #bde3e8;
+        border: #bde3e8;
+        border-radius: 5px;
+      }
+
+      .featureImage:after { 
+        content: " ";
+        display: block;
+        font-size: 16px;
+        font-style: normal;
+        color: rgb(100, 100, 100);
+        position: absolute;
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+
+      .featureImage:-moz-broken {
+        -moz-force-broken-image-icon: unset;
+      }
+
+      /* Helper classes */
+
+      .u-block {
+        display: block;
+      }
+
+      /** End Broken Link **/
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle }}{{^placeholder-toggle}}hide{{/placeholder-toggle}} {{ BD_offer--vc }}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+      {{#placeholder-image-2}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
+      {{/placeholder-image-2}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit fit--front">
+          <div class="backgroundImage"></div> <!-- backgroundImage -->
+          <div class="footer footer--1">
+            <div class="offer offer--1">
+              When you <br />
+              buy a 6-Pack of<br />
+              Hot Cross Buns
+            </div> <!-- offer -->
+            <div class="logo__container logo__container--1">
+              <img src="{{{account.logos.reversed}}}" class="logo" />
+            </div> <!-- logo__container -->
+          </div> <!-- footer -->
+          <div class="footer footer--2">
+            <div class="offer offer--2">
+              Simply present this voucher
+            </div> <!-- offer -->
+            <div class="logo__container logo__container--2">
+              <img src="{{{account.logos.reversed}}}" class="logo logo--2" />
+            </div> <!-- logo__container -->
+          </div> <!-- footer -->
+          <div class="footer footer--3">
+            <div class="offer offer--3" data-max-line="1">
+              when you spend {{ ^BD_offer-text--vc }}[X]{{ /BD_offer-text--vc }}{{{ BD_offer-text--vc }}}!
+            </div> <!-- offer -->
+            <div class="logo__container logo__container--3">
+              <img src="{{{account.logos.reversed}}}" class="logo logo--3" />
+            </div> <!-- logo__container -->
+          </div> <!-- footer -->
+          <div class="footer footer--4">
+            <div class="offer offer--4">
+              when you buy a <br />
+              Hot Cross Bun 6-Pack!
+            </div> <!-- offer -->
+            <div class="logo__container logo__container--4">
+              <img src="{{{account.logos.reversed}}}" class="logo logo--4" />
+            </div> <!-- logo__container -->
+          </div> <!-- footer -->
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit fit--back">
+
+          <div class="header">
+            <div class="heading" data-max-line="1"> {{{ BD_back-heading--vc }}}</div> <!-- heading -->
+            <div class="heading heading--secondary">
+              <div class="fitted-text">
+                {{^team.mso}}
+                {{^team.artworkAddress1}}              
+                {{^team.artworkAddress2}}              
+                {{^team.artworkAddress3}}              
+                <div class="u-block">
+                  Bakers Delight {{{ team.name }}}
+                </div><!--u-block-->
+                {{/team.artworkAddress3}}              
+                {{/team.artworkAddress2}}              
+                {{/team.artworkAddress1}}                            
+                {{/team.mso}}
+                <div class="u-block">
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  <div>{{{team.artworkAddress1}}}</div>
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  <div>{{{team.artworkAddress2}}} </div> 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  <div>{{{team.artworkAddress3}}} </div> 
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+                  {{#team.mso}}<span class="bakeryInfo_item js-mso">{{{team.mso}}}</span><!--bakeryInfo_item-->{{/team.mso}}
+                </div><!--u-block-->
+              </div><!--fitted-text-->
+            </div><!--heading heading--secondary-->
+          </div> <!-- header -->
+          <div class="body">
+            <div class="featureImage__container">
+              <img src="{{{ BD_feature-image--vc }}}{{{ BD_feature-image--vc-3 }}}{{{ BD_feature-image--vc-4 }}}" class="featureImage" alt="Feature Image" />
+            </div><!-- featureImage__container-->
+          </div> <!-- body -->
+          <div class="footer footer--secondary">
+            <div class="footer__inner"> 
+              {{#BD_issue-date--vc}}
+              <div class="issueDate">Issue date: {{{BD_issue-date--vc}}}</div>
+              {{/BD_issue-date--vc}}    
+              {{^BD_issue-date--vc}}
+              <div class="issueDate">Issue date: _______________________________</div>
+              {{/BD_issue-date--vc}}
+              {{ BD_valid-date--vc }}.<!-- Valid date will be shown on all Themes -->
+              <!-- {{^team.mso}}Bakers Delight bakery{{/team.mso}}{{#team.mso}}Bakers Delight bakeries.{{/team.mso}} --> <!-- removed by Blake 28/03/2019 - request from Elise at Bakers via Intercom -->
+              Subject to availability. One offer per person, per day. Cannot be redeemed for cash or with any other offer. 
+              {{#BD_offer-text--vc}}<span class="disclaimerSpent">{{ BD_offer-text--vc }} must be spent in one transaction.</span>{{/BD_offer-text--vc}}
+              {{{ BD_disclaimer--vc }}}
+            </div><!-- footer__inner -->
+          </div> <!--footer -->
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};                                      
+    </script>
+    <script src="main.js"></script>   
+    <script src="prefixfree.js"></script>
+    <script src="placeholder-controller.js"></script>
+    <script src="char-limit.js"></script>
+    <script src="check-export-mode.js"></script>
+    <script src="check-height.js"></script>    
+    <script src="max-line-check.js"></script>    
+    <script src="max-height-check.js"></script>    
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js"></script>
+
+    <script>
+
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat(); 
+
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          checkHeight(document.getElementsByClassName('check-overflow')); 
+          maxLineCheck(); 
+          maxHeightCheck(); 
+        });
+      });    
+
+      const maxLineChecks = document.querySelectorAll('[data-max-line]');
+      const maxHeightChecks = document.querySelectorAll('[data-max-height]');
+      const checkOverflows = document.querySelectorAll('.check-overflow');
+
+      if ( maxLineChecks.length !== 0) {
+        maxLineChecks.forEach(maxLineCheck => {
+          overflowObserver.observe(maxLineCheck, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });
+      }
+
+      if ( maxHeightChecks.length !== 0) {
+        maxHeightChecks.forEach(maxHeightCheck => {
+          overflowObserver.observe(maxHeightCheck, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });
+      }      
+
+      if ( checkOverflows.length !== 0) {      
+        checkOverflows.forEach(checkOverflow => {
+          overflowObserver.observe(checkOverflow, {
+            attributes: false,
+            characterData: true,
+            childList: true,
+            subtree: true,
+            attributeOldValue: false,
+            characterDataOldValue: true
+          });        
+        });      
+      }
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        checkHeight(document.getElementsByClassName('check-overflow')); 
+        maxLineCheck(); 
+        maxHeightCheck();         
+      });
+
+      placeholderController();
+      checkCrop();  
+      checkExport(); 
+      charLimit();
+
+      TextFit.fit({
+        selector: '.footer__inner',
+        fitMode: 'vertical',
+        alignItems: 'flex-start'
+      });
+
+      TextFit.fit({
+        selector: '.fitted-text',
+        fitMode: 'vertical',
+        alignItems: 'flex-start'
+      });
+
+    </script>
+
+
+  </body>
+</html>

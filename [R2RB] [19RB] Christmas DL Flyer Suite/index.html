@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html data-sign='OSS'>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main-extended.css">
+
+    <style>
+      /*
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css');     
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/CosmopolitanScript/stylesheet.css');
+      */
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+
+
+      :root {
+        --red-color: #ee2a2c;
+
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-colby-bold: 'Colby CdBld';
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        font-size: 11pt;
+        color: #fff;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      /* Placeholder Styling */
+      .placeholder__container {
+        position: absolute;
+        top: 3mm;
+        left: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s all;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url({{{ placeholder-image }}}); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;   
+        opacity: 0.4;
+      }
+
+      .u-placeholder-locked .placeholder__container {
+        opacity: 1;  
+      }
+
+      .u-placeholder-hidden .placeholder__container,
+      .u-placeholder-hidden .placeholder__trigger {
+        display: none;
+      }
+
+      .placeholder__trigger {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        border-bottom-left-radius: 1rem;
+        background: #467BE3;
+        transition: all 0.3s;
+        transform: translate(30%, -30%);
+        opacity: 0;
+        z-index: 9999;
+      }   
+
+      .bleed:hover .placeholder__trigger:hover {
+        cursor: pointer;
+        opacity: 1;        
+      }
+
+      .placeholder__trigger svg {
+        width: 50%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-25%, -50%);
+      }
+
+      .bleed:hover .placeholder__trigger {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }      
+
+      .bleed:hover .placeholder__trigger:hover + .placeholder__container {
+        opacity: 1;
+      }      
+
+      .placeholderBtn__container {
+        position: absolute;
+        top: 0;
+        left: -0.6rem;
+        bottom: -0.6rem;
+        right: 0;
+        transition: 0.3s all;
+        transform: rotate(-90deg);
+        transform-origin: top right;
+        opacity: 0;
+      }
+
+      .placeholder__trigger:hover .placeholderBtn__container {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+
+      .placeholderBtn {
+        position: absolute;
+        left: 0;
+        top: 0.04rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #467BE3;
+        color: #fff;
+        font-size: 0.27rem;
+        text-decoration: none;
+        line-height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }     
+
+      .placeholderBtn--plus::before {
+        content: '+';
+      }            
+
+      .placeholderBtn--minus {
+        top: 0.68rem;
+        left: 0.4rem;       
+      }    
+
+      .placeholderBtn--minus::before {
+        content: '-';        
+      }
+
+      .placeholderBtn--lock {
+        bottom: 0;
+        top: auto;
+        right: 0.04rem;
+        left: auto;
+      }
+
+      .placeholderBtn--lock::before {
+        content: 'L';
+      }
+
+      .u-placeholder-locked .placeholderBtn--lock::before {
+        content: 'U';
+      }      
+
+      /* End Placeholder Styling */
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative; }
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.08rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.4279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center;
+      }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  -4rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.5rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      /* start black style check-overflow */  
+
+      .theme--theme2 .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem #000;
+        background: rgba(0, 0, 0, 0.4);
+        position: relative; }
+
+      .theme--theme2 .overflow h1, 
+      .theme--theme2 .overflow h2, 
+      .theme--theme2 .overflow h3, 
+      .theme--theme2 .overflow h4, 
+      .theme--theme2 .overflow h5, 
+      .theme--theme2 .overflow h6, 
+      .theme--theme2 .overflow p, 
+      .theme--theme2 .overflow li { 
+        color: red !important; 
+      }
+
+      .theme--theme2 .overflow::before {
+        border: 0.01rem solid #000;
+        color: #000;
+      }
+      .theme--theme2 .overflow:hover:before {
+        background-color: #000;
+        color: white; }
+
+      .theme--theme2 .overflow:hover:after {
+        background-color: black;
+      }
+
+      /* end black style check-overflow */
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .fit--front {
+        padding: 1.9189rem 1.1037rem 1.9189rem 1.04rem; 
+        text-align: center;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/638e7b2c61e339e085cebbe09c43a4ef/bg-test.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .theme--theme2 .fit--front { 
+        padding: 2.1189rem 1.1037rem 1.9189rem 0.89rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/1a8980462e229f3e87fcb82faf082444/spin-to-win-bg.jpg);
+      }
+
+      .header { 
+        position: relative;
+        margin-top: -0.2rem;
+        margin-bottom: 4.95rem;
+        font-size: 1.4rem;
+        font-family: var(--font-3d-sketch);
+        white-space: nowrap;
+        display: none;
+      }
+
+      .theme--theme1 .header--1 {
+        display: block;
+      }
+
+      .theme--theme2 .header--2 {
+        display: block;
+        margin-bottom: 8.52rem;
+        margin-top: -0.2rem;
+        font-size: 1.2rem;
+      }
+
+      .theme--theme2 .mainImage--front {
+        display: block;
+        top: 4.7rem;
+        width: 9.8rem;
+        left: 48.1%;
+      }
+
+      .header::before,
+      .header::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      .theme--theme2 .header::after {
+        top: 1.58rem;
+        width: 7.7607rem;
+        height: 1.1706rem;
+      }
+
+      .header::before {
+        top: -0.43rem;
+        width: 2.2607rem;
+        height: 0.7706rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/7c00ea960982161b18377580da9fdf63/header-top.png);
+      }
+
+      .theme--theme2 .header::before {
+        top: -0.6rem;
+        left: 49.4%;
+        width: 1.3607rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/b91cb55b9e90b015a3d06d95b1168b22/lemons.png);
+      }
+
+      .header::after {
+        top: 1.26rem;
+        margin-left: 2.1px;
+        width: 5.4607rem;
+        height: 1.7rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/355d86c9eec0d1b6abaf21c12ff62e68/header-bottom.png);
+      }
+
+      .theme--theme2 .header::after {
+        top: 1.34rem;
+        margin-left: 1px;
+        width: 7.8607rem;
+        height: 2.1706rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/75de1011a2ee7306b732b6a8e7f644e1/header-bottom%20%281%29.png);
+      }
+
+      .body {
+        font-size: 11px;
+        text-align: left;
+        display: none;
+      }
+
+      .theme--theme1 .body--1 {
+        display: block;
+      }
+
+      .theme--theme2 .body--2 {
+        display: block;
+      }
+
+      p {
+        margin-bottom: 8.2px;
+        font-size: 12.6px;
+        line-height: 1.1em;
+      }
+
+      .theme--theme2 p {
+        margin-bottom: 7px;
+        font-size: 13px;
+      }
+
+      .subHeading {
+        text-transform: uppercase;
+        font-size: 9.2px;
+        font-family: var(--font-colby-bold);
+        font-weight: bold;
+        margin-bottom: 4.4px;
+      }
+
+      .theme--theme2 .subHeading {
+        font-size: 9.7px;
+        margin-bottom: 6.1px;
+      }
+
+      p.subheading-p {
+        font-size: 9.7px;
+      }
+
+      .ingredients__container {
+        display: flex;
+        margin-bottom: 0.12rem;
+        overflow: hidden;
+      }
+
+      .theme--theme2 .ingredients__container {
+        margin-bottom: 0.07rem;
+      }
+
+      .ingredients {
+        margin-right: 31px;
+        padding-left: 13px;
+        font-size: 10.1px;
+        list-style-type: disc;
+      }
+
+      .ingredients:last-child {
+        margin-right: 0;
+        flex: 2;
+      }
+
+      .theme--theme2 .ingredients {
+        padding-left: 13px;
+        font-size: 10.3px;
+      }
+
+      .ingredients__item {
+        margin-bottom: 0.5px;
+        line-height: 1.4em
+      }
+
+      .theme--theme1 .ingredients__item span {
+        position: relative;
+        left: -2px;
+      }
+
+      .theme--theme2 .ingredients__item {
+        margin-bottom: 3.7px;
+        line-height: 1.1em;
+      }
+
+      .method {
+        margin-left: 0.24rem;
+        margin-top: 7.3px;
+        font-size: 9.5px;
+        list-style-type: none;
+      }
+
+      .theme--theme2 .method {
+        margin-left: 9.78px;
+        margin-top: 7.2px;
+        font-size: 9.7px;
+      }
+
+      .method__item {
+        margin-bottom: 8px;
+        padding-left: 2px;
+      }
+
+      .method__item::before {
+        content: '1.';
+        position: absolute;
+        left: 38px;
+        font-family: var(--font-colby-bold);
+        font-weight: bold;
+      }
+
+      .theme--theme2 .method__item::before {
+        left: 34px;
+      }
+
+      .method__item:nth-child(2)::before {
+        content: "2.";
+      }
+
+      .method__item:nth-child(3)::before {
+        content: "3.";
+      }
+
+      .method__item:nth-child(4)::before {
+        content: "4.";
+      }
+
+      .method__item:nth-child(5)::before {
+        content: "5.";
+      }
+
+      .method__item:nth-child(6)::before {
+        content: "6.";
+      }
+
+      .theme--theme2 .method__item {
+        margin-bottom: 7.2px;
+      }
+
+      .logo {
+        position: absolute;
+        bottom: 0.75rem;
+        right: 50.3%;
+        transform: translateX(50%);
+        width: 3.5rem;
+      }
+
+      .theme--theme2 .logo {
+        right: 50.6%;
+        width: 3.55rem;
+      }
+
+      /* end Page 1 */
+
+
+      /* Page 2 */
+      .fit--back {
+        padding: 1.08rem 0.7rem 0.6rem 0.75rem;
+        text-align: left;
+        background: #fff;
+        color: #ee2d2b; 
+        font-size: 11px;
+      }
+
+      .theme--theme2 .fit--back {
+        padding: 1.1rem 0.7rem 0.6rem 0.8rem;
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/1a8980462e229f3e87fcb82faf082444/spin-to-win-bg.jpg);
+        color: #fff;
+      }
+
+      .heading {
+        margin-bottom: -18px;
+        font-size: 53.2px;
+        text-transform: uppercase;
+        font-family: var(--font-colby-bold);
+        font-weight: bold;
+        line-height: 1em;
+        display: none;
+      }
+
+      .theme--theme1 .heading--1 {
+        display: block;
+      }
+
+      .spend__container {
+        max-height: 236pt;
+      }
+
+      .theme--theme2 .heading--2 {
+        width: 8rem;
+        margin-bottom: -16px;
+        display: block;
+        line-height: 0.9em;
+      }
+
+      .tagline {
+        font-family: var(--font-3d-sketch);
+        font-size: 90px;
+        display: none;
+      }
+
+      .theme--theme1 .tagline--1 {
+        display: block;
+      }
+
+      .theme--theme2 .tagline--2 {
+        display: block;
+      }
+
+      .mainImage {
+        position: absolute;
+        transform: translateX(-50%);
+        display: none
+      }
+
+      .theme--theme1 .mainImage--1 { 
+        display: block;
+        left: 49.4%;
+        width: 7.6rem;
+        top: 9.5rem;
+      }
+
+      .theme--theme2 .mainImage--2 {
+        display: block;
+        top: 10.28rem;
+        width: 5.65rem;
+        left: 37.4%;
+      }
+
+      .theme--theme2  .mainImage--3 {
+        display: block;
+        top: 13.38rem;
+        width: 6.49rem;
+        left: 57.1%;
+      }
+
+      .content {
+        position: absolute;
+        bottom: 94px;
+        width: 85%;
+        height: 1.52rem;
+        font-size: 19.2px;
+        font-family: var(--font-colby-bold);
+        font-weight: bold;
+        line-height: 1em;     
+      }
+
+      .theme--theme1 .content {
+        width: 84.6%;
+      }
+
+      .theme--theme2 .content {
+        bottom: 98px;
+      }
+
+      .info__container {
+        padding-right: 60px;
+      }
+
+      .theme--theme2 .info__container {
+
+      }
+
+      .stamp {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        position: absolute;
+        right: 0px;
+        top: 8px;
+        width: 47px;
+        height: 47px;
+        background: #DCDDDE;
+        color: #939598;
+        border-radius: 7px;
+        overflow: hidden;
+        text-transform: uppercase;
+        font-size: 15px;
+        text-align: center;
+        line-height: 1.1em;
+      }
+
+      .theme--theme2 .stamp {
+        right: 4px;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 26px;
+        font-size: 8.84px;
+        width: 9.1rem;
+        display: none;
+      }
+
+      .theme--theme1 .footer--1 {
+        display: block;
+      }
+
+      .theme--theme2 .footer--2 {
+        display: block;
+        bottom: 30px;
+      }
+      /* end Page 2 */
+
+      .textFit__container {
+        max-height: 3.5em;
+        justify-content: flex-start;
+      }     
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="{{ placeholder-toggle }} theme--{{BDcfs_theme}}  {{^BDcfs_theme}} theme--theme1 {{/BDcfs_theme}}">    
+
+    <!-- Page 1 -->
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container fit fit--front">
+
+          <div class="backgroundImage"></div>
+
+          <div class="header header--1">Sourdough Cob</div>
+          <div class="header header--2">Meringue Tarts</div>
+          <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/eb2927f1a407de94cb0292a95afc980e/flyer-2-bg.png" class="mainImage mainImage--front">
+          <div class="body body--1">
+            <p>Golden and crispy on the outside and oozy on the inside.
+              What’s not to like about Bocconcini with the delicious
+              nutty flavours of Dukkah. Trust us, you won’t be able to
+              stop at just one.<p/>
+            <p class="subheading-p">
+              <span class="subHeading">Serves: </span>
+              Makes 12 pieces
+            <p/>
+            <p class="subHeading">Ingredients: </p>
+            <div class="ingredients__container">
+              <ul class="ingredients">
+                <li class="ingredients__item"><span>1/3 cup plain flour</span></li>
+                <li class="ingredients__item"><span>1/2 tsp salt</span></li>
+                <li class="ingredients__item"><span>1/2 tsp pepper</span></li>
+                <li class="ingredients__item"><span>3 tbsps. Dukkah</span></li>
+                <li class="ingredients__item"><span>3 large eggs, beaten</span></li>
+              </ul><!-- end  ul ingredient -->
+              <ul class="ingredients">
+                <li class="ingredients__item"><span>2 cups breadcrumbs - made using 1/2<br>
+                  an Authentic Sourdough Cob</span></li>
+                <li class="ingredients__item"><span>12 Bocconcini balls</span></li>
+                <li class="ingredients__item"><span>Vegetable oil to fry</span></li>
+                <li class="ingredients__item"><span>1-2 lemons, cut into wedges</span></li>
+              </ul><!-- end ul ingredients -->
+            </div><!-- end ingredients__container -->
+            <p class="subHeading">Method: </p>
+            <ol class="method">
+              <li class="method__item">Make breadcrumbs by tearing bread slices into small pieces.<br>
+                Pulse in a food processor until fine crumbs form. For best results with <br>
+                this recipe, do not use crusts.</li>
+              <li class="method__item">Start with three bowls, in one bowl combine the flour, salt and pepper.<br>
+                In the second bowl the eggs, and in the third bowl combine the<br>
+                breadcrumbs with the Dukkah. Add more Dukkah if you would like a<br>
+                stronger flavour.</li>
+              <li class="method__item">Dip each Bocconcini into the flour, then the eggs, then the crumb mix.<br>
+                Repeat the egg and crumb steps to get a suitable coating on the balls.</li>
+              <li class="method__item">Add enough oil to a large skillet pan to shallow fry. Place on a medium<br>
+                heat, wait until the oil is hot, then fry the Bocconcini in small batches<br>
+                being careful not to overcrowd the pan. Fry for 2-3 minutes to get<br>
+                a light golden colour, but not too long or the cheese will be too oozy.<br>
+                A deep fryer works well for this if you have one.</li>
+              <li class="method__item">Once done, place the Bocconcini onto a plate lined with paper towel to<br>
+                absorb any excess oil as you fry batches.</li>
+              <li class="method__item">Transfer to a plate when ready to serve. Serve with chunky lemon wedges.</li>
+            </ol>
+          </div><!-- end body--1 -->
+          <div class="body body--2"> 
+            <p>We've combined sweet mernigue with tangy<br>
+              lemon curd for an awesome flavour experience.<p/>
+            <p class="subHeading">Ingredients: </p>
+            <div class="ingredients__container">
+              <ul class="ingredients">
+                <li class="ingredients__item">6 x Bakers Delight Lemon Tarts</li>
+                <li class="ingredients__item">1/3 cup Caster Sugar</li>
+                <li class="ingredients__item">2 x Egg whites</li>
+                <li class="ingredients__item">1 teaspoon vinegar or lemon juice</li>
+              </ul><!-- end  ul ingredient -->
+            </div><!-- end ingredients__container -->
+            <p class="subHeading">Method: </p>
+            <ol class="method">
+              <li class="method__item">Preheat oven to hot, 220C.</li>
+              <li class="method__item">In a medium bowl, beat the egg whites with an electric mixer on medium
+                speed for approximately 1 minute.</li>
+              <li class="method__item">Gradually add sugar, one tablespoon at a time, beating until sugar<br>
+                dissolves and stiff shiny peaks form for approximately 4-5 minutes. Beat
+                in the vinegar.</li>
+              <li class="method__item">Transfer the meringue to a pastry bag fitted with a plain tip.<br>
+                Pipe the meringue onto each tart, building up a swirl which completely
+                covers the tops.</li>
+              <li class="method__item">Bake tarts in the oven for 4-5 mins until the meringue swirls are golden.</li> 
+            </ol>
+          </div><!-- end body--2 -->
+
+          <img src="{{{account.logos.reversed-19rb}}}" alt="" class="logo"><!--logo-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page 1 -->
+
+    <!-- Page 2 -->
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container fit fit--back">
+
+          <div class="heading heading--1"><div class="spend__container"> Spend $<span class="spend" data-char-limit="5">{{BDcfs_number}}</span></div><br>get a free sourdough</div>
+          <div class="heading heading--2">Get a free block loaf when you buy a 6-pack of</div>
+          <div class="tagline tagline--1">Loaf!</div>
+          <div class="tagline tagline--2">Tarts!</div>
+          <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/f2bc0c9ef0c85d0b3108befef0f3e63b/bread.png" class="mainImage mainImage--1" alt="mainImage">
+          <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/8976813b41a8701e2c7a5f9157049466/bread-1.png" class="mainImage mainImage--2" alt="mainImage">
+          <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/da9357134608951b67f3b216edd42ae7/tart.png" class="mainImage mainImage--3" alt="mainImage2">
+          <div class="content">
+            <div class="info__container">
+
+              <div class="info">
+
+                <div class="textFit__container">     
+                  <span class="textFit--vertical" style="line-height: 1.2em;"> 
+
+                    Redeem at: 
+                    {{^team.mso}}
+                    {{^team.artworkAddress1}}              
+                    {{^team.artworkAddress2}}              
+                    {{^team.artworkAddress3}}              
+
+                    Bakers Delight {{{ team.name }}}
+
+                    {{/team.artworkAddress3}}              
+                    {{/team.artworkAddress2}}              
+                    {{/team.artworkAddress1}}                            
+                    {{/team.mso}}
+
+                    {{^team.mso}}
+                    {{#team.artworkAddress1}}
+                    <div>{{{team.artworkAddress1}}}</div>
+                    {{/team.artworkAddress1}}                
+                    {{#team.artworkAddress2}}
+                    <div>{{{team.artworkAddress2}}} </div> 
+                    {{/team.artworkAddress2}}
+                    {{#team.artworkAddress3}} 
+                    <div>{{{team.artworkAddress3}}} </div> 
+                    {{/team.artworkAddress3}}
+                    {{/team.mso}}
+                    
+                    {{#team.mso}}          
+                      <span class="js-mso">{{team.mso}}</span>          
+                    {{/team.mso}} 
+                  </span><!--text-fit-->
+                </div><!--verticalTextFit__container-->   
+
+              </div><!--info-->
+            </div><!-- end info__container -->
+            <div class="stamp">
+              <div class="stamp__inner">Stamp here</div>
+            </div>
+          </div><!-- end content -->
+          <div class="footer footer--1">Valid until: <span data-char-limit="8">{{BDcfs_date}}</span> at bakery listed only.  Subject to availability.  One offer per person,<br>
+            per day.  Cannot be redeemed for cash or with any other offer.  Sourdough Loaf includes<br>
+            Sourdough Vienna, Sourdough Cob or Sourdough Loaf only.  <span data-char-limit="5">${{BDcfs_number}}</span> must be spent in one<br>
+            transaction. Voucher must be stamped upon redemption.</div><!-- end footer -->
+          <div class="footer footer--2"> Valid until: <span data-char-limit="8">{{BDcfs_date}}</span> at bakery listed only. Subject to availability. One offer per person,<br>
+            per day. Cannot be redeemed for cash or with any other offer. ‘Block Loaf’ refers to<br>
+            White, Wholemeal or Country Grain Loaves only.  <span data-char-limit="5">${{BDcfs_number}}</span> must be spent in one transaction.<br>
+            Voucher must be stamped upon redemption.</div>
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page 2 -->
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+
+                                                         if (window.showCrop) {
+                                                           document.querySelector('body').classList.add('show-crop');
+                                                         } else {
+                                                           document.querySelector('body').classList.add('hide-crop');
+                                                         }                                               
+    </script>
+
+    <script src="main.js"></script>   
+    <script src="prefixfree.js"></script>
+    <script src="char-limit.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js"></script>
+
+    <script>
+
+      // Check Overflow function
+      function checkHeight(element) {
+        for (i = 0 ; i < element.length ; i++ ) {
+          var currentElement = element[i];
+          var height         = currentElement.offsetHeight;
+          var parent         = currentElement.parentNode;
+          var parentHeight   = parent.offsetHeight;
+
+          if (height > parentHeight) {
+            parent.classList.add('overflow');
+          } else {
+            parent.classList.remove('overflow');
+          }
+
+          if ((currentElement).parentNode.classList.contains('overflow')) {
+            document.body.classList.add('overflow-true');
+          } else {
+            document.body.classList.remove('overflow-true'); 
+          }
+        }
+      }   
+
+      // Adding class 'is-export-mode' to the body element in case template is in the export mode
+      function checkExport() {
+        var isExportPage = window.location.href.indexOf('exports') > -1;
+
+        if (isExportPage) {
+          document.body.classList.add('is-export-mode');
+        }
+      }            
+
+      function loop() {
+        checkHeight(document.getElementsByClassName('check-overflow'));
+        charLimit();
+      } setInterval(loop, 1000);  
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }  
+
+      // Dynamic controls for the placeholder image
+      function lockPlaceholder() {
+        let lockState = localStorage.getItem('lockState') || 'unlocked';
+
+        if ( lockState == 'unlocked' ) {
+          document.body.classList.add('u-placeholder-locked');
+          localStorage.setItem('lockState', 'locked');
+        } else {
+          document.body.classList.remove('u-placeholder-locked');
+          localStorage.setItem('lockState', 'unlocked');          
+        }        
+      }
+
+      function opacityControl() {
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        placeholders.forEach(placeholder => {
+          let compStyles = window.getComputedStyle(placeholder);
+          let currentOpacity = parseFloat(compStyles.getPropertyValue('opacity'));
+          let operation = this.dataset.operation;          
+
+          if ( operation == 'plus' && currentOpacity < 1 ) {
+            placeholder.style.opacity = currentOpacity + 0.1; 
+          } else if ( operation == 'minus' && currentOpacity > 0 ) {
+            placeholder.style.opacity = currentOpacity - 0.1; 
+          }    
+
+          localStorage.setItem('opacityState', currentOpacity);          
+        });       
+      }
+
+      function placeholderControler() {
+        const operationButtons = document.querySelectorAll('.placeholderBtn--operation');
+        const lockButtons = document.querySelectorAll('.placeholderBtn--lock');
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        if ( localStorage.getItem('lockState') == 'locked' ) {
+          document.body.classList.add('u-placeholder-locked');          
+        }
+
+        if ( localStorage.getItem('opacityState') !== undefined ) {
+          placeholders.forEach(placeholder => {
+            placeholder.style.opacity = localStorage.getItem('opacityState');
+          });
+        }
+
+        operationButtons.forEach(button => {
+          button.addEventListener('click', opacityControl);        
+        });        
+
+        lockButtons.forEach(lockButton => {
+          lockButton.addEventListener('click', lockPlaceholder);
+        });
+      }    
+
+      function hoursInject() {
+        const hoursSrc = document.querySelectorAll('.js-hours-src');
+        const hoursTargets = document.querySelectorAll('.js-hours-target');        
+
+        hoursTargets.forEach((hoursTarget, index) => {
+          if ( hoursSrc[index] !== undefined ) {
+            hoursTarget.querySelector('.js-open-hours').innerHTML = hoursSrc[index].dataset.open;
+            hoursTarget.querySelector('.js-closing-hours').innerHTML = hoursSrc[index].dataset.close;  
+          }
+        });
+      }
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat(); 
+
+      hoursInject();
+
+      placeholderControler();  
+      checkCrop();  
+      checkExport(); 
+
+      TextFit.fit({
+        selector: '.spend__container'
+      });   
+
+      TextFit.fit({
+        selector: '.textFit--vertical',
+        fitMode: 'vertical',
+        alignItems: 'center'
+      }); 
+
+    </script>
+
+  </body>
+</html>

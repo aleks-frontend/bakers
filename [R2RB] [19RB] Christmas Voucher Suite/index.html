@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html data-sign="OSL">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main-extended.css">
+
+    <style>
+      /*
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css');     
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/CosmopolitanScript/stylesheet.css');
+      */
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+
+      :root {
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        font-size: 11pt;
+        color: #000;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      /* Placeholder Styling */
+      .placeholder__container {
+        position: absolute;
+        top: 3mm;
+        left: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s all;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url({{{ placeholder-image }}}); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;   
+        opacity: 0.4;
+      }
+
+      .u-placeholder-locked .placeholder__container {
+        opacity: 1;  
+      }
+
+      .u-placeholder-hidden .placeholder__container,
+      .u-placeholder-hidden .placeholder__trigger {
+        display: none;
+      }
+
+      .placeholder__trigger {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        border-bottom-left-radius: 1rem;
+        background: #467BE3;
+        transition: all 0.3s;
+        transform: translate(30%, -30%);
+        opacity: 0;
+        z-index: 9999;
+      }   
+
+      .bleed:hover .placeholder__trigger:hover {
+        cursor: pointer;
+        opacity: 1;        
+      }
+
+      .placeholder__trigger svg {
+        width: 50%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-25%, -50%);
+      }
+
+      .bleed:hover .placeholder__trigger {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }      
+
+      .bleed:hover .placeholder__trigger:hover + .placeholder__container {
+        opacity: 1;
+      }      
+
+      .placeholderBtn__container {
+        position: absolute;
+        top: 0;
+        left: -0.6rem;
+        bottom: -0.6rem;
+        right: 0;
+        transition: 0.3s all;
+        transform: rotate(-90deg);
+        transform-origin: top right;
+        opacity: 0;
+      }
+
+      .placeholder__trigger:hover .placeholderBtn__container {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+
+      .placeholderBtn {
+        position: absolute;
+        left: 0;
+        top: 0.04rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #467BE3;
+        color: #fff;
+        font-size: 0.27rem;
+        text-decoration: none;
+        line-height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }     
+
+      .placeholderBtn--plus::before {
+        content: '+';
+      }            
+
+      .placeholderBtn--minus {
+        top: 0.68rem;
+        left: 0.4rem;       
+      }    
+
+      .placeholderBtn--minus::before {
+        content: '-';        
+      }
+
+      .placeholderBtn--lock {
+        bottom: 0;
+        top: auto;
+        right: 0.04rem;
+        left: auto;
+      }
+
+      .placeholderBtn--lock::before {
+        content: 'L';
+      }
+
+      .u-placeholder-locked .placeholderBtn--lock::before {
+        content: 'U';
+      }      
+
+      /* End Placeholder Styling */
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative; }
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.05rem;
+        right: 0.1rem;
+        height: 0.5107rem;
+        width: 0.5107rem;
+        min-height: auto;
+        min-width: auto;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.5rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center;
+      }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.55rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.5rem;
+        font-weight: 400;     
+        text-align: left;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .overflow[data-max-date]:hover:after {
+        content: 'Please set date to maximum: ' attr(data-max-date);
+      }      
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .spend-to-get-a-free-tart .backgroundImage {
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/34eefc6f24d443ef3b53592d99c7e8c8/christmas-poster-bg-red.jpg);
+      }
+
+      .free-block-loaf-with-tarts .backgroundImage {
+        background-image: url(https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/d586bf284119f865832b2f5bf524473f/decorate-poster-bg-green.png);
+      }   
+
+      .spend-to-get-a-free-tart {
+        --dynamic-color: #e2303c;
+      }
+
+      .free-block-loaf-with-tarts {
+        --dynamic-color: #0f8440;
+      }
+
+      .container {
+        background-color: var(--dynamic-color);
+        display: flex;
+        flex-direction: column;
+        padding: 20.8pt 24.7pt 20pt;
+      }
+
+      .container--secondary{ 
+        justify-content: space-between;
+        padding: 20.8pt 24.4pt 21.3pt;
+        background-color: #fff;
+      } 
+
+      .heading {
+        position: absolute;
+        left: 25pt;
+        top: 21pt;   
+        color: #fff;   
+        font-family: var(--font-sofa-sans);
+        font-weight: bold;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 22.4pt;
+        line-height: 1em;
+      }   
+
+      .heading--secondary {   
+        position: relative;
+        left: 0;
+        top: 0;
+        font-size: 14.9pt;
+        color: var(--dynamic-color);
+      }
+
+      .heading--tertiary  {
+        position: relative;
+        left: 0;
+        top: 0;
+        font-size: 14.9pt;
+        color: var(--dynamic-color);
+      }
+
+      .tagline {
+        position: absolute;
+        top: 55pt;
+        left: 67pt;
+        font-size: 34pt;
+        font-family: var(--font-3d-sketch);
+        color: #fff;
+      }
+
+      .image {
+        position: absolute;
+        right: 31pt;
+        top: 23pt;
+        width: 69.3pt;
+      }
+
+      .image--secondary {    
+        right: 3.525pt;
+        top: 5pt;
+        width: 78.8pt;
+      }
+
+      .image--tertiary {
+        right: 11pt;
+        top: 13pt;
+        width: 75pt;
+      }
+
+      .logo {
+        position: absolute;
+        right: 23.8pt;
+        bottom: 20.9pt;
+        width: 65.5pt;
+      }
+
+      .logo--secondary {
+        right: 0.75pt;
+        bottom: 0;
+        width: 72pt;
+        height: auto;
+      }
+
+      .logo--secondary path {
+        fill: var(--dynamic-color);
+      }
+
+      .logo--tertiary {    
+        right: 11.4pt;
+        top: 14pt;
+        width: 73.8pt;
+      }
+
+      .body {       
+        display: flex;
+        flex: 1;
+        position: relative;  
+        padding-bottom: 4pt;
+        border-bottom: 1pt solid var(--dynamic-color);     
+      }
+
+      .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: var(--dynamic-color);
+      }
+
+      .main--secondary {
+        padding-right: 48pt;
+      }
+
+      .info {
+        width: 160px;
+        font-size: 9.6pt;     
+        font-weight: bold;
+      }
+
+      .info__line {
+        margin-bottom: 1pt;
+        line-height: 1em;   
+      }
+
+      .info__line--label {
+        margin-bottom: 2pt;
+        line-height: 1.2em;
+      }
+
+      .side {
+        position: relative;
+        flex: 1;
+      }
+
+      .stamp {  
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 0.7pt;
+        bottom: 6.5pt;
+        width: 32pt;
+        height: 32pt;     
+        text-align: center;
+        line-height: 1.2;
+        text-transform: uppercase;
+        font-size: 8.7pt;
+        background: #e9e9e9;
+        color: #636466;
+        font-weight: bold;
+        border-radius: 4pt;
+      }  
+
+      .footer__content {
+        width: 143pt;
+        font-size: 6.8pt;
+        line-height: 1.25em;
+        color: var(--dynamic-color);
+      }
+
+      .footer {
+        position: relative;
+        height: 39pt;
+        padding-top: 2.4pt;      
+      }
+
+      .page {
+        display: none;
+      }
+
+      .spend-to-get-a-free-tart .page--1,
+      .spend-to-get-a-free-tart .page--2 {
+        display: block;
+      }
+
+      .free-block-loaf-with-tarts .page--1,
+      .free-block-loaf-with-tarts .page--3 {
+        display: block;
+      }
+
+      .textFit__container {
+        max-height: 4.5em;
+        justify-content: flex-start;
+      }    
+
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="{{ placeholder-toggle }} {{BDcvs_offer}}{{^BDcvs_offer}}spend-to-get-a-free-tart{{/BDcvs_offer}}" >    
+
+    <!--START page 1-->
+    <div class="page page--1">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- e***nd placeholder__container -->
+
+        <div class="container fit">
+          <div class="backgroundImage"></div>
+          <div class="heading">
+            special <br>offers just<br> for
+          </div><!--heading-->
+          <div class="tagline">You!</div><!--tagline-->
+          <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/6342a97321fcb2b1b5663cebe13cefdf/cookie-1.png" alt="" class="image"><!--image-->
+          <img src="{{{account.logos.reversed-19rb}}}" alt="" class="logo"><!--logo-->          
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page 1-->
+
+
+    <!--START page 2-->
+    <div class="page page--2">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container container--secondary fit">
+          <div class="body">
+            <div class="main">
+              <div class="heading heading--secondary">spend <span data-char-limit="5">${{{BDcvs_spend-amount}}}</span> and<br> get a free<br> christmas tart!</div><!--heading--secondary--> 
+              <!--  <div class="heading heading--secondary">get a free block loaf when you buy a 6-pack of tarts</div><!--heading--secondary-->    
+              <div class="info">
+
+                <div class="textFit__container">     
+                  <span class="textFit--vertical" style="line-height: 1.2em;"> 
+                    <div class="info__line info__line--label">Redeem at:</div><!--info__line-->
+                    <div class="info__line">
+
+                      {{^team.mso}}
+                      {{^team.artworkAddress1}}              
+                      {{^team.artworkAddress2}}              
+                      {{^team.artworkAddress3}}              
+
+                      Bakers Delight {{{ team.name }}}
+
+                      {{/team.artworkAddress3}}              
+                      {{/team.artworkAddress2}}              
+                      {{/team.artworkAddress1}}                            
+                      {{/team.mso}}
+
+                      {{^team.mso}}
+                      {{#team.artworkAddress1}}
+                      <div>{{{team.artworkAddress1}}}</div>
+                      {{/team.artworkAddress1}}                
+                      {{#team.artworkAddress2}}
+                      <div>{{{team.artworkAddress2}}} </div> 
+                      {{/team.artworkAddress2}}
+                      {{#team.artworkAddress3}} 
+                      <div>{{{team.artworkAddress3}}} </div> 
+                      {{/team.artworkAddress3}}
+                      {{/team.mso}}
+
+                      {{#team.mso}}
+                      <span class="js-mso">{{team.mso}}</span>
+                      {{/team.mso}}
+
+                    </div><!--info__line-->
+
+                  </span><!--textFit--vertical -->
+                </div><!--textFit__container-->   
+
+              </div><!--info-->
+
+              <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/22976ba55bfffdcf6647165fc55b9937/cookie-2.png" alt="" class="image image--secondary"><!--image --> 
+              <div class="stamp">stamp here</div><!--stamp--> 
+            </div><!--main--> 
+          </div><!--body-->
+          <div class="footer">
+            <div class="footer__content">Only available at {{^team.mso}}bakery{{/team.mso}}{{#team.mso}}bakeries{{/team.mso}} listed. Valid until: <span data-char-limit="8" class="js-date-check">{{{BDcvs_valid-date}}}</span>. Subject to availability. One offer per person, per day. Cannot be redeemed for cash or with any other offer. Customer can choose either a Fruit Mince or Lemon Tart. <span data-char-limit="5">${{{BDcvs_spend-amount}}}</span> must be spent in one transaction.</div><!--footer__content-->
+
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="" height="" viewBox="247.55 50.753 1682.963 389.122"
+                 enable-background="new 247.55 50.753 1682.963 389.122" xml:space="preserve" class="logo logo--secondary" fill="var(--dynamic-color)">
+              <g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_1_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_2_">
+                      <use xlink:href="#SVGID_1_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_2_)" fill="#AD0A40" d="M428.493,187.83c0,0,2.497-0.953,13.286-6.849
+                                                                       c11.502-6.292,52.653-25.521,54.777-66.783c1.029-19.949-5.444-29.568-8.461-34.389c0,0-14.734-20.74-89.709-27.377
+                                                                       c-74.984-6.653-133.891,8.437-140.073,10.912c-6.156,2.465-13.736,4.872-9.567,14.373c4.166,9.526,17.999,39.065,45.81,40.5
+                                                                       c27.812,1.434,58.549-17.443,79.193-21.031c20.632-3.603,55.807,0.078,72.126,7.888c16.344,7.819,19.889,12.393,14.298,34
+                                                                       c-4.901,18.946-20.884,24.241-30.21,30.487c-9.542,6.394-21.056,12.812-31.372,13.778c-6.499,0.611-17.635,0.366-25.563,0.326
+                                                                       c-19.084-0.101-26.701-1.07-25.687,6.428c1.002,7.508,11.077,6.623,18.012,6.982c6.954,0.354,20.179,0.098,37.213,3.756
+                                                                       c17.005,3.682,38.927,10.541,31.405,35.479c-6.021,19.953-22.551,46.007-71.587,44.183c-41.303-1.533-43.898-4.441-44.042-33.31
+                                                                       c-0.027-6.022,2.913-47.194,21.484-83.51c17.102-33.44,20.961-36.704,23.259-39.696c3.022-3.932,4.564-6.424,1.701-8.82
+                                                                       c-3.563-2.979-5.334-2.406-13.088,3.697c-7.766,6.119-34.059,26.615-52.335,63.189c-6.343,12.689-20.039,40.57-25.947,74.359
+                                                                       c-4.796,27.469-11.586,72.166,77.924,67.239c78.147-4.303,99.132-33.024,111.729-78.776
+                                                                       C477.017,194.181,428.493,187.83,428.493,187.83"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_3_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_4_">
+                      <use xlink:href="#SVGID_3_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_4_)" fill="#AD0A40" d="M1004.931,218.255c-5.602-17.92,12.6-27.871,6.223-34.209
+                                                                       c-6.646-6.61-27.857-6.833-36.944,5.358c-10.714,14.381,4.576,23.321-1.265,30.885c-2.686,3.473-4.846,5.975-10.604,12.887
+                                                                       c-7.054,8.469-4.609,5.219-18.544,22.42c-13.943,17.168-23.124,21.855-34.271,20.933c-11.133-0.951-5.063-9.804-2.072-14.855
+                                                                       c3.273-5.528,13.44-16.707,20.389-28.322c6.981-11.592,7.487-22.055,5.173-27.622c-2.314-5.574-9.297-6.867-21.729-5.642
+                                                                       c-4.836,0.479-7.472,0.947-15.745,0.313c-2.394-0.187-4.626-0.646-6.658-1.021c0.171-0.447,0.326-0.908,0.51-1.35
+                                                                       c2.509-6.035,11.149-17.687,4.849-20.835c-7.378-3.688-19.389-5.403-30.778,2.062c-12.934,8.475-6.915,20.493-1.375,26.476
+                                                                       c6.462,6.971-0.276,25.28-17.45,46.182c-17.175,20.893-33.188,32.029-49.447,32.029c-10.015,0-17.896-3.904-22.484-11.127
+                                                                       c5.39-2.328,11.798-5.183,18.28-8.302c11.786-5.67,39.617-22.909,41.833-40.668c3.357-26.903-21.68-29.198-32.715-29.688
+                                                                       c-31.852-1.408-62.13,18.586-65.68,65.557c-0.375,4.949,0.016,9.375,0.934,13.404c-4.834,2.684-8.923,5.037-10.035,5.604
+                                                                       c-14.229,7.269-19.183,8.453-26.351,6.861c-8.339-1.854-15.868-22.986-15.406-26.25c0.452-3.244,6.032-3.711,15.783-7.889
+                                                                       c9.742-4.17,27.854-12.517,27.854-32.492c0-15.799-15.239-20.68-20.894-20.904c-11.578-0.451-23.331,6.222-34.434,12.767
+                                                                       c-6.139,3.61-10.393,6.28-12.3,7.498c1.792-5.105,3.563-10.031,5.302-14.604c0.416-1.092,0.699-2.027,0.925-2.896
+                                                                       c10.803-29.066,30.344-80.008,31.176-82.186c4.646-12.076,10.464-25.546,3.74-30.063c-6.293-4.232-27.533,9.562-37.913,36.283
+                                                                       c-11.689,30.102-36.954,102.94-45.692,130.135l0.01-0.009c-9.633,27.162-11.098,34.095-19.389,34.113
+                                                                       c-12.1,0.017-10.586-14.76-8.52-26.697c2.093-12.069,9.601-35.553,17.964-49.483c8.368-13.957,3.716-15.795-3.72-14.857
+                                                                       c-7.422,0.9-13.455,3.715-22.757,9.291c-2.012,1.211-3.773,2.709-5.369,4.371c-1.025-6.24-18.591-19.699-35.951-19.229
+                                                                       c-14.843,0-58.839,13.254-62.686,62.219c-3.337,42.59,16.188,52.93,42.262,52.488c25.502-0.433,46.914-26.945,46.914-26.945
+                                                                       c3.088,15.963,12.563,27.727,29.88,28.799c18.249,1.129,31.359-8.602,38.549-22.648c5.455-10.659,11.607-28.274,17.792-46.354
+                                                                       c9.958-6.32,28.582-13.18,31.924-14.125c5.568-1.574,11.614-2.789,11.614,3.244c0,6.045-7.87,11.617-20.894,16.258
+                                                                       c-13,4.645-21.351,5.57-22.74,9.283c-1.402,3.719,1.391,16.717,8.813,28.781c7.434,12.077,14.632,24.43,25.954,24.43
+                                                                       c13.776,0,38.712-10.082,55.733-20.021c11.424,14.138,32.164,18.813,45.253,18.813c0,0,34.146,2.791,65.237-32.957
+                                                                       c22.485-25.854,27.705-44.791,31.603-59.877c7.996,0.615,18.02,1.238,17.744,6.229c-0.226,4.191-9.062,16.49-17.42,30.412
+                                                                       c-8.35,13.945-17.821,31.625-13.866,43.263c2.993,8.772,16.766,19.813,40.859,11.676c18.289-6.176,33.222-25.01,33.222-25.01
+                                                                       c6.968-7.433,37.436-44.105,38.839-44.105c1.388,0,6.554,9.467,10.724,16.902c4.19,7.426,8.141,13.698,7.835,21.024
+                                                                       c-0.269,6.486-6.928,19.974-19.474,17.691c-11.252-2.047-17-13.533-20.715-13.994c-3.709-0.465-9.826,1.402-9.353,6.523
+                                                                       c0.452,5.1,16.73,23.467,36.854,23.62c23.863,0.187,39.734-10.604,36.691-39.469
+                                                                       C1024.266,247.136,1007.624,226.863,1004.931,218.255 M565.365,235.748c-1.366,12.145-12.489,40.08-40.827,41.256
+                                                                       c-22.757,0.912-13.894-43.953,1.808-56.309c6.098-4.804,16.412-11.363,28.533-7.453c5.639,1.815,12.758,10.787,11.311,16.324
+                                                                       c-0.168,0.635-0.077,0.684,0.157,0.375C565.936,231.837,565.585,233.765,565.365,235.748 M795.617,208.515
+                                                                       c11.024,0.187,12.479,8.906,10.542,17.636c-1.441,6.455-8.352,15.424-25.088,23.766c-6.032,3.008-10.033,4.75-12.792,6.047
+                                                                       c-0.004-0.115-0.03-0.215-0.03-0.338C768.25,237.515,773.382,208.148,795.617,208.515"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_5_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_6_">
+                      <use xlink:href="#SVGID_5_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_6_)" fill="#AD0A40" d="M1209.263,56.774c-30.717-2.573-96.207,5.021-110.571,10.143
+                                                                       c-20.549,7.318-22.25,5.33-11.789,27.016c6.046,12.537,24.078,31.275,43.179,30.082c50.641-3.166,61.75-33.025,130.406-18.933
+                                                                       c19.709,4.049,39.674,6.137,37.573,46.993c-2.1,40.855-15.153,66.098-19.766,77.665c-2.223,5.567-11.992,25.475-28.975,39.037
+                                                                       c-15.728,12.557-37.884,13.774-57.021,12.965c-13.424-0.572-26.115-1.17-32.225-5.695c-5.314-3.945-7.185-12.063-6.566-27.272
+                                                                       c0.797-19.714,4.277-37.584,13.402-64.918c12.729-38.115,26.231-49.983,32.93-60.352c1.711-2.652,2.937-4.316-0.721-7.018
+                                                                       c-3.135-2.317-5.687-1.614-12.623,4.063c-12.564,10.298-32.014,26.539-46.119,51.824c-13.178,23.637-26.254,49.145-32.873,89.93
+                                                                       c-2.658,16.359-2.377,29.433,3.717,39.84c8.691,14.861,28.066,23.418,54.08,23.289c3.506-0.016,82.5,6.043,114.412-37.358
+                                                                       c20.459-27.851,38.85-67.498,41.021-133.244C1323.808,61.492,1269.593,61.834,1209.263,56.774"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_7_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_8_">
+                      <use xlink:href="#SVGID_7_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_8_)" fill="#AD0A40" d="M1553.21,191.298c8.836,0,17.637-2.789,17.637-18.576
+                                                                       c0-15.793-13.934-16.721-15.799-16.721c-10.209,0-19.498,7.91-19.498,19.027C1535.55,186.194,1544.39,191.298,1553.21,191.298"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_9_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_10_">
+                      <use xlink:href="#SVGID_9_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_10_)" fill="#AD0A40" d="M1653.061,232.124c0.012-0.01,0.014-0.033,0.021-0.049
+                                                                        C1653.061,231.986,1653.061,232.058,1653.061,232.124"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_11_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_12_">
+                      <use xlink:href="#SVGID_11_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_12_)" fill="#AD0A40" d="M1917.968,165.869c-5.119-0.461-8.92,0.539-7.268-3.502
+                                                                        c1.606-3.949-1.32,2.164,3.309-9.89c4.648-12.084,7.187-25.11,1.259-27.144c-7.841-2.688-26.548,12.135-35.035,34.783
+                                                                        c-1.09,2.895-2.035,5.423-2.904,7.731c-1.451,0.008-2.361,0.065-2.361,0.065c-6.485,0.226-24.471,2.036-24.471,15.973
+                                                                        c0,6.449,12.041,6.751,18.25,6.759c-1.463,3.912-3.094,8.304-5.598,15.07c-6.849,18.537-15.972,47.197-22.095,61.201
+                                                                        c-4.276,9.799-24.108,23.957-38.271,21.889c-4.604-0.676-5.314-6.008-2.611-13.504c0.646-1.791,7.527-16.776,12.012-26.406
+                                                                        c4.636-9.952,8.541-16.147,10.771-28.02c4.137-21.994-18.607-25.252-26.539-25.34c-7.639-0.084-20.242,0.563-33.318,10.176
+                                                                        c-0.008,0.004-0.02,0.031-0.032,0.037c0.244-0.648,0.459-1.254,0.711-1.906l-0.047-0.123
+                                                                        c9.121-26.236,28.471-82.197,29.366-84.553c4.652-12.078,10.466-25.551,3.746-30.064c-6.295-4.23-27.535,9.565-37.922,36.282
+                                                                        c-8.643,22.257-23.438,68.175-34.102,101.613c-3.498,7.922-7.377,13.029-13.166,18.291c-10.812,9.83-33.066,23.016-42.334,29.551
+                                                                        c8.377-23.891,22.047-60.867,22.047-66.834c0-7.426-3.018-8.367-7.625-8.711c-4.914-0.369-14.184-0.076-20.035,13.721
+                                                                        c-0.486,1.125-0.928,2.365-1.66,3.476c0.064-0.238,0.103-0.431,0.103-0.539c0-1.877-9.302-20.486-32.546-20.486
+                                                                        c-28.59,0-59.821,40.334-64.737,68.137c-0.015,0.031-0.025,0.015-0.037,0.05c-3.066,8.524-10.316,13.438-13.941,15.723
+                                                                        c-8.688,5.473-14.52,5.67-20.088,5.229c-5.563-0.485-6.924-4.151-6.924-9.723c0-5.568,4.562-16.895,11.688-33.072
+                                                                        c6.56-14.875,16.341-31.928,16.341-37.049c0-5.119-3.259-8.811-9.291-7.887c-6.035,0.928-17.826,5.098-22.007,10.682
+                                                                        c-4.168,5.56-12.471,24.398-17.6,37.879c-3.875,10.211-7.201,18.797-9.207,23.203l-0.006-0.547
+                                                                        c-4.115,11.9-13.691,16.516-20.445,16.516c-9.922,0-11.877-5.938-11.739-11.987c0.159-6.877,12.45-46.224,18.655-64.449
+                                                                        c8.234-23.658,29.959-86.5,30.916-88.998c4.646-12.078,10.457-25.551,3.742-30.064c-6.295-4.23-27.539,9.565-37.918,36.283
+                                                                        c-9.26,23.836-25.563,74.77-36.297,108.477c-8.654,21.553-18.195,29.481-28.336,37.016
+                                                                        c-16.422,12.203-27.213,12.484-32.508,12.631c-9.802,0.279-17.972-4.463-21.634-11.102c6.935-2.67,17.896-8.017,19.955-9.129
+                                                                        c5.197-2.82,41.07-19.183,40.41-45.439c-0.51-19.979-18.709-24.166-37.912-24.166c-32.998,0-57.059,22.59-60.547,63.963
+                                                                        c-3.162,37.418,34.834,49.287,50.254,49.287c18.947,0,40.838-5.496,63.22-28.26c4.18,16.734,6.174,28.26,23.323,28.26
+                                                                        c16.994,0,33.554-11.686,37.224-15.771c5.473,8.231,9.145,15.311,23.215,15.311c26.391,0,49.895-18.693,49.895-18.693
+                                                                        c0-0.055-0.002-0.149-0.008-0.213c5.834,13.773,18.428,18.705,25.658,19.824c13.809,2.137,23.584,0.201,29.748-1.779
+                                                                        c-19.224,12.371-39.33,22.447-55.398,45.353c-11.418,16.268-16.629,30.313-17.938,42.135l-0.158-0.18
+                                                                        c-0.004,0.465,0.043,0.854,0.047,1.307c-1.1,12.189,1.988,21.935,6.744,29.187c4.66,7.896,10.877,11.977,16.125,14.026
+                                                                        c0.07,0.033,0.154,0.08,0.229,0.113c19.729,8.287,41.198-6.56,50.407-28.379c6.047-14.349,16.23-44.724,25.084-71.576
+                                                                        c7.166-21.734,9.97-27.617,14.302-39.453c16.653-10.924,43.606-28.358,50.799-34.149c-6.66,19.231-12.265,35.641-11.441,38.053
+                                                                        c1.371,4.17,6.637,4.324,17.35,3.703c13.468-0.777,12.773-13.857,22.724-38.992c3.229-8.156,6.229-17.137,9.639-27.271
+                                                                        c-0.076,0.293-0.129,0.49-0.129,0.49c3.277-6.586,5.191-11.869,14.063-17.695c5.478-3.592,13.066-4.897,17.964-3.959
+                                                                        c5.03,0.962,7.385,2.021,7.385,7.119c0,11.148-17.979,37.691-20.988,54.111c-0.947,5.184-8.852,27.848,18.072,27.848
+                                                                        c26.938,0,41.852-12.051,46.949-12.051c5.094,0,6.534,10.937,20.42,11.924c18.348,1.312,43.477-9.67,50.455-21.295
+                                                                        c2.45-4.084-0.052-14.426-4.25-10.125c-7.023,7.187-37.734,19.873-33.031,0.58c0.664-2.727,5.209-12.203,13.572-33.912
+                                                                        c9.213-23.887,19.071-54.271,19.071-54.271s15.289,0.771,19.914-1.538c4.654-2.332,9.869-5.975,9.869-15.714
+                                                                        C1930.509,165.407,1923.087,166.336,1917.968,165.869 M1379.636,208.124c7.806-0.006,12.851,2.48,12.851,12.131
+                                                                        c0,9.414-5.537,16.299-17.045,24.244c-3.019,2.084-18.234,9.85-21.63,10.711C1353.311,243.56,1357.49,208.134,1379.636,208.124
+                                                                        M1598.479,267.449c0-13.467,11.561-51.842,35.704-52.045c12.08-0.107,19.188,8.766,18.896,16.676
+                                                                        c-0.006,0.18-0.017,0.119-0.021,0.043c-4.288,10.619-9.561,28.43-16.196,45.512c0,0-13.195,6.967-21.131,6.967
+                                                                        C1607.869,284.601,1598.479,280.906,1598.479,267.449 M1601.421,380.345c-6.598,19.463-13.283,29.404-21.127,25.697
+                                                                        c-9.207-4.348-5.598-25.121,1.652-39.824c7.729-15.684,16.571-24.543,22.518-29.266c7.174-5.689,13.199-9.814,16.363-11.728
+                                                                        C1620.828,325.226,1609.498,356.535,1601.421,380.345"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page 2-->
+
+
+    <!--START page 3-->
+    <div class="page page--3">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->
+
+        <div class="container container--secondary fit">
+
+          <div class="body">
+            <div class="main main--secondary">             
+              <div class="heading heading--tertiary">get a free block loaf when you buy a <br>6-pack of tarts!</div><!--heading--secondary--> 
+              <div class="info">
+                <div class="textFit__container">     
+                  <span class="textFit--vertical" style="line-height: 1.2em;"> 
+                    <div class="info__line info__line--label">Redeem at: Bakers Delight</div><!--info__line-->
+                    <div class="info__line">
+
+                      {{^team.mso}}
+                      {{^team.artworkAddress1}}              
+                      {{^team.artworkAddress2}}              
+                      {{^team.artworkAddress3}}              
+
+                      {{{ team.name }}}
+
+                      {{/team.artworkAddress3}}              
+                      {{/team.artworkAddress2}}              
+                      {{/team.artworkAddress1}}                            
+                      {{/team.mso}}
+
+                      {{^team.mso}}
+                      {{#team.artworkAddress1}}
+                      <div>{{{team.artworkAddress1}}}</div>
+                      {{/team.artworkAddress1}}                
+                      {{#team.artworkAddress2}}
+                      <div>{{{team.artworkAddress2}}} </div> 
+                      {{/team.artworkAddress2}}
+                      {{#team.artworkAddress3}} 
+                      <div>{{{team.artworkAddress3}}} </div> 
+                      {{/team.artworkAddress3}}
+                      {{/team.mso}}
+
+                      {{#team.mso}}
+                      <span class="js-mso">{{team.mso}}</span>
+                      {{/team.mso}}
+
+                    </div><!--info__line-->
+                  </span><!--textFit--vertical -->
+                </div><!--textFit__container-->   
+
+              </div><!--info-->    
+              <img src="https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/8976813b41a8701e2c7a5f9157049466/bread-1.png" alt="" class="image image--tertiary"><!--image --> 
+              <div class="stamp">stamp here</div><!--stamp--> 
+            </div><!--main--> 
+          </div><!--body-->
+          <div class="footer">
+            <div class="footer__content">Only available at {{^team.mso}}bakery{{/team.mso}}{{#team.mso}}bakeries{{/team.mso}} listed. Valid until: <span data-char-limit="8" class="js-date-check">{{{BDcvs_valid-date}}}</span>. Subject to availability. One offer per person, per day. Cannot be redeemed for cash or with any other offer. Block Loaf includes White, Wholemeal, Hi-Fibre Lo-GI or Chia Omega-3 White or Wholemeal Loaves only.</div><!--footer__content-->
+            <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="" height="" viewBox="247.55 50.753 1682.963 389.122"
+                 enable-background="new 247.55 50.753 1682.963 389.122" xml:space="preserve" class="logo logo--secondary" fill="var(--dynamic-color)">
+              <g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_1_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_2_">
+                      <use xlink:href="#SVGID_1_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_2_)" fill="#AD0A40" d="M428.493,187.83c0,0,2.497-0.953,13.286-6.849
+                                                                       c11.502-6.292,52.653-25.521,54.777-66.783c1.029-19.949-5.444-29.568-8.461-34.389c0,0-14.734-20.74-89.709-27.377
+                                                                       c-74.984-6.653-133.891,8.437-140.073,10.912c-6.156,2.465-13.736,4.872-9.567,14.373c4.166,9.526,17.999,39.065,45.81,40.5
+                                                                       c27.812,1.434,58.549-17.443,79.193-21.031c20.632-3.603,55.807,0.078,72.126,7.888c16.344,7.819,19.889,12.393,14.298,34
+                                                                       c-4.901,18.946-20.884,24.241-30.21,30.487c-9.542,6.394-21.056,12.812-31.372,13.778c-6.499,0.611-17.635,0.366-25.563,0.326
+                                                                       c-19.084-0.101-26.701-1.07-25.687,6.428c1.002,7.508,11.077,6.623,18.012,6.982c6.954,0.354,20.179,0.098,37.213,3.756
+                                                                       c17.005,3.682,38.927,10.541,31.405,35.479c-6.021,19.953-22.551,46.007-71.587,44.183c-41.303-1.533-43.898-4.441-44.042-33.31
+                                                                       c-0.027-6.022,2.913-47.194,21.484-83.51c17.102-33.44,20.961-36.704,23.259-39.696c3.022-3.932,4.564-6.424,1.701-8.82
+                                                                       c-3.563-2.979-5.334-2.406-13.088,3.697c-7.766,6.119-34.059,26.615-52.335,63.189c-6.343,12.689-20.039,40.57-25.947,74.359
+                                                                       c-4.796,27.469-11.586,72.166,77.924,67.239c78.147-4.303,99.132-33.024,111.729-78.776
+                                                                       C477.017,194.181,428.493,187.83,428.493,187.83"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_3_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_4_">
+                      <use xlink:href="#SVGID_3_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_4_)" fill="#AD0A40" d="M1004.931,218.255c-5.602-17.92,12.6-27.871,6.223-34.209
+                                                                       c-6.646-6.61-27.857-6.833-36.944,5.358c-10.714,14.381,4.576,23.321-1.265,30.885c-2.686,3.473-4.846,5.975-10.604,12.887
+                                                                       c-7.054,8.469-4.609,5.219-18.544,22.42c-13.943,17.168-23.124,21.855-34.271,20.933c-11.133-0.951-5.063-9.804-2.072-14.855
+                                                                       c3.273-5.528,13.44-16.707,20.389-28.322c6.981-11.592,7.487-22.055,5.173-27.622c-2.314-5.574-9.297-6.867-21.729-5.642
+                                                                       c-4.836,0.479-7.472,0.947-15.745,0.313c-2.394-0.187-4.626-0.646-6.658-1.021c0.171-0.447,0.326-0.908,0.51-1.35
+                                                                       c2.509-6.035,11.149-17.687,4.849-20.835c-7.378-3.688-19.389-5.403-30.778,2.062c-12.934,8.475-6.915,20.493-1.375,26.476
+                                                                       c6.462,6.971-0.276,25.28-17.45,46.182c-17.175,20.893-33.188,32.029-49.447,32.029c-10.015,0-17.896-3.904-22.484-11.127
+                                                                       c5.39-2.328,11.798-5.183,18.28-8.302c11.786-5.67,39.617-22.909,41.833-40.668c3.357-26.903-21.68-29.198-32.715-29.688
+                                                                       c-31.852-1.408-62.13,18.586-65.68,65.557c-0.375,4.949,0.016,9.375,0.934,13.404c-4.834,2.684-8.923,5.037-10.035,5.604
+                                                                       c-14.229,7.269-19.183,8.453-26.351,6.861c-8.339-1.854-15.868-22.986-15.406-26.25c0.452-3.244,6.032-3.711,15.783-7.889
+                                                                       c9.742-4.17,27.854-12.517,27.854-32.492c0-15.799-15.239-20.68-20.894-20.904c-11.578-0.451-23.331,6.222-34.434,12.767
+                                                                       c-6.139,3.61-10.393,6.28-12.3,7.498c1.792-5.105,3.563-10.031,5.302-14.604c0.416-1.092,0.699-2.027,0.925-2.896
+                                                                       c10.803-29.066,30.344-80.008,31.176-82.186c4.646-12.076,10.464-25.546,3.74-30.063c-6.293-4.232-27.533,9.562-37.913,36.283
+                                                                       c-11.689,30.102-36.954,102.94-45.692,130.135l0.01-0.009c-9.633,27.162-11.098,34.095-19.389,34.113
+                                                                       c-12.1,0.017-10.586-14.76-8.52-26.697c2.093-12.069,9.601-35.553,17.964-49.483c8.368-13.957,3.716-15.795-3.72-14.857
+                                                                       c-7.422,0.9-13.455,3.715-22.757,9.291c-2.012,1.211-3.773,2.709-5.369,4.371c-1.025-6.24-18.591-19.699-35.951-19.229
+                                                                       c-14.843,0-58.839,13.254-62.686,62.219c-3.337,42.59,16.188,52.93,42.262,52.488c25.502-0.433,46.914-26.945,46.914-26.945
+                                                                       c3.088,15.963,12.563,27.727,29.88,28.799c18.249,1.129,31.359-8.602,38.549-22.648c5.455-10.659,11.607-28.274,17.792-46.354
+                                                                       c9.958-6.32,28.582-13.18,31.924-14.125c5.568-1.574,11.614-2.789,11.614,3.244c0,6.045-7.87,11.617-20.894,16.258
+                                                                       c-13,4.645-21.351,5.57-22.74,9.283c-1.402,3.719,1.391,16.717,8.813,28.781c7.434,12.077,14.632,24.43,25.954,24.43
+                                                                       c13.776,0,38.712-10.082,55.733-20.021c11.424,14.138,32.164,18.813,45.253,18.813c0,0,34.146,2.791,65.237-32.957
+                                                                       c22.485-25.854,27.705-44.791,31.603-59.877c7.996,0.615,18.02,1.238,17.744,6.229c-0.226,4.191-9.062,16.49-17.42,30.412
+                                                                       c-8.35,13.945-17.821,31.625-13.866,43.263c2.993,8.772,16.766,19.813,40.859,11.676c18.289-6.176,33.222-25.01,33.222-25.01
+                                                                       c6.968-7.433,37.436-44.105,38.839-44.105c1.388,0,6.554,9.467,10.724,16.902c4.19,7.426,8.141,13.698,7.835,21.024
+                                                                       c-0.269,6.486-6.928,19.974-19.474,17.691c-11.252-2.047-17-13.533-20.715-13.994c-3.709-0.465-9.826,1.402-9.353,6.523
+                                                                       c0.452,5.1,16.73,23.467,36.854,23.62c23.863,0.187,39.734-10.604,36.691-39.469
+                                                                       C1024.266,247.136,1007.624,226.863,1004.931,218.255 M565.365,235.748c-1.366,12.145-12.489,40.08-40.827,41.256
+                                                                       c-22.757,0.912-13.894-43.953,1.808-56.309c6.098-4.804,16.412-11.363,28.533-7.453c5.639,1.815,12.758,10.787,11.311,16.324
+                                                                       c-0.168,0.635-0.077,0.684,0.157,0.375C565.936,231.837,565.585,233.765,565.365,235.748 M795.617,208.515
+                                                                       c11.024,0.187,12.479,8.906,10.542,17.636c-1.441,6.455-8.352,15.424-25.088,23.766c-6.032,3.008-10.033,4.75-12.792,6.047
+                                                                       c-0.004-0.115-0.03-0.215-0.03-0.338C768.25,237.515,773.382,208.148,795.617,208.515"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_5_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_6_">
+                      <use xlink:href="#SVGID_5_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_6_)" fill="#AD0A40" d="M1209.263,56.774c-30.717-2.573-96.207,5.021-110.571,10.143
+                                                                       c-20.549,7.318-22.25,5.33-11.789,27.016c6.046,12.537,24.078,31.275,43.179,30.082c50.641-3.166,61.75-33.025,130.406-18.933
+                                                                       c19.709,4.049,39.674,6.137,37.573,46.993c-2.1,40.855-15.153,66.098-19.766,77.665c-2.223,5.567-11.992,25.475-28.975,39.037
+                                                                       c-15.728,12.557-37.884,13.774-57.021,12.965c-13.424-0.572-26.115-1.17-32.225-5.695c-5.314-3.945-7.185-12.063-6.566-27.272
+                                                                       c0.797-19.714,4.277-37.584,13.402-64.918c12.729-38.115,26.231-49.983,32.93-60.352c1.711-2.652,2.937-4.316-0.721-7.018
+                                                                       c-3.135-2.317-5.687-1.614-12.623,4.063c-12.564,10.298-32.014,26.539-46.119,51.824c-13.178,23.637-26.254,49.145-32.873,89.93
+                                                                       c-2.658,16.359-2.377,29.433,3.717,39.84c8.691,14.861,28.066,23.418,54.08,23.289c3.506-0.016,82.5,6.043,114.412-37.358
+                                                                       c20.459-27.851,38.85-67.498,41.021-133.244C1323.808,61.492,1269.593,61.834,1209.263,56.774"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_7_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_8_">
+                      <use xlink:href="#SVGID_7_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_8_)" fill="#AD0A40" d="M1553.21,191.298c8.836,0,17.637-2.789,17.637-18.576
+                                                                       c0-15.793-13.934-16.721-15.799-16.721c-10.209,0-19.498,7.91-19.498,19.027C1535.55,186.194,1544.39,191.298,1553.21,191.298"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_9_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_10_">
+                      <use xlink:href="#SVGID_9_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_10_)" fill="#AD0A40" d="M1653.061,232.124c0.012-0.01,0.014-0.033,0.021-0.049
+                                                                        C1653.061,231.986,1653.061,232.058,1653.061,232.124"/>
+                  </g>
+                </g>
+                <g>
+                  <g>
+                    <defs>
+                      <rect id="SVGID_11_" y="-225.334" width="2179.718" height="825.316"/>
+                    </defs>
+                    <clipPath id="SVGID_12_">
+                      <use xlink:href="#SVGID_11_"  overflow="visible"/>
+                    </clipPath>
+                    <path clip-path="url(#SVGID_12_)" fill="#AD0A40" d="M1917.968,165.869c-5.119-0.461-8.92,0.539-7.268-3.502
+                                                                        c1.606-3.949-1.32,2.164,3.309-9.89c4.648-12.084,7.187-25.11,1.259-27.144c-7.841-2.688-26.548,12.135-35.035,34.783
+                                                                        c-1.09,2.895-2.035,5.423-2.904,7.731c-1.451,0.008-2.361,0.065-2.361,0.065c-6.485,0.226-24.471,2.036-24.471,15.973
+                                                                        c0,6.449,12.041,6.751,18.25,6.759c-1.463,3.912-3.094,8.304-5.598,15.07c-6.849,18.537-15.972,47.197-22.095,61.201
+                                                                        c-4.276,9.799-24.108,23.957-38.271,21.889c-4.604-0.676-5.314-6.008-2.611-13.504c0.646-1.791,7.527-16.776,12.012-26.406
+                                                                        c4.636-9.952,8.541-16.147,10.771-28.02c4.137-21.994-18.607-25.252-26.539-25.34c-7.639-0.084-20.242,0.563-33.318,10.176
+                                                                        c-0.008,0.004-0.02,0.031-0.032,0.037c0.244-0.648,0.459-1.254,0.711-1.906l-0.047-0.123
+                                                                        c9.121-26.236,28.471-82.197,29.366-84.553c4.652-12.078,10.466-25.551,3.746-30.064c-6.295-4.23-27.535,9.565-37.922,36.282
+                                                                        c-8.643,22.257-23.438,68.175-34.102,101.613c-3.498,7.922-7.377,13.029-13.166,18.291c-10.812,9.83-33.066,23.016-42.334,29.551
+                                                                        c8.377-23.891,22.047-60.867,22.047-66.834c0-7.426-3.018-8.367-7.625-8.711c-4.914-0.369-14.184-0.076-20.035,13.721
+                                                                        c-0.486,1.125-0.928,2.365-1.66,3.476c0.064-0.238,0.103-0.431,0.103-0.539c0-1.877-9.302-20.486-32.546-20.486
+                                                                        c-28.59,0-59.821,40.334-64.737,68.137c-0.015,0.031-0.025,0.015-0.037,0.05c-3.066,8.524-10.316,13.438-13.941,15.723
+                                                                        c-8.688,5.473-14.52,5.67-20.088,5.229c-5.563-0.485-6.924-4.151-6.924-9.723c0-5.568,4.562-16.895,11.688-33.072
+                                                                        c6.56-14.875,16.341-31.928,16.341-37.049c0-5.119-3.259-8.811-9.291-7.887c-6.035,0.928-17.826,5.098-22.007,10.682
+                                                                        c-4.168,5.56-12.471,24.398-17.6,37.879c-3.875,10.211-7.201,18.797-9.207,23.203l-0.006-0.547
+                                                                        c-4.115,11.9-13.691,16.516-20.445,16.516c-9.922,0-11.877-5.938-11.739-11.987c0.159-6.877,12.45-46.224,18.655-64.449
+                                                                        c8.234-23.658,29.959-86.5,30.916-88.998c4.646-12.078,10.457-25.551,3.742-30.064c-6.295-4.23-27.539,9.565-37.918,36.283
+                                                                        c-9.26,23.836-25.563,74.77-36.297,108.477c-8.654,21.553-18.195,29.481-28.336,37.016
+                                                                        c-16.422,12.203-27.213,12.484-32.508,12.631c-9.802,0.279-17.972-4.463-21.634-11.102c6.935-2.67,17.896-8.017,19.955-9.129
+                                                                        c5.197-2.82,41.07-19.183,40.41-45.439c-0.51-19.979-18.709-24.166-37.912-24.166c-32.998,0-57.059,22.59-60.547,63.963
+                                                                        c-3.162,37.418,34.834,49.287,50.254,49.287c18.947,0,40.838-5.496,63.22-28.26c4.18,16.734,6.174,28.26,23.323,28.26
+                                                                        c16.994,0,33.554-11.686,37.224-15.771c5.473,8.231,9.145,15.311,23.215,15.311c26.391,0,49.895-18.693,49.895-18.693
+                                                                        c0-0.055-0.002-0.149-0.008-0.213c5.834,13.773,18.428,18.705,25.658,19.824c13.809,2.137,23.584,0.201,29.748-1.779
+                                                                        c-19.224,12.371-39.33,22.447-55.398,45.353c-11.418,16.268-16.629,30.313-17.938,42.135l-0.158-0.18
+                                                                        c-0.004,0.465,0.043,0.854,0.047,1.307c-1.1,12.189,1.988,21.935,6.744,29.187c4.66,7.896,10.877,11.977,16.125,14.026
+                                                                        c0.07,0.033,0.154,0.08,0.229,0.113c19.729,8.287,41.198-6.56,50.407-28.379c6.047-14.349,16.23-44.724,25.084-71.576
+                                                                        c7.166-21.734,9.97-27.617,14.302-39.453c16.653-10.924,43.606-28.358,50.799-34.149c-6.66,19.231-12.265,35.641-11.441,38.053
+                                                                        c1.371,4.17,6.637,4.324,17.35,3.703c13.468-0.777,12.773-13.857,22.724-38.992c3.229-8.156,6.229-17.137,9.639-27.271
+                                                                        c-0.076,0.293-0.129,0.49-0.129,0.49c3.277-6.586,5.191-11.869,14.063-17.695c5.478-3.592,13.066-4.897,17.964-3.959
+                                                                        c5.03,0.962,7.385,2.021,7.385,7.119c0,11.148-17.979,37.691-20.988,54.111c-0.947,5.184-8.852,27.848,18.072,27.848
+                                                                        c26.938,0,41.852-12.051,46.949-12.051c5.094,0,6.534,10.937,20.42,11.924c18.348,1.312,43.477-9.67,50.455-21.295
+                                                                        c2.45-4.084-0.052-14.426-4.25-10.125c-7.023,7.187-37.734,19.873-33.031,0.58c0.664-2.727,5.209-12.203,13.572-33.912
+                                                                        c9.213-23.887,19.071-54.271,19.071-54.271s15.289,0.771,19.914-1.538c4.654-2.332,9.869-5.975,9.869-15.714
+                                                                        C1930.509,165.407,1923.087,166.336,1917.968,165.869 M1379.636,208.124c7.806-0.006,12.851,2.48,12.851,12.131
+                                                                        c0,9.414-5.537,16.299-17.045,24.244c-3.019,2.084-18.234,9.85-21.63,10.711C1353.311,243.56,1357.49,208.134,1379.636,208.124
+                                                                        M1598.479,267.449c0-13.467,11.561-51.842,35.704-52.045c12.08-0.107,19.188,8.766,18.896,16.676
+                                                                        c-0.006,0.18-0.017,0.119-0.021,0.043c-4.288,10.619-9.561,28.43-16.196,45.512c0,0-13.195,6.967-21.131,6.967
+                                                                        C1607.869,284.601,1598.479,280.906,1598.479,267.449 M1601.421,380.345c-6.598,19.463-13.283,29.404-21.127,25.697
+                                                                        c-9.207-4.348-5.598-25.121,1.652-39.824c7.729-15.684,16.571-24.543,22.518-29.266c7.174-5.689,13.199-9.814,16.363-11.728
+                                                                        C1620.828,325.226,1609.498,356.535,1601.421,380.345"/>
+                  </g>
+                </g>
+              </g>
+            </svg>
+
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page 3-->
+
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+
+                                                         if (window.showCrop) {
+                                                           document.querySelector('body').classList.add('show-crop');
+                                                         } else {
+                                                           document.querySelector('body').classList.add('hide-crop');
+                                                         }                                               
+    </script>
+
+    <script src="main.js"></script>   
+    <script src="prefixfree.js"></script>
+    <script src="char-limit.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js"></script>
+
+
+    <script>  
+      // Check Overflow function
+      function checkHeight(element) {
+        for (i = 0 ; i < element.length ; i++ ) {
+          var currentElement = element[i];
+          var height         = currentElement.offsetHeight;
+          var parent         = currentElement.parentNode;
+          var parentHeight   = parent.offsetHeight;
+
+          if (height > parentHeight) {
+            parent.classList.add('overflow');
+          } else {
+            parent.classList.remove('overflow');
+          }
+
+          if ((currentElement).parentNode.classList.contains('overflow')) {
+            document.body.classList.add('overflow-true');
+          } else {
+            document.body.classList.remove('overflow-true'); 
+          }
+        }
+      }   
+
+      // Adding class 'is-export-mode' to the body element in case template is in the export mode
+      function checkExport() {
+        var isExportPage = window.location.href.indexOf('exports') > -1;
+
+        if (isExportPage) {
+          document.body.classList.add('is-export-mode');
+        }
+      }            
+
+      function loop() {
+        checkHeight(document.getElementsByClassName('check-overflow'));
+        charLimit();
+        maxDateCheck();
+      } setInterval(loop, 1000);  
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }  
+
+      // Dynamic controls for the placeholder image
+      function lockPlaceholder() {
+        let lockState = localStorage.getItem('lockState') || 'unlocked';
+
+        if ( lockState == 'unlocked' ) {
+          document.body.classList.add('u-placeholder-locked');
+          localStorage.setItem('lockState', 'locked');
+        } else {
+          document.body.classList.remove('u-placeholder-locked');
+          localStorage.setItem('lockState', 'unlocked');          
+        }        
+      }
+
+      function opacityControl() {
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        placeholders.forEach(placeholder => {
+          let compStyles = window.getComputedStyle(placeholder);
+          let currentOpacity = parseFloat(compStyles.getPropertyValue('opacity'));
+          let operation = this.dataset.operation;          
+
+          if ( operation == 'plus' && currentOpacity < 1 ) {
+            placeholder.style.opacity = currentOpacity + 0.1; 
+          } else if ( operation == 'minus' && currentOpacity > 0 ) {
+            placeholder.style.opacity = currentOpacity - 0.1; 
+          }    
+
+          localStorage.setItem('opacityState', currentOpacity);          
+        });       
+      }
+
+      function placeholderControler() {
+        const operationButtons = document.querySelectorAll('.placeholderBtn--operation');
+        const lockButtons = document.querySelectorAll('.placeholderBtn--lock');
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        if ( localStorage.getItem('lockState') == 'locked' ) {
+          document.body.classList.add('u-placeholder-locked');          
+        }
+
+        if ( localStorage.getItem('opacityState') !== undefined ) {
+          placeholders.forEach(placeholder => {
+            placeholder.style.opacity = localStorage.getItem('opacityState');
+          });
+        }
+
+        operationButtons.forEach(button => {
+          button.addEventListener('click', opacityControl);        
+        });        
+
+        lockButtons.forEach(lockButton => {
+          lockButton.addEventListener('click', lockPlaceholder);
+        });
+      }    
+
+      function maxDateCheck(year = 2019, month = 1, date = 10) {
+        const dates = document.querySelectorAll('.js-date-check');
+        const maxDate = new Date(year, month - 1, date);
+
+        dates.forEach(date => {
+          const dateSegments = date.innerText.split('/');
+          const year = 2000 + parseInt(dateSegments[2]);
+          const setDate = new Date(year, dateSegments[1] - 1, dateSegments[0]);
+
+          if ( setDate > maxDate ) {
+            date.classList.add('overflow');
+            date.dataset.maxDate = `${maxDate.getDate()}/${maxDate.getMonth() + 1}/${maxDate.getFullYear()}`;
+          }
+        });
+      }
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat(); 
+
+      placeholderControler();             
+      checkCrop();  
+      checkExport(); 
+
+      TextFit.fit({
+        selector: '.textFit--vertical',
+        fitMode: 'vertical',
+        alignItems: 'center'
+      }); 
+
+    </script>
+
+
+  </body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/bakersAndesRounded110119/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+      :root {
+        --primary: {{{account.colors.bakers-burgundy-19rb}}};
+        --black: {{{account.colors.artisan-collections-19rb}}};
+        --white: #fff;
+      }
+
+      html {
+        font-family: 'Sofa Sans';
+        font-size: 11pt;
+        color: var(--primary);
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        padding: 32.2pt 30pt 0pt 42.9pt;
+      }
+
+      .heading {
+        font-size: 61.2pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.06em;
+        color: var(--primary);
+      }
+
+      .body {
+        flex: 1;
+        margin-top: 18.5pt;
+        font-size: 12pt;
+        font-family: 'Colby CdReg';
+        color: var(--black);
+      }
+
+      .introduction {
+        margin-bottom: 15.2pt;
+        font-size: 14pt;
+        line-height: 1.25em;
+        font-family: 'Colby CdBld';
+
+      }
+
+      .bakeryName {
+        margin-bottom: 8.3pt;
+        font-size: 18.1pt;
+        font-family: 'Colby CdBld';
+        color: var(--primary);
+        line-height: 1.22em;
+      }
+
+      .donationDetails {
+        margin-bottom: 14.2pt;
+        font-size: 16pt;
+        line-height: 1.25em;
+        font-family: 'Colby CdBld';
+        color: var(--primary);
+      }
+
+      .bodyText h1,
+      .bodyText h2 {
+        margin-bottom: 0.35em;
+        line-height: 1.2em;
+        font-family: 'Colby CdBld';
+      }
+
+      .bodyText h1 {
+        font-size: 16pt;
+
+      }
+
+      .bodyText h2 {
+        font-size: 13pt;
+      }
+
+      .bodyText p {
+        margin-bottom: 1.2em;
+        font-size: 11.5pt;
+        font-weight: normal;
+        line-height: 1.25em;
+      }
+
+      .bodyText strong{
+        font-family: 'Colby CdBld';
+      }
+      
+      .bodyText p + h1,
+      .bodyText p + h2 {
+        margin-top: -0.41em;
+      }
+
+      .signOff {
+        margin-top: 30.4pt;
+      }
+
+      .footer {
+        display: flex;
+        align-items: flex-end;
+        width: 100%;
+      }
+
+      .logoContainer {
+        position: relative;
+        width: 172.2pt;
+        height: 79.5pt;
+        margin-right: 35pt;
+        background: var(--primary);
+        border-radius: 5.1pt 5.1pt 0 0;
+        flex-grow: 0;
+      }
+
+      .info {
+        font-family: 'Colby CdReg';
+        flex: 1;
+        flex-grow: 1;
+        align-self: flex-start;
+        margin-top: -4.3pt;
+        font-size: 10pt;
+        font-weight: 400;
+        line-height: 1.16em;
+        max-width: 420px;
+      }
+
+      .logo {
+        position: absolute;
+        bottom: 25pt;
+        left: 19pt;
+        width: 136pt;
+        border-radius: 2.6pt 2.6pt 0 0;
+      }
+
+      .textFit__container {
+        max-height: 3.5em;
+      }
+
+      .textFit-horizontal {
+        width: 435px;
+      }
+      .subheader-hide {
+        display: none;
+      }
+
+      .textFit--vertical {
+        display: flex !important;
+        flex-direction: column;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="header">
+            <div class="heading" data-max-line="3">{{{BD_top-heading--fl}}}</div><!--heading-->
+          </div><!--header-->
+          <div class="body">
+            <div class="introduction js-subtrahend" data-max-line="4">{{{BD_introduction--fl}}}</div><!--introduction-->
+            <div class="bakeryName js-subtrahend {{show-hide-subheader}}">Bakers Delight {{team.name}}{{^team.name}}[Bakery Name]{{/team.name}}<br> {{program-type}}</div><!--bakeryName-->
+            <div class="donationDetails js-subtrahend" data-max-line="3">{{{BD_donation-details--fl}}}</div><!--donationDetails-->
+            <div class="bodyText" data-max-height="dynamic">{{{BD_body-text--fl}}}</div><!--bodyText-->
+            <div class="signOff js-subtrahend">{{{BD_sign-off--fl}}}</div><!--signOff-->
+            <div class="phone js-subtrahend">{{team.phone}}{{^team.phone}}[Bakery Phone Number]{{/team.phone}}</div><!--phone-->
+          </div><!--body-->
+          <div class="footer">
+            <div class="logoContainer">
+              <img class="logo" src="{{{account.logos.reversed-19rb}}}" alt=""><!--logo-->
+            </div><!--logoContainer-->
+            <div class="info">
+              <div class="textFit__container">   
+                <div class="textFit--vertical" style="line-height: 1.1em;">  
+
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+                  Bakers Delight {{{ team.name }}}
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  <span>{{{team.artworkAddress1}}}</span>
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  <span>{{{team.artworkAddress2}}}</span> 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  <span>{{{team.artworkAddress3}}}</span> 
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{team.mso}}</span>
+                  {{/team.mso}}  
+
+                </div><!--textFit-->
+              </div><!--textFit__container-->   
+
+            </div><!--info-->
+          </div><!--footer-->
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script src="fontfaceobserver.js"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+            var font = new FontFaceObserver('Colby CdReg');
+
+      font.load().then(function () {
+        console.log('Font is available');
+        maxLineCheck();
+        maxHeightCheck();
+        
+        TextFit.fit({
+          selector: '.textFit'
+        });
+
+        TextFit.fit({
+          selector: '.textFit--vertical',
+          fitMode: 'vertical',
+          alignItems: 'flex-start'
+        });
+
+      }, function () {
+        console.log('Font is not available');
+      });
+      
+     
+
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const addresses = mso.innerText.split(';');
+          const formated = addresses.map((address, index) => {
+            if ( index == 0 ) {
+              return address
+            } else if ( index == addresses.length - 1 ) {
+              return ` and ${address}`;
+            } else {
+              return `, ${address}`;
+            }
+          }).join('');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat();    
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+
+
+    </script>
+
+
+  </body>
+</html>

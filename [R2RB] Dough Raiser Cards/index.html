@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html data-sign="OSM">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+      :root {
+        /* Font family*/
+
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdBld'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+
+        /*Colors*/
+        --primary: {{{account.colors.bakers-burgundy-19rb}}};
+        --white: #fff;
+      }
+
+      html {
+        font-family: var(--font-sofa-sans);
+        font-size: 11pt;
+        color: var(--primary);
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fit--frontPage {
+        padding: 20.7pt 15pt 53pt 15.6pt;
+        background-color: var(--primary);
+        color: var(--white);
+      }
+
+      .fit--backPage {
+        font-family: var(--font-colby-condensed);
+        padding: 15.7pt 17pt 0pt 17.6pt;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-size: 100%;
+        overflow: hidden;
+      }
+
+      .heading {
+        font-size: 2.4rem;
+        font-weight: 700;
+        flex: 1;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+      .heading strong {
+        font-family: var(--font-3d-sketch);
+        font-size: 1.5em;
+        font-weight: normal;
+        line-height: 0.45em;
+        letter-spacing: 0.01em;
+      }
+
+      .heading__inner {
+        line-height: 0.85em;
+      }
+
+      .header {
+        font-size: 11.8pt;
+        font-weight: bold;
+        letter-spacing: 0.1pt;
+        line-height: 1.15em;
+        margin-bottom: 5.5pt;
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        justify-content: space-between;
+      }
+
+      .content {
+        font-size: 18.1pt;
+        font-weight: bold;
+        line-height: 0.9em;
+        text-transform: uppercase;
+      }
+
+      .info {
+        font-size: 12.3pt;
+        font-weight: bold;
+        max-height: 4em;
+      }
+
+      .info__label {
+        margin-bottom: 5pt;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 0.5pt;
+        left: 17.2pt;
+        width: 87.2pt;
+        height: 43.7pt;
+        border-radius: 2.6pt 2.6pt 0 0;
+        background: var(--white);
+      }
+
+      .footer--secondary {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        height: 44.7pt;
+        margin-top: 6.1pt;
+        background: var(--primary);
+      }
+
+      .logo {
+        position: absolute;
+        bottom: 16pt;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70pt;
+      }
+
+      .textFit__container {
+        max-height: 2.3em;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-2}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-2 }}"></div>
+      {{/placeholder-image-2}}
+    </div><!-- end placeholderMaster -->
+
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit fit--frontPage">
+          {{#BD__heading--drc}}
+          <div class="heading">
+            <div class="heading__inner" data-max-height="dynamic">
+              {{{BD__heading--drc}}}
+            </div><!--heading__inner--> 
+          </div><!--heading-->     
+          {{/BD__heading--drc}}
+          <div class="footer">
+            <img class="logo" src="{{{account.logos.primary-19rb}}}">
+          </div><!--footer-->
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit fit--backPage">
+          <div class="header">
+            <div class="school__name" data-max-line="2.5">{{{BD__school-name--drc}}}</div><!--school__name-->
+            <div class="school__code" data-max-line="1.5">{{{BD__school-code--drc}}}</div><!--school__code-->
+          </div><!--header-->
+          <div class="body">
+            <div class="content" data-max-height="135">we’ll donate {{{BD__percentage--drc}}}% of every purchase back to<br> your school</div><!--content-->
+
+            <div class="info">  
+              <div class="textFit--vert" style="line-height: 1.1em;">  
+                <div class="info__label">Available at:</div><!--info__label-->
+                <div class="info__item">
+                  {{^team.mso}}
+                  {{^team.artworkAddress1}}              
+                  {{^team.artworkAddress2}}              
+                  {{^team.artworkAddress3}}              
+                  Bakers Delight {{{ team.name }}}
+                  {{/team.artworkAddress3}}              
+                  {{/team.artworkAddress2}}              
+                  {{/team.artworkAddress1}}                            
+                  {{/team.mso}}
+
+                  {{^team.mso}}
+                  {{#team.artworkAddress1}}
+                  <div>{{{team.artworkAddress1}}}</div>
+                  {{/team.artworkAddress1}}                
+                  {{#team.artworkAddress2}}
+                  <div>{{{team.artworkAddress2}}} </div> 
+                  {{/team.artworkAddress2}}
+                  {{#team.artworkAddress3}} 
+                  <div>{{{team.artworkAddress3}}} </div> 
+                  {{/team.artworkAddress3}}
+                  {{/team.mso}}
+
+                  {{#team.mso}}
+                  <span class="js-mso">{{team.mso}}</span>
+                  {{/team.mso}}               
+                </div ><!--info__item-->
+              </div><!--textFit-->   
+            </div><!--info-->
+
+          </div><!--body-->
+          <div class="footer footer--secondary">
+            <img class="logo" src="{{{account.logos.reversed-19rb}}}">
+          </div><!--footer-->
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>   
+    <script src="js/prefixfree.js"></script>
+    <script src="js/placeholder-controller.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script>
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.fonts.ready.then(() => {
+        maxLineCheck();
+        maxHeightCheck();
+      });
+
+      function msoFormat() {
+        const msos = document.querySelectorAll('.js-mso');
+
+        msos.forEach(mso => {
+          const text = mso.innerText;
+          const formated = text.replace(/;/g, ', ');
+
+          mso.innerText = formated;
+        })
+      }
+
+      msoFormat();
+
+      placeholderController();
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+      TextFit.fit({
+        selector: '.textFit'
+      });
+
+      TextFit.fit({
+        selector: '.textFit--vert',
+        fitMode: 'vertical',
+        alignItems: 'flex-start'
+      });
+
+    </script>
+
+
+  </body>
+</html>

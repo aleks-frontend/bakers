@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html data-sign="OSM" async>
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+    <link rel="stylesheet" type="text/css" href="css/minireset.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <style>
+      /*@import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');*/
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans-Bakers/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+      :root {
+        --everyday-classics: {{{account.colors.everyday-classics-19rb}}};
+        --healthy-solutions: {{{account.colors.healthy-solutions-19rb}}};
+        --artisan-collection: {{{account.colors.artisan-collections-19rb}}};
+        --artisan-collection-pop: {{{account.colors.artisan-collection-pop-light-19rb}}};
+        --healthy-solutions-pop: {{{account.colors.healthy-solutions-pop-light-19rb}}};
+        --everyday-classics-pop: {{{account.colors.everyday-classics-pop-light-19rb}}};
+        --white: #fff;
+      }
+
+      .theme--everyday-classics {
+        --dynamic-colour: var(--everyday-classics);
+
+      }
+
+      .theme--healthy-solutions {
+        --dynamic-colour: var(--healthy-solutions);
+      }
+
+
+      .theme--artisan-collection {
+        --dynamic-colour: var(--artisan-collection);
+      } 
+
+
+      html {
+        font-family: 'Sofa Sans';
+        font-size: 11pt;
+        color: #000;
+        word-break: break-word;
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }      
+
+      /* Helper class for fixing Reposition tool bug */
+      .reposition-fix {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;        
+      }      
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        padding: 68.2pt 30pt 0pt 45.4pt;
+        background-color: var(--dynamic-colour);
+      }
+
+      .header {
+        position: relative;
+        font-size: 100pt;
+        min-height: 212px;
+      }
+
+      .heading {
+        position: relative;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 0.8em;
+        letter-spacing: 0.2pt;
+      }
+
+      .heading {
+        color: var(--white);
+      }
+
+      .promo {
+        position: absolute;
+        background-image: url(https://files.outfit.io/media_library_items/95774/Circle.svg);
+        width: 174pt;
+        height: 174pt;
+        background-size: contain;
+        right: 24pt;
+        bottom: -170pt;
+        background-repeat: no-repeat;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        padding: 21.7pt 30pt;
+      }
+
+      .promo__name {
+        padding: 0 15pt;
+        color: var(--dynamic-colour);
+        font-size: 26pt;
+        font-family: 'Sofa Sans Mono';
+        max-height: 1.2em;
+     	margin-bottom: 5px;
+        text-align: center;
+      }
+
+      .promo__price {
+        font-family: 'Bakerie Smooth Wide';
+        font-weight: bold;
+        color: var(--dynamic-colour);
+        font-size: 2rem;
+        letter-spacing: 0;
+        max-height: 1.5rem;
+        margin-top: 0.2em;
+        letter-spacing: -0.025em;
+      }
+
+      .promo__name + .promo__price {
+        margin-top: 0;
+      }
+
+      .theme--artisan-collection .promo__name {
+        color: var(--artisan-collection-pop);
+      }
+
+      .theme--artisan-collection .promo__price {
+        color: var(--artisan-collection-pop);
+      }
+
+      .promo__price sup {
+        font-size: 45%;
+        vertical-align: middle;
+        top: -0.5em;
+      }
+
+      .promo__price sub {
+        font-size: 45%;
+      }
+
+      .promo__price sup:last-child {
+        margin-left: -0.1em;
+      }
+
+      .body {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+      }
+
+      .foregroundImage {
+        position: absolute;
+        top: 73pt;
+        left: 55pt;
+        width: 418pt;
+        height: 338pt;
+        object-fit: contain;
+      }
+
+      .theme--everyday-classics .foregroundImage {
+        top: 0pt;
+        left: -4pt;
+        width: 509pt;
+        height: 397pt;        
+      }
+      
+      .theme--artisan-collection .foregroundImage {
+        top: 0;
+      }
+
+      .footer {
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .logo__container {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 138.6pt;
+        height: 154.5pt;
+        margin-right: 35pt;
+        background: var(--white);
+        border-radius: 3.1pt 3.1pt 0 0;
+        padding: 6pt 9pt 35pt 10pt;
+      }
+
+      .logo__header {
+        margin-bottom: 0pt;
+        display: none;
+      }
+
+      .theme--artisan-collection .logo__header {
+        margin-bottom: 11pt;
+      }
+
+      .theme--everyday-classics .logo__header--primary {
+        display: block;
+      }
+
+      .theme--healthy-solutions .logo__header--secondary {
+        display: block;
+      }
+
+      .theme--artisan-collection .logo__header--tertiary {
+        display: block;
+      }
+
+      .logo__heading {
+        position: relative;
+        font-size: 18.6pt;
+        font-family: 'Colby CdBld';
+        text-transform: uppercase;
+        color: var(--dynamic-colour);
+        letter-spacing: 1px; 
+        line-height: 1.05em;
+        margin-bottom: 5.8pt;
+      }
+
+      .logo__heading::after {
+        content: '';
+        position: absolute;
+        bottom: -8pt;
+        left: 0;
+        width: 108pt;
+        height: 1px;
+        background-color: var(--dynamic-colour);
+      }
+
+      .logo__subheading {
+        margin-top: 16px;
+        font-family: 'Colby CdReg';
+        font-size: 15pt;
+        color: var(--dynamic-colour);
+        max-height: 1.6em;
+      }
+
+      .logo {
+        margin-top: 16px;
+        width: 115.5pt;
+        display: none;
+        fill: var(--dynamic-colour);
+      }
+
+      .theme--everyday-classics .logo--everyday-classics {
+        display: block;
+      }
+
+      .theme--healthy-solutions .logo--healthy-solutions {
+        display: block;
+      }
+
+      .theme--artisan-collection .logo--artisan-collection {
+        display: block;
+      }
+
+      .terms {
+        position: relative;
+        font-size: 11.9pt;
+        font-family: 'Colby CdReg';
+        color: var(--white);
+        margin-bottom: 45pt;
+        line-height: 1.2em;
+        letter-spacing: -0.6pt;
+        flex: 1;
+      }
+
+      /* POP Color - logic style */
+
+      .js-sentence-output em {
+        font-style: normal;
+      }
+
+      .theme--artisan-collection .js-sentence-output em { color: var(--artisan-collection-pop); }
+      .theme--healthy-solutions .js-sentence-output em { color: var(--healthy-solutions-pop); }
+      .theme--everyday-classics .js-sentence-output em { color: var(--everyday-classics-pop); }
+
+      .js-sentence-output span.underline {
+        position: relative;
+      }
+
+      .js-sentence-output span.underline::before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 22%;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: red;
+        border-radius: 6px;
+      }
+
+      .burgundy .js-sentence-output span.underline::before { background: #d08e84; }
+      .orange .js-sentence-output span.underline::before { background: #fab9a3; }
+      .black .js-sentence-output span.underline::before { background: #b12e6a; }
+
+      .headingMaster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+      }
+
+      .overflow:hover:after {
+        font-size: 0.5em;
+      }
+
+      /* Helper Classes */
+      .u-custom-underline {
+        position: relative;
+      }
+
+      .u-custom-underline::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 40px;
+        bottom: 0;
+        left: 0;
+        background: url(https://files.outfit.io/media_library_items/96014/custom-border.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle-new }}{{^placeholder-toggle-new}}hide{{/placeholder-toggle-new}}
+                                         theme--{{{BD_theme--cc}}}{{^BD_theme--cc}}healthy-solutions{{/BD_theme--cc}}
+                                         "data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed">
+
+        <div class="container fit">
+
+          <div class="backgroundImage"><div class="reposition-fix">{{{BD_background-image--cc}}}</div></div><!--backgroundImage--> 
+          <div class="header">
+            <div class="heading" style="font-size:{{BD_heading-font-size--cc}}%;" data-max-line="4">
+              <div class="headingMaster">{{{BD_heading--cc}}}</div>
+              <div class="js-sentence-output"></div>
+            </div><!--heading-->
+            <div class="promo">
+              {{#BD_price-tag-text-upper--cc}}
+              <div class="promo__name"><span class="textFit--vertical" style="line-height: 1">{{{BD_price-tag-text-upper--cc}}}</span></div><!--promo__price-->
+              {{/BD_price-tag-text-upper--cc}}
+              {{#BD_price-tag-text-lower--cc}}
+              <div class="promo__price"><span class="textFit--vertical" style="line-height: 1.5rem">{{{BD_price-tag-text-lower--cc}}}</span></div><!--promo__name-->
+              {{/BD_price-tag-text-lower--cc}}
+            </div><!--promo-->
+          </div><!--header-->
+          <div class="body"> 
+            <div class="foregroundImage"><div class="reposition-fix">{{{BD_foreground-image--cc}}}</div></div><!--productImage--> 
+          </div><!--body-->
+          <div class="footer">
+            <div class="logo__container">
+              <div class="logo__header logo__header--secondary">
+                <div class="logo__heading">healthy solutions</div><!--logo__heading-->
+                <div class="logo__subheading">Make the switch</div><!--logo__heading-->
+              </div><!--logo__header-->
+              <div class="logo__header logo__header--tertiary">
+                <div class="logo__heading">artisan collection</div><!--logo__heading-->
+                <div class="logo__subheading">Authentically<br/> handcrafted</div><!--logo__heading-->
+              </div><!--logo__header-->
+              <div class="logo__header logo__header--primary">
+                <div class="logo__heading">everyday classics</div><!--logo__heading-->
+                <div class="logo__subheading">Our family staples</div><!--logo__heading-->
+              </div><!--logo__header-->
+              <img class="logo logo--everyday-classics" src="{{{account.logos.everyday-classics-19rb_}}}"><!--logo-->
+              <img class="logo logo--healthy-solutions" src="https://files.outfit.io/media_library_items/95782/BD_Logo_%2520healthy-solutions.svg"><!--logo-->
+              <img class="logo logo--artisan-collection" src="{{{account.logos.black-19rb}}}"><!--logo-->
+            </div><!--logoContainer-->
+            <div class="terms" data-max-line="6">{{{BD_tcs--cc}}}</div><!--info-->
+          </div><!--footer-->
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+    </script>
+    <script src="js/main.js"></script>  
+    <script src="js/prefixfree.js"></script>
+    <script src="js/char-limit.js"></script>
+    <script src="js/check-export-mode.js"></script>
+    <script src="js/max-line-check.js"></script>
+    <script src="js/max-height-check.js"></script>
+    <script src="js/hide-empty-titles.js"></script>
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js" type="text/javascript"></script>
+    <script src="fontfaceobserver.js"></script>
+    <script>
+      // Including popColorController() function from snippets
+      {{{account.snippets.popColorController}}}
+
+      // Tracking text changes and firing text restriction functions (mutationObserver)
+      const overflowObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          maxLineCheck();
+          maxHeightCheck();
+          charLimit();
+        });
+      });     
+
+      const headingObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          popColorController('.headingMaster', '.js-sentence-output', true);
+        });
+      });      
+
+      headingObserver.observe(document.querySelector('.headingMaster'), {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });      
+
+      overflowObserver.observe(document.body, {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });   
+
+
+      // Calling text size restriction functions once the fonts are loaded
+      
+
+
+
+
+      checkCrop();
+      checkExport();
+      charLimit();
+
+      // TextFit function decreases the font of the selected element to make it fit in single line (if needed, uncomment the code bellow)
+
+
+      function detectSystem() {
+        const isMac = window.navigator.appVersion.includes('Mac');
+        if ( isMac ) document.body.classList.add('is-mac');
+      }
+
+      detectSystem();
+
+    </script>
+    
+    <script type="text/javascript">
+      // Add many fallbacks for Print Ready
+      document.addEventListener('DOMContentLoaded', function(event) {
+        var font = new FontFaceObserver('Colby CdReg');
+
+        font.load().then(function () {
+          console.log('Font is available');
+          
+          
+          maxLineCheck();
+          maxHeightCheck();
+          popColorController('.headingMaster', '.js-sentence-output', true);
+
+          TextFit.fit({
+            selector: '.textFit--vertical',
+            fitMode: 'vertical',
+            alignItems: 'center'
+          }); 
+          document.dispatchEvent(new Event('printready'));
+          console.log('Print Ready');
+        }, function () {
+          console.log('Font is not available');
+        });
+      });
+
+    </script>    
+
+
+  </body>
+</html>
