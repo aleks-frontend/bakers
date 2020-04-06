@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html async data-sign="OSS OSB OSL">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="placeholder-controller.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+
+      html {
+        font-family: 'Bakers Andes Rounded';
+        font-size: 11pt;
+        color: #000;
+      }
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative;
+        z-index: 999;}
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3,  
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .container {      
+        display: flex;
+        flex-direction: column;
+        padding: 51pt 48pt 49.3pt;
+        background: {{{account.colors.bakers-burgundy-19rb}}};       
+      }
+
+      .body {
+        position: relative;
+        height: 689pt;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;      
+      }
+
+      .theme--1 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/2527b9b44f61c62e27af8afaeb1ce627/image1%20Combo.jpg");
+      }
+
+      .theme--2 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/1eca95517e0ebce3ba9f61e9a6f37271/image2%20Combo.jpg");
+      }
+
+      .theme--3 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/f4882ab1990036d5452d8f1ccb4d8a78/image3-Combo.jpg");
+      }
+
+      .theme--4 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/806b93850213800936e8900499fdc77d/image4-Combo.jpg");
+      }
+
+      .theme--5 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/33718039c5bfae1a219d40f9fc75a048/image5-Combo.jpg");
+      }
+
+      .theme--6 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/834e9b7b1c21c95b8d65b06cb423586a/image4-Combo.jpg");
+      }
+
+      .theme--7 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/50d82402b4aa83a2da15235b51efd1fb/image7-Combo.jpg");
+      }
+
+      .theme--8 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/2009430087ecd86186f9dcf0778ac509/image8-Combo.jpg");
+      }
+
+      .theme--9 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/b290ece181aef7917300b72c5dc1a72c/image9-Combo.jpg");
+      }
+
+      .theme--10 .body {
+        background-image: url("https://outfit-v2-exports-production.s3-ap-southeast-2.amazonaws.com/media_library_items/2cae13f5fc942f17b8ddc08c31c71f7f/image10-Combo.jpg");
+      }
+
+      .headline {
+        padding: 13pt 18pt;
+        font-size: 59pt;
+        text-transform: uppercase;
+        line-height: 54pt;    
+        font-weight: 800;
+        color: {{{account.colors.bakers-burgundy-19rb}}};
+      }
+
+      .price__container {
+        position: absolute;
+        right: 36pt;
+        top: 94pt;
+        width: 152pt;
+        height: 152pt;  
+        padding: 32pt 14pt;       
+        border-radius: 50%;    
+        text-align: center;
+        text-transform: uppercase;
+        color: #fff;
+        font-weight: 800;
+        background: {{{account.colors.bakers-burgundy-19rb}}};      
+      }
+
+      .theme--10 .price__container {
+        top: 144pt;
+      }
+
+      .price__label {
+        font-size: 30pt;
+        line-height: 1em;
+      }
+
+      .price {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        margin-top: 0.1rem;
+        font-size: 71pt;
+        line-height: 1em;        
+      }
+
+      .price--small {
+        font-size: 60pt;
+      }
+
+      .price__currency {
+        margin-top: 0.1rem;
+        margin-right: 0.1rem;
+        font-size: 0.6em;
+        line-height: 1em;      
+      }
+
+      .price__cents {
+        font-size: 0.6em;
+        line-height: 1em;
+      }
+
+      .currency {
+        display: inline-block;
+        transform: translateY(-12pt);
+        font-size: 43pt;     
+      }
+
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex: 1;    
+      }
+
+      .footer__content {
+        width: 352pt;
+        padding-left: 17pt;
+        padding-bottom: 7.7pt;
+        font-size: 8.8pt;        
+        color: #fff;       
+        line-height: 1.1em;
+      }
+
+      .footer__logo {
+        width:133pt;
+      }
+
+      .headline,
+      .price__label,
+      .footer__content {
+        display: none;
+      }
+
+      .theme--1 .headline--1,
+      .theme--2 .headline--2,
+      .theme--3 .headline--3,
+      .theme--4 .headline--4,
+      .theme--5 .headline--5,
+      .theme--6 .headline--6,
+      .theme--7 .headline--7,
+      .theme--8 .headline--8,
+      .theme--9 .headline--9,
+      .theme--10 .headline--10,
+      .theme--1 .price__label--1,
+      .theme--2 .price__label--2,
+      .theme--3 .price__label--3,
+      .theme--4 .price__label--4,
+      .theme--5 .price__label--5,
+      .theme--6 .price__label--6,
+      .theme--7 .price__label--7,
+      .theme--8 .price__label--8,
+      .theme--9 .price__label--9,
+      .theme--10 .price__label--10,
+      .theme--1 .footer__content--1,
+      .theme--2 .footer__content--2,
+      .theme--3 .footer__content--3,
+      .theme--4 .footer__content--4,
+      .theme--5 .footer__content--5,
+      .theme--6 .footer__content--6,
+      .theme--7 .footer__content--7,
+      .theme--8 .footer__content--8,
+      .theme--9 .footer__content--9,
+      .theme--10 .footer__content--10
+      {
+        display: block;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="{{ placeholder-toggle }} {{ ^Bd_theme--cc }} theme--1 {{ /Bd_theme--cc }}{{ Bd_theme--cc }}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <div class="container fit">
+
+          <div class="body">
+            <div class="headline headline--1">
+              2 everyday<br>loaves
+            </div><!-- end headline -->
+            <div class="headline headline--2">
+              3 everyday<br>loaves
+            </div><!-- end headline -->
+            <div class="headline headline--3">
+              4 everyday<br>loaves
+            </div><!-- end headline -->
+            <div class="headline headline--4">
+              2 everyday <br>health<br>loaves
+            </div><!-- end headline -->
+            <div class="headline headline--5">
+              2 specialty<br>health<br>loaves
+            </div><!-- end headline -->
+            <div class="headline headline--6">
+              6 traditional<br>rolls 
+            </div><!-- end headline -->
+            <div class="headline headline--7">
+              6 hi-lo/chia<br>omega-3<br>rolls
+            </div><!-- end headline -->
+            <div class="headline headline--8">
+              12 traditional<br>dinner<br>rolls
+            </div><!-- end headline -->
+            <div class="headline headline--9">
+              4 gourmet<br>rolls
+            </div><!-- end headline -->
+            <div class="headline headline--10">
+              block & 6<br>traditional<br>rolls
+            </div><!-- end headline -->
+            <div class="price__container">
+              <div class="price__label price__label--1">2 for</div><!-- end price__label -->
+              <div class="price__label price__label--2">3 for</div><!-- end price__label -->
+              <div class="price__label price__label--3">4 for</div><!-- end price__label -->
+              <div class="price__label price__label--4">2 for</div><!-- end price__label -->
+              <div class="price__label price__label--5">2 for</div><!-- end price__label -->
+              <div class="price__label price__label--6">6 for</div><!-- end price__label -->
+              <div class="price__label price__label--7">6 for</div><!-- end price__label -->
+              <div class="price__label price__label--8">12 for</div><!-- end price__label -->
+              <div class="price__label price__label--9">4 for</div><!-- end price__label -->
+              <div class="price__label price__label--10">all for</div><!-- end price__label -->
+              <div class="price" data-price="{{{ Bd_price--cc}}}" data-char-limit="8">
+                <span class="price__currency">$</span>
+                <span class="js-price__main"></span>
+                <span class="price__cents js-price__cents"></span>
+              </div><!-- end price -->
+            </div><!-- end price__container -->
+          </div><!-- end body -->
+          <div class="footer">
+            <div class="footer__content footer__content--1">
+              <span data-mso=""></span>
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} Saving varies depending on Loaves purchased. 
+              Everyday Loaves includes White, Wholemeal,  <br>
+              Country Grain and Wholemeal Country Grain Loaves only.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--2">
+              <span data-mso=""></span>
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} Saving varies depending on Loaves purchased. 
+              Everyday Loaves includes White, Wholemeal,  <br>
+              Country Grain and Wholemeal Country Grain Loaves only.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--3">
+              <span data-mso=""></span>
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} Saving varies depending on Loaves purchased. 
+              Everyday Loaves includes White, Wholemeal,  <br>
+              Country Grain and Wholemeal Country Grain Loaves only.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--4">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} Everyday Health Loaves includes Chia Omega-3 Wholemeal,<br>
+              Chia-Omega 3 White, Hi-Fibre Lo-GI and Cape Seed High Tin Loaves only.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--5">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} Saving varies depending on Loaves purchased. 
+              Specialty Health Loaves includes Wholegrain Lo-Fo Block, <br>
+              Chia & Fruit High Tin and Large Cape Seed High Tin Loaves only.            
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--6">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} <br>
+              Traditional Rolls includes White, Wholemeal, Country Grain and<br>
+              Wholemeal Country Grain Rolls only.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--7">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}}>
+              Rolls include Chia Omega-3 White, Chia Omega-3 Wholemeal and Hi-Fibre Lo-GI rolls only.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--8">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}}>
+              Traditional dinner rolls include White and Wholemeal rolls only.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--9">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} Saving varies depending on rolls purchased.<br>
+              Gourmet includes Artisan, Cape Seed and Wholegrain Lo-Fo Rolls only.<br>
+              Refer to bakersdelight.com.au for a list of Artisan rolls.
+            </div><!-- end footer__content -->
+            <div class="footer__content footer__content--10">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}} Saving varies depending on Loaf & Rolls purchased. 
+              Traditional Rolls and Block includes White,  <br>
+              Wholemeal, Country Grain and Wholemeal Country Grain Loves and Rolls only.
+            </div><!-- end footer__content -->
+            <img src="{{account.logos.reversed}}" class="footer__logo" alt="logo">
+          </div> <!-- end footer -->
+        </div><!-- end body -->
+
+      </div><!--container fit-->
+
+    </div><!--bleed-->
+
+    </div><!--page-->
+
+  <script>
+    window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};                                      
+  </script>
+  <script src="main.js"></script>   
+  <script src="prefixfree.js"></script>
+  <script src="placeholder-controller.js"></script>
+  <script src="char-limit.js"></script>
+  <script src="check-export-mode.js"></script>
+  <script src="check-height.js"></script>    
+  <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.3.min.js" type="text/javascript"></script>
+  <script src="fontfaceobserver.js"></script>    
+  <script>
+    // Add many fallbacks for Print Ready
+    document.addEventListener('DOMContentLoaded', function(event) {
+      document.dispatchEvent(new Event('printready'));
+    });
+
+    setTimeout(function() {
+      document.dispatchEvent(new Event('printready'));
+    }, 1000);
+
+    document.dispatchEvent(new Event('printready'));      
+
+    function loop() {
+      checkHeight(document.getElementsByClassName('check-overflow'));
+      charLimit();
+      injectPrice();
+    } setInterval(loop, 1000);  
+
+    // Fix for the resizable background images - fullscreen and digital vairaitons only
+    function checkCrop() {
+      if (window.showCrop === true) {
+      } else {
+        [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+          el.parentNode.style.left = '0';
+          el.parentNode.style.right = '0';
+          el.parentNode.style.top = '0';
+          el.parentNode.style.bottom = '0';
+          el.parentNode.style.width = '100%';
+          el.parentNode.style.height = '100%';
+        });
+      }
+    }
+
+
+    function msoInject() {
+      const msoElements = document.querySelectorAll('[data-mso]'); 
+
+      if (msoElements !== null) {
+        msoElements.forEach(element => {
+          if ( element.dataset.mso !== null ) {
+            const names = element.dataset.mso.split(';');            
+            const namesFormated = names.map((name, index) => {
+              const nameFormated = name.trim();
+              if ( index == names.length - 2 ) {
+                // if we are adding element before the last one
+                return `${nameFormated} and `
+              } else if ( index == names.length - 1 ) {
+                // if we are adding last element              
+                return `${nameFormated}`;              
+              } else {
+                return `${nameFormated}, `;              
+              }
+            }).join('');
+
+            element.innerText = namesFormated;
+          }
+        });
+      }
+    }
+
+    function injectPrice() {
+      const container = document.querySelector('[data-price]');
+      const main = container.querySelector('.js-price__main');
+      const cents = container.querySelector('.js-price__cents');
+
+      // Breaking the price string in an array with two elements (dollars and cents)
+      const price = container.dataset.price.split('.');
+
+      // Checking if the main price (dollar value) has more than one character
+      // If it does, we add a modifier class to container and font size is reduces
+      if ( price[0].length > 1 ) {
+        container.classList.add('price--small');
+      }
+
+      // In the end we inject the dollar and cents values
+      main.innerText = price[0];
+      cents.innerText = price[1].slice(0, 2);
+    }
+
+
+    placeholderController();
+    checkCrop(); 
+
+  </script>
+
+  <script type="text/javascript">
+
+    // Calling text size restriction functions once the fonts are loaded
+    document.addEventListener('DOMContentLoaded', function(event) {
+      const fonts = ['Bakers Andes Rounded'];
+      const fontObservers = [];
+
+      fonts.forEach(font => {
+        const obs = new FontFaceObserver(font);
+        fontObservers.push(obs.load())
+      });
+
+      Promise.all(fontObservers).then(() => {
+        checkHeight(document.getElementsByClassName('check-overflow'));    
+        charLimit();
+        msoInject();
+        injectPrice();
+        checkExport(); 
+
+        TextFit.fit({
+          selector: '.textFit'      
+        });
+
+        document.dispatchEvent(new Event('printready'));
+      });
+    });
+  </script>    
+
+  </body>
+</html>
