@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html async data-sign="OSS OSB OSL">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="placeholder-controller.css"> 
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndes/stylesheet.css');
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+
+      :root {
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+
+        /*Colors*/
+        --bakers-burgundy: {{{account.colors.bakers-burgundy-19rb}}};
+        --bakers-burgundy-pop: {{{account.colors.bakers-burgundy-pop-19rb}}};
+        --bakers-burgundy-pop-light: {{{account.colors.-bakers-burgundy-pop-light-19rb}}};
+      } 
+
+      html {
+        font-family: 'Bakers Andes Rounded';
+        font-size: 11pt;
+        color: #000;
+      }
+
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative;
+        z-index: 999;}
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .overflow[data-char-limit]:hover:after {
+        content: 'Character limit exceeded';        
+      }
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }    
+
+      .container {
+        background: var(--bakers-burgundy);
+        padding: 51pt 48pt 49.3pt;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .body {
+        height: 689pt;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+      }
+
+      .headline {
+        font-family: var(--font-sofa-sans);
+        font-size: 59pt;
+        text-transform: uppercase;
+        line-height: 1em;
+        padding: 13pt 18pt;
+        font-weight: bold;
+        color: var(--bakers-burgundy);
+        position: relative;
+        padding: 30pt 18pt;
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }    
+
+      .headline strong {
+        font-family: var(--font-3d-sketch);
+        font-size: 1.5em;
+        display: inline;
+        vertical-align: baseline;
+        font-weight: normal;
+      }
+
+      .price__container {  
+        width: 152pt;
+        height: 152pt;
+        position: absolute;
+        right: 36pt;
+        top: 94pt;
+        padding: 32pt 14pt;
+        text-align: center;
+        text-transform: uppercase;
+        color: #fff;
+        font-weight: 800;
+        font-family: var(--font-bakerie-smooth-wide); 
+      }
+
+      .theme--10 .price__container {
+        top: 144pt;
+      }
+
+      .price__label {
+        position: relative;
+        font-size: 30pt;
+        line-height: 1em;
+        z-index: 1;
+      }
+
+      .price {    
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        font-size: 71pt;
+        line-height: 1em;
+        margin-top: 0.1rem;
+      }
+
+      .price--small {
+        font-size: 60pt;
+      }
+
+      .price__currency {
+        font-size: 0.6em;
+        line-height: 1em;
+        margin-top: 0.1rem;
+        margin-right: 0.1rem;
+      }
+
+      .price__cents {
+        position: relative;
+        font-size: 0.6em;
+        line-height: 1em;
+      }
+
+      .currency {
+        font-size: 43pt;
+        display: inline-block;
+        transform: translateY(-12pt);
+      }
+
+      .footer {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .footer__content {
+        font-family: var(--font-colby-condensed);
+        font-size: 8.8pt;
+        width: 352pt;
+        color: #fff;
+        padding-left: 17pt;
+        padding-bottom: 7.7pt;
+        line-height: 1.1em;
+      }
+
+      .footer__logo {
+        width:133pt;
+      }
+
+
+
+      .promo__shape {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
+
+      .promo__shape path {
+        fill: var(--bakers-burgundy); 
+      }      
+
+      .headingMaster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        opacity: 0;
+        z-index: 1;
+      }
+
+      .js-sentence-output em {
+        color: {{{account.colors.bakers-burgundy-pop-19rb}}};
+        font-style: normal;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle }}{{^placeholder-toggle}}hide{{/placeholder-toggle}}" data-crop="{{show-crop}}">
+    <div class="placeholderMaster" data-opacity="{{ placeholder-opacity }}">
+      {{#placeholder-image-1}}
+      <div class="placeholderMaster__item" data-bg="{{ placeholder-image-1 }}"></div>
+      {{/placeholder-image-1}}
+    </div><!-- end placeholderMaster -->
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <div class="container fit">
+
+          <div class="body">
+            <div class="backgroundImage">{{{Bd_image-cc}}}</div>
+            <div class="headline">
+              <div class="headingMaster">{{{Bd_headline-1--cc}}}</div> 
+              <div class="js-sentence-output"></div> <!-- js-sentence-output--> 
+            </div><!-- end headline -->
+
+            <div class="price__container">
+
+              <svg width="591" height="591" viewBox="0 0 591 591" class="promo__shape" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M589.457 300.57C592.247 318.65 586.207 336.02 583.457 353.9C579.567 378.67 574.867 403.04 566.027 426.55C557.787 448.35 547.087 468.44 529.507 484.27C527.075 486.31 525.1 488.838 523.707 491.69C520.887 498.29 516.017 502.75 510.397 506.85C493.457 519.21 476.977 532.24 459.647 544.03C450.647 550.14 440.467 554.68 430.437 559.03C417.017 564.85 403.197 569.74 389.587 575.11C359.837 586.86 329.087 592.4 297.137 589.35C273.937 587.14 250.937 582.64 227.727 581.01C199.517 579.01 176.207 566.74 153.837 550.94C132.357 535.76 110.57 521.013 88.4767 506.7C74.9767 497.98 64.0867 487.15 56.2567 473.24C48.8967 460.18 40.4767 447.52 34.8367 433.73C25.4457 411.163 17.3198 388.091 10.4967 364.62C6.59668 350.88 6.82668 335.97 5.17668 321.62C4.85668 318.81 4.79668 315.9 3.97668 313.24C-0.753323 297.96 -0.163324 282.3 0.316676 266.64C0.273272 264.806 0.6139 262.984 1.31668 261.29C5.21668 253.54 5.31668 245.35 5.03668 236.93C4.57668 221.22 10.1667 206.85 16.0367 192.66C22.0867 178.04 28.3367 163.5 34.6667 149C45.1167 125.05 61.8367 105.52 79.9667 87.3097C89.0567 78.1697 100.377 71.3097 109.967 62.5497C124.087 49.6497 140.187 40.2297 157.657 32.8697C159.828 32.0203 161.945 31.0384 163.997 29.9297C195.087 12.0497 229.287 4.45968 264.467 1.16968C281.359 -0.519555 298.385 -0.378738 315.247 1.58968C333.247 3.79968 350.247 10.0197 367.917 12.5897C391.847 16.1097 412.657 27.4797 434.597 36.0597C463.597 47.4097 487.597 66.0597 508.087 89.1397C537.287 121.92 561.157 158.14 574.147 200.46C579.007 216.27 580.907 232.99 584.147 249.3C584.497 251.1 584.687 252.93 585.147 254.7C589.167 269.63 591.677 284.67 589.457 300.57Z" fill="#FA1616"/>
+              </svg>
+
+              <div class="price__label">{{{Bd_price-label-cc}}}</div><!-- end price__label -->
+              <div class="price" data-price="{{{ Bd_price--cc}}}" data-char-limit="8">
+                <span class="price__currency">$</span>
+                <span class="js-price__main"></span>
+                <span class="price__cents js-price__cents"></span>
+              </div><!-- end price -->
+            </div><!-- end price__container -->
+
+
+
+          </div><!-- end body -->
+          <div class="footer">
+            <div class="footer__content">
+              {{^team.mso}}Subject to availability, only available at Bakers Delight {{team.name}}.<br />{{/team.mso}}{{#team.mso}}Subject to availability, only available at Bakers Delight <span data-mso="{{team.mso}}"></span>.{{/team.mso}}
+              {{{Bd_footer-content--cc}}}
+            </div><!-- end footer__content -->
+            <img src="https://files.outfit.io/media_library_items/83828/BD_Logo_White.svg" class="footer__logo" alt="logo">
+          </div> <!-- end footer -->
+        </div><!-- end body -->
+
+      </div><!--container fit-->
+
+    </div><!--bleed-->
+
+    </div><!--page-->
+
+  <script>
+    window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};                                      
+  </script>
+  <script src="main.js"></script>   
+  <script src="prefixfree.js"></script>
+  <script src="placeholder-controller.js"></script>
+  <script src="char-limit.js"></script>
+  <script src="check-export-mode.js"></script>
+  <script src="check-height.js"></script>    
+  <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.3.min.js" type="text/javascript"></script>
+  <script src="fontfaceobserver.js"></script>    
+  <script>
+    // Add many fallbacks for Print Ready
+    document.addEventListener('DOMContentLoaded', function(event) {
+      document.dispatchEvent(new Event('printready'));
+    });
+
+    setTimeout(function() {
+      document.dispatchEvent(new Event('printready'));
+    }, 1000);
+
+    document.dispatchEvent(new Event('printready'));          
+
+    function loop() {
+      checkHeight(document.getElementsByClassName('check-overflow'));
+      charLimit();
+      injectPrice();
+    } setInterval(loop, 1000);  
+
+    // Fix for the resizable background images - fullscreen and digital vairaitons only
+    function checkCrop() {
+      if (window.showCrop === true) {
+      } else {
+        [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+          el.parentNode.style.left = '0';
+          el.parentNode.style.right = '0';
+          el.parentNode.style.top = '0';
+          el.parentNode.style.bottom = '0';
+          el.parentNode.style.width = '100%';
+          el.parentNode.style.height = '100%';
+        });
+      }
+    }
+
+
+    function msoInject() {
+      const msoElements = document.querySelectorAll('[data-mso]'); 
+
+      if (msoElements !== null) {
+        msoElements.forEach(element => {
+          if ( element.dataset.mso !== null ) {
+            const names = element.dataset.mso.split(';');            
+            const namesFormated = names.map((name, index) => {
+              const nameFormated = name.trim();
+              if ( index == names.length - 2 ) {
+                // if we are adding element before the last one
+                return `${nameFormated} and `
+              } else if ( index == names.length - 1 ) {
+                // if we are adding last element              
+                return `${nameFormated}`;              
+              } else {
+                return `${nameFormated}, `;              
+              }
+            }).join('');
+
+            element.innerText = namesFormated;
+          }
+        });
+      }
+    }
+
+    function injectPrice() {
+      const container = document.querySelector('[data-price]');
+      const main = container.querySelector('.js-price__main');
+      const cents = container.querySelector('.js-price__cents');
+
+      const price = container.dataset.price.split('.');
+
+      if ( price[0].length > 1 ) {
+        container.classList.add('price--small');
+      }
+
+      main.innerText = price[0];
+      cents.innerText = price[1].slice(0, 2);
+    }
+
+    // Including popColorController() function from snippets
+    {{{account.snippets.popColorController}}}
+
+    const headingObserver = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        popColorController('.headingMaster', '.js-sentence-output');
+      });
+    });      
+
+    headingObserver.observe(document.querySelector('.headingMaster'), {
+      attributes: false,
+      characterData: true,
+      childList: true,
+      subtree: true,
+      attributeOldValue: false,
+      characterDataOldValue: true
+    });      
+
+
+
+    placeholderController();
+    checkCrop();  
+
+  </script>
+
+  <script type="text/javascript">
+
+    // Calling text size restriction functions once the fonts are loaded
+    document.addEventListener('DOMContentLoaded', function(event) {
+      const fonts = ['Colby CdReg','Sofa Sans','Bakers Andes Rounded','Bakerie Smooth Wide'];
+
+      const fontObservers = [];
+
+      fonts.forEach(font => {
+        const obs = new FontFaceObserver(font);
+        fontObservers.push(obs.load())
+      });
+
+      Promise.all(fontObservers).then(() => {
+        msoInject();
+        checkHeight(document.getElementsByClassName('check-overflow')); 
+        popColorController('.headingMaster', '.js-sentence-output'); 
+        checkExport(); 
+        charLimit();
+        injectPrice();
+
+        TextFit.fit({
+          selector: '.textFit'
+        });  
+
+        document.dispatchEvent(new Event('printready'));
+      });
+    });
+  </script>  
+
+
+  </body>
+</html>
