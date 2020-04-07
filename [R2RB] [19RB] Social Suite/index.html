@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html data-sign="OSS">
+  <head>
+    <title>Template title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="minireset.css">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" type="text/css" href="main-extended.css">
+
+    <style>
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/BakersAndesFull/stylesheet.css%E2%80%9C');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/CosmopolitanScript/stylesheet.css');
+
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/SofaSans/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Bakerie%20Smooth%20Wide%20Black/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/3D%20Sketch/stylesheet.css');
+      @import url('https://outfit-assets-production.s3.amazonaws.com/fonts/Colby%20Condensed/stylesheet.css');
+
+
+      :root {
+        /* Font family*/
+        --font-sofa-sans: 'Sofa Sans';
+        --font-3d-sketch: '3D Sketch';
+        --font-colby-condensed: 'Colby CdReg'; 
+        --font-bakerie-smooth-wide: 'Bakerie Smooth Wide';
+
+
+        /*Colors*/
+        --healthy-solutions: {{{account.colors.healthy-solutions-19rb}}};
+        --healthy-solutions-pop: {{{account.colors.healthy-solutions-pop-19rb}}};
+        --healthy-solutions-pop-light: {{{account.colors.-bakers-burgundy-pop-light-19rb}}};
+      } 
+
+      html {
+        font-family: var(--font-colby-condensed);
+        font-size: 11pt;
+        color: #000;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      /* Placeholder Styling */
+      .placeholder__container {
+        position: absolute;
+        top: 3mm;
+        left: 3mm;
+        right: 3mm;
+        bottom: 3mm;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transition: 0.3s all;
+      }
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-image: url({{{ placeholder-image }}}); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;   
+        opacity: 0.4;
+      }
+
+      .u-placeholder-show .placeholder__container {
+        opacity: 1;  
+      }
+
+      .u-placeholder-hide .placeholder__container,
+      .u-placeholder-hide .placeholder__trigger {
+        display: none;
+      }
+
+      .placeholder__trigger {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 1rem;
+        height: 1rem;
+        border-bottom-left-radius: 1rem;
+        background: #467BE3;
+        transition: all 0.3s;
+        transform: translate(30%, -30%);
+        opacity: 0;
+        z-index: 9999;
+      }   
+
+      .bleed:hover .placeholder__trigger:hover {
+        cursor: pointer;
+        opacity: 1;        
+      }
+
+      .placeholder__trigger svg {
+        width: 50%;
+        height: auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-25%, -50%);
+      }
+
+      .bleed:hover .placeholder__trigger {
+        transform: translate(0, 0);
+        opacity: 0.5;
+      }      
+
+      .bleed:hover .placeholder__trigger:hover + .placeholder__container {
+        opacity: 1;
+      }      
+
+      .placeholderBtn__container {
+        position: absolute;
+        top: 0;
+        left: -0.6rem;
+        bottom: -0.6rem;
+        right: 0;
+        transition: 0.3s all;
+        transform: rotate(-90deg);
+        transform-origin: top right;
+        opacity: 0;
+      }
+
+      .placeholder__trigger:hover .placeholderBtn__container {
+        transform: rotate(0deg);
+        opacity: 1;
+      }
+
+      .placeholderBtn {
+        position: absolute;
+        left: 0;
+        top: 0.04rem;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: #467BE3;
+        color: #fff;
+        font-size: 0.27rem;
+        text-decoration: none;
+        line-height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }     
+
+      .placeholderBtn--plus::before {
+        content: '+';
+      }            
+
+      .placeholderBtn--minus {
+        top: 0.68rem;
+        left: 0.4rem;       
+      }    
+
+      .placeholderBtn--minus::before {
+        content: '-';        
+      }
+
+      .placeholderBtn--lock {
+        bottom: 0;
+        top: auto;
+        right: 0.04rem;
+        left: auto;
+      }
+
+      .placeholderBtn--lock::before {
+        content: 'L';
+      }
+
+      .u-placeholder-locked .placeholderBtn--lock::before {
+        content: 'U';
+      }      
+
+      .overflow {
+        border: none;
+        box-shadow: 0 0 0 0.0362rem red;
+        background: rgba(255, 0, 0, 0.4);
+        position: relative; }
+      .overflow h1, 
+      .overflow h2, 
+      .overflow h3, 
+      .overflow h4, 
+      .overflow h5, 
+      .overflow h6, 
+      .overflow p, 
+      .overflow li { color: red !important; }
+      .overflow::before {
+        content: '+';
+        position: absolute;
+        z-index: 5;
+        top: 0.1rem;
+        right: 0.1rem;
+        height: .3107rem;
+        width: .3107rem;
+        border: 0.01rem solid red;
+        color: red;
+        padding: 0.01rem 0.01rem 0.01rem 0.0155rem;
+        box-sizing: border-box;
+        font-size: 0.2279rem;
+        text-align: center;
+        line-height: .2693rem;
+        background-color: white;
+        text-align: center; }
+      .overflow:hover:before {
+        background-color: red;
+        color: white; }
+      .overflow:after {
+        display: none; }
+      .overflow:hover:after {
+        display: block;
+        content: 'There is overset content in this column. Please remove it';
+        position: absolute;
+        top: 0.5rem;
+        right:  0.1rem;
+        background-color: black;
+        color: white;
+        border-radius: 0.01rem;
+        padding: 0.2rem 0.2rem;        
+        box-sizing: border-box;
+        font-size: 0.35rem;
+        font-weight: 400;     
+        text-align: right;
+        width: 6rem;
+        line-height: 0.45rem;
+      }
+
+      .backgroundImage {
+        position: absolute;
+        top: 3mm;
+        bottom: 3mm;
+        left: 3mm;
+        right: 3mm;
+        overflow: hidden;
+        z-index: -1;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+
+      .backgroundImage div {
+        width: auto !important;
+        height: auto !important;
+        right: 0;
+        bottom: 0;
+      }    
+
+      .is-export-mode .placeholder__container,
+      .is-export-mode .placeholder__trigger {
+        display: none;
+      }
+
+      .headline {
+        display: none;
+        position: absolute;
+        top: 1.234rem;
+        left: 1.234rem;
+        width: 9.2rem;
+        font-size: 1.159rem;
+        font-family: var(--font-sofa-sans);
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 0.9em;
+        color: var(--healthy-solutions); 
+        font-variant-ligatures: no-contextual;
+        -moz-font-feature-settings: "calt" 0;
+        -webkit-font-feature-settings: "calt" 0;
+        font-feature-settings: "calt" 0;
+      }
+
+      .headline strong {
+        font-family: var(--font-3d-sketch);
+        font-size: 1.738rem;
+      }
+
+      .theme--a .headline--a {
+        display: block;
+      }
+
+      .theme--b .headline--b {
+        display: block;
+      }      
+
+      .theme--c .headline--c {
+        display: block;
+      }     
+
+      .theme--d .headline--d {
+        display: block;
+      } 
+
+      .theme--e .headline--e {
+        display: block;
+      } 
+
+      .tagline {
+        display: none;
+        top: 3.005rem;
+        position: absolute;
+        left: 1.1rem;
+        width: 4.938rem;
+        height: 2.469rem;
+        font-family: var(--font-3d-sketch);
+        font-size: 2em;
+        font-weight: 400;
+        color: var(--healthy-solutions); 
+      }
+
+      .tagline--b {
+        top: 1.905rem;
+        left: 3.2rem;
+      }
+
+      .theme--a .tagline--a {
+        display: block;
+      }
+
+      .theme--b .tagline--b {
+        display: block;
+      }
+
+      .theme--c .tagline--c {
+        display: block;
+      }     
+
+      .theme--d .tagline--d {
+        display: block;
+      }
+
+      .theme--e .tagline--e {
+        display: block;
+      }
+
+      .badge {
+        position: absolute;
+        right: 1.234rem;
+        top: 1.234rem;
+        padding: 49pt 24pt;
+        width: 4.297rem;
+        height: 4.297rem;
+        border-radius: 50%;
+        text-align: center;
+        background-image: url(https://files.outfit.io/media_library_items/93701/badge-new-orange.svg);
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .theme--a .badge,
+      .theme--c .badge,
+      .theme--d .badge{
+        display: none;
+      }   
+
+      .textFitBadge__container {
+        justify-content: center;
+        max-height: 0.816rem;  
+      }
+
+      .badge__text {
+        display: block; 
+        color: #fff;
+        font-size: 24.4pt;
+        line-height: 1em;
+      }
+
+      .badge__top {
+        display: block;
+        margin-bottom: -7pt;
+        font-family: var(--font-colby-condensed);
+        font-size: 42pt;
+        color: #fff;
+      }
+
+      @media only screen and (min-width: 585px)  and (max-width: 598px)  {  
+
+        .headline {
+          top: 1.04rem;
+          left: 0.934rem;
+          font-size: 1.03rem;
+          display: block;
+        }
+
+        .headline strong {
+          font-size: 1.995rem;
+        }
+
+        .tagline {
+          display: block;
+          top: 3.158rem;
+          left: 0.934rem;
+          width: 5.738rem;
+          height: 2.769rem;
+          font-size: 1.8em;
+        }
+
+        .badge {
+          display: block;
+          left: 8.17rem;
+          top: 1.2rem;
+          width: 3.32rem;
+          height: 3.32rem;
+          padding: 19pt 14pt;
+        }
+
+        .badge__text {
+          font-size: 14.8pt;
+          line-height: 1em;
+        }
+
+        .top {
+          font-size: 47pt;
+        }
+      }
+
+      @media only screen and (min-width: 936px)  and (max-width: 950px) {
+        .headline {
+          display: block;
+          top: 1.31rem;
+          left: 1.134rem;
+          width: 10.7rem;
+          line-height: 0.88em;
+          font-size: 1.53rem;
+        }
+
+        .headline strong {
+          font-size: 2.29rem;
+        }
+
+        .badge {
+          display: block;
+          left: 23.2rem;
+          top: 1.05rem;
+          width: 4.1rem;
+          height: 4.1rem;
+          padding: 17pt 15pt;
+        }
+
+        .badge__top {
+          margin-bottom: -3pt; 
+          font-size: 36pt;
+        }
+
+        .badge__text {
+          font-size: 13pt;
+          line-height: 0.8em;
+        }
+
+        .top {
+          margin-bottom: 3pt; 
+          font-size: 39pt;
+        }
+
+        .tagline {
+          display: block;
+          top: 4.658rem;
+          left: 0.78rem;
+          width: 6.738rem;
+          height: 3.269rem;
+
+        }
+      }
+
+      @media only screen and (min-width: 970px) and (max-width: 980px) {   
+        .headline {
+          display: block;
+          font-size: 1.6rem;
+          width: 10.888rem;
+          top: 1.33rem;
+          line-height: 0.9em;
+          left: 1.2rem;
+        }
+
+        .headline strong {
+          font-size: 2.4rem;
+        }
+
+        .badge {
+          display: block;
+          left: 18.95rem;
+          top: 1.15rem;
+          width: 3.6rem;
+          height: 3.6rem;
+          padding: 17pt 10pt;
+        }
+
+        .badge__text {
+          font-size: 14.1pt;
+        }
+
+        .badge__top {
+          margin-bottom: -6pt;
+          font-size: 41pt;
+        }
+
+        .tagline {
+          display: block;
+          top: 5.058rem;
+          width: 6.938rem;
+          height: 3.369rem;
+          left: 1.2rem;
+          font-size: 2.4em;
+        }
+      }
+
+      /* Leaderboard query */
+      @media only screen and (min-width: 2880px) {
+        .headline {
+          display: block;	
+          top: 1.05rem;
+          left: 0.8rem;
+          width: 11.4rem;
+          font-size: 1.68rem;
+          line-height: 0.89em;
+        }
+
+        .headline strong {
+          font-size: 2.52rem;
+        }
+
+        .tagline {
+          display: block;
+          top: 2.658rem;
+          width: 11.338rem;
+          height: 3.469rem;
+          left: 6.8rem;
+          font-size: 4.12rem;
+        }
+
+        .badge {
+          display: block;
+          left: 32.37rem;
+          top: 0.75rem;
+          width: 4.1rem;
+          height: 4.1rem;
+          padding: 40pt 33pt;
+        }
+
+        .badge__text {
+          font-size: 30.4pt;
+          line-height: 1em;
+        }
+
+        .badge__top {
+          margin-bottom: -15pt;
+          font-size: 84pt;
+        }
+
+        .textFitBadge__container {
+          max-height: 1.5rem;
+        }
+      }
+
+      .badge--hide {
+        display: none;
+      }
+
+      .logo__container {
+        position: absolute;
+        bottom: 0;
+        left: 1.234rem;
+        width: 4.099rem;
+        height: 4.099rem;
+        margin-right: 0.395rem;
+        padding: 0.392rem 0.419rem 0;
+        background: var(--healthy-solutions); 
+        font-size: 0.321rem;
+        color: #fff;
+        border-radius: 0.1rem;
+      }
+
+      .logo__heading {
+        margin-bottom: 0.1rem;
+        font-size: 0.521rem;
+        padding-left: 0.025rem;
+        padding-right: 0.1rem;
+        line-height: 1.1em;
+        text-transform: uppercase;
+        border-bottom: 0.0246rem solid #fff;
+        padding-bottom: 0.09rem;
+      }
+
+      .logo__label {
+        margin-bottom: 0.321rem;
+        padding-left: 0.025rem;
+        font-size: 0.425rem;
+      }
+
+      .logo {
+        width: 3.358rem;
+      }
+
+      @media only screen and (min-width: 2880px) {
+        .logo {
+          width: 4.358rem;
+        }
+      }
+
+      .suportingLogo {
+        position: absolute;
+        left: 5.852rem;
+        bottom: 0.88rem;
+        width: 1.653rem;
+        height: 0.66rem;
+      }
+
+      .theme--b .suportingLogo,
+      .theme--c .suportingLogo,
+      .theme--d .suportingLogo ,
+      .theme--e .suportingLogo {
+        display: none;
+      }
+
+      @media only screen and (min-width: 585px) and (max-width: 598px)  {
+        .logo__container {
+          left: 0.934rem;
+          padding: 0.34rem 0.435rem 0;
+          height: 4rem;
+          width: 4.04rem;
+        }
+
+        .logo__heading {
+          margin-bottom: 0.1rem;
+          padding-bottom: 0.1rem;
+          padding-left: 0;
+          font-size: 0.518rem;
+        }
+
+        .logo__label {
+          padding-left: 0;
+          margin-bottom: 0.5rem;
+          font-size: 0.415rem;
+        } 
+      }
+
+      @media only screen and (min-width: 936px)  and (max-width: 950px) {
+        .logo__container {
+          left: 1.1rem;
+          padding: 0.38rem 0.419rem 0;
+          height: 4.04rem;
+          width: 3.98rem;
+        }
+
+        .logo__heading {
+          margin-bottom: 0.09rem;
+          padding-left: 0;
+          padding-bottom: 0.11rem;
+          font-size: 0.508rem;
+        }
+
+        .logo__label {
+          margin-bottom: 0.5rem;
+          padding-left: 0;
+          font-size: 0.412rem;
+        }
+
+      }
+
+      @media only screen and (min-width: 970px) and (max-width: 980px) {
+        .logo__container {
+          left: 1.15rem;
+          padding: 0.4rem 0.419rem 0;
+          height: 4.56rem;
+          width: 4.58rem;
+        }
+
+        .logo__heading {
+          padding-left: 1.8pt;
+          margin-bottom: 0.12rem;
+          font-size: 0.59rem;
+        }
+
+        .logo__label {
+          margin-bottom: 0.6rem;
+          padding-left: 2.3pt;
+          font-size: 0.47rem;
+        } 
+
+        .logo {
+          width: 4.358rem;
+        }
+
+        .suportingLogo {
+          left: 6.852rem;
+        } 
+      }
+
+      @media only screen and (min-width: 2880px) {
+        .logo__container {
+          left: 0.79rem;
+          padding: 0.43rem 0.54rem 0;
+          height: 5rem;
+          width: 5.18rem;
+        }
+
+        .logo__heading {
+          margin-bottom: 0.15rem;
+          padding-left: 0pt;
+          padding-bottom: 0.12rem;
+          font-size: 0.677rem;
+        }
+
+        .logo__label {
+          margin-bottom: 0.6rem;
+          padding-left: 0.3pt;
+          font-size: 0.542rem;
+        } 
+
+        .suportingLogo {
+          left: 6.852rem;
+        } 
+      }
+
+      .headingMaster {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        z-index: 1;
+      }
+
+      .js-sentence-output {
+        position: relative;
+      }
+
+      em {
+        color: var(--healthy-solutions-pop);
+        font-style: normal;
+      }
+
+      /* ANY OTHER STYLES THAT NEED MUSTACHE.JS CAPABILITIES */
+    </style>
+  </head>
+  <body style="background: white" class="u-placeholder-{{ placeholder-toggle }} {{BDss_theme}} {{^BDss_theme}}theme--a{{/BDss_theme}}">    
+
+    <div class="page">
+
+      <div class="bleed center-children">
+
+        <span class="placeholder__trigger">   
+          <div class="placeholderBtn__container">
+            <div class="placeholderBtn placeholderBtn--operation placeholderBtn--plus" data-operation="plus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--operation placeholderBtn--minus" data-operation="minus"></div>
+            <div href="#" class="placeholderBtn placeholderBtn--lock"></div>
+          </div>
+          <svg viewBox="0 0 144 100" preserveAspectRatio xmlns="http://www.w3.org/2000/svg">
+            <g>
+              <title>background</title>
+              <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+              <title>Layer 1</title>
+              <path fill="#ffffff" id="svg_1" d="m89.668,38.786c0,-10.773 -8.731,-19.512 -19.51,-19.512s-19.512,8.736 -19.512,19.512c0,10.774 8.732,19.511 19.512,19.511c10.776,0 19.51,-8.736 19.51,-19.511m38.684,-0.059c-13.315,17.599 -34.426,28.972 -58.193,28.972c-23.77,0 -44.879,-11.373 -58.194,-28.972c13.314,-17.598 34.424,-28.971 58.193,-28.971c23.769,0 44.878,11.373 58.194,28.971m11.962,0.033c-14.648,-23.282 -40.589,-38.76 -70.156,-38.76s-55.51,15.478 -70.158,38.76c14.648,23.312 40.591,38.81 70.158,38.81s55.508,-15.498 70.156,-38.81"/>
+            </g>
+          </svg>
+        </span><!-- end placeholder__trigger -->
+        <div class="placeholder__container">
+          <div class="placeholder"></div>
+        </div><!-- end placeholder__container -->        
+
+        <div class="container fit">
+
+          <div class="backgroundImage">{{{BDss_background-image}}}</div>
+
+          <div class="headline headline--a">
+            <div style="max-height: 2.7em;"> 
+              <div class="check-overflow">
+                <div class="headingMaster"> {{{BDss_headline-1}}} </div> <!-- headingMaster -->
+                <div class="js-sentence-output"> </div> <!-- js-sentence-output -->
+              </div><!-- end check-overflow -->
+            </div><!-- end max-height -->
+          </div><!-- end headline -->
+          <div class="tagline tagline--a">
+            <div style="max-height: 1.7em;">
+              <div class="check-overflow">
+                {{{BDss_tagline}}}
+              </div><!-- end check-overflow -->
+            </div><!-- end max-height -->
+          </div><!-- end tagline -->
+          <div class="badge badge--{{{BDss_show-badge}}}">
+            <div class="badge__top">New</div>
+            <div class="textFitBadge__container">
+              <div class="badge__text textFitBadge">Hi-Protein<br>Wholegrain </div><!-- end badge__text --> 
+            </div><!-- end textFitBadge__container -->
+
+          </div><!-- end badge -->
+          <div class="logo__container">
+            <div class="logo__heading">Healthy solutions</div>
+            <div class="logo__label">Make the switch</div>
+            <img class="logo" src="https://files.outfit.io/media_library_items/83828/BD_Logo_White.svg" />
+          </div><!-- end logo__container -->
+          <img src="https://outfit-v2-exports-production.s3-accelerate.amazonaws.com/media_library_items/4384b201c78139c7313d5f9d0300903c/monash-logo.png" class="suportingLogo">
+
+        </div><!--container fit-->
+
+      </div><!--bleed-->
+
+    </div><!--page-->
+
+    <script>
+      window.showCrop = {{show-crop}}{{^show-crop}}true{{/show-crop}};
+
+                                                         if (window.showCrop) {
+                                                           document.querySelector('body').classList.add('show-crop');
+                                                         } else {
+                                                           document.querySelector('body').classList.add('hide-crop');
+                                                         }                                               
+    </script>
+
+    <script src="main.js"></script>   
+    <script src="prefixfree.js"></script>
+    <script src="fontfaceobserver.js"></script>
+    <script>
+
+      // Check Overflow function
+      function checkHeight(element) {
+        for (i = 0 ; i < element.length ; i++ ) {
+          var currentElement = element[i];
+          var height         = currentElement.offsetHeight;
+          var parent         = currentElement.parentNode;
+          var parentHeight   = parent.offsetHeight;
+
+          if (height > parentHeight) {
+            parent.classList.add('overflow');
+          } else {
+            parent.classList.remove('overflow');
+          }
+
+          if ((currentElement).parentNode.classList.contains('overflow')) {
+            document.body.classList.add('overflow-true');
+          } else {
+            document.body.classList.remove('overflow-true'); 
+          }
+        }
+      }   
+
+      // Adding class 'is-export-mode' to the body element in case template is in the export mode
+      function checkExport() {
+        var isExportPage = window.location.href.indexOf('exports') > -1;
+
+        if (isExportPage) {
+          document.body.classList.add('is-export-mode');
+        }
+      }            
+
+      function loop() {
+        checkHeight(document.getElementsByClassName('check-overflow'));
+      } setInterval(loop, 1000);  
+
+      // Fix for the resizable background images - fullscreen and digital vairaitons only
+      function checkCrop() {
+        if (window.showCrop === true) {
+        } else {
+          [].forEach.call(document.querySelectorAll('.outfit-resizable-background'), function (el) {
+            el.parentNode.style.left = '0';
+            el.parentNode.style.right = '0';
+            el.parentNode.style.top = '0';
+            el.parentNode.style.bottom = '0';
+            el.parentNode.style.width = '100%';
+            el.parentNode.style.height = '100%';
+          });
+        }
+      }  
+
+      // Dynamic controls for the placeholder image
+      function lockPlaceholder() {
+        let lockState = localStorage.getItem('lockState') || 'unlocked';
+
+        if ( lockState == 'unlocked' ) {
+          document.body.classList.add('u-placeholder-locked');
+          localStorage.setItem('lockState', 'locked');
+        } else {
+          document.body.classList.remove('u-placeholder-locked');
+          localStorage.setItem('lockState', 'unlocked');          
+        }        
+      }
+
+      function opacityControl() {
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        placeholders.forEach(placeholder => {
+          let compStyles = window.getComputedStyle(placeholder);
+          let currentOpacity = parseFloat(compStyles.getPropertyValue('opacity'));
+          let operation = this.dataset.operation;          
+
+          if ( operation == 'plus' && currentOpacity < 1 ) {
+            placeholder.style.opacity = currentOpacity + 0.1; 
+          } else if ( operation == 'minus' && currentOpacity > 0 ) {
+            placeholder.style.opacity = currentOpacity - 0.1; 
+          }    
+
+          localStorage.setItem('opacityState', currentOpacity);          
+        });       
+      }
+
+      function placeholderControler() {
+        const operationButtons = document.querySelectorAll('.placeholderBtn--operation');
+        const lockButtons = document.querySelectorAll('.placeholderBtn--lock');
+        const placeholders = document.querySelectorAll('.placeholder');
+
+        if ( localStorage.getItem('lockState') == 'locked' ) {
+          document.body.classList.add('u-placeholder-locked');          
+        }
+
+        if ( localStorage.getItem('opacityState') !== undefined ) {
+          placeholders.forEach(placeholder => {
+            placeholder.style.opacity = localStorage.getItem('opacityState');
+          });
+        }
+
+        operationButtons.forEach(button => {
+          button.addEventListener('click', opacityControl);        
+        });        
+
+        lockButtons.forEach(lockButton => {
+          lockButton.addEventListener('click', lockPlaceholder);
+        });
+      }    
+
+      // Including popColorController() function from snippets
+      {{{account.snippets.popColorController}}}
+
+      const headingObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          popColorController('.headingMaster', '.js-sentence-output');
+        });
+      });      
+
+      headingObserver.observe(document.querySelector('.headingMaster'), {
+        attributes: false,
+        characterData: true,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: true
+      });        
+
+      placeholderControler();             
+      checkCrop();  
+
+    </script>
+    <script src="main.js"></script>   
+
+    <script src="https://outfit-assets-production.s3-accelerate.amazonaws.com/scripts/textfit.0.0.4.min.js"></script>
+
+    <script>
+
+      // Calling text size restriction functions once the fonts are loaded
+      document.addEventListener('DOMContentLoaded', function(event) {
+        const fonts = ['Colby CdReg', 'Sofa Sans', '3D Sketch'];
+        const fontObservers = [];
+
+        fonts.forEach(font => {
+          const obs = new FontFaceObserver(font);
+          fontObservers.push(obs.load())
+        });
+
+        Promise.all(fontObservers).then(() => {
+          checkHeight(document.getElementsByClassName('check-overflow'));
+          popColorController('.headingMaster', '.js-sentence-output');
+          checkExport(); 
+
+          TextFit.fit({
+            selector: '.textFit'
+          });
+
+          TextFit.fit({
+            selector: '.textFitBadge',
+            fitMode: 'vertical',
+            alignItems: 'center'
+          });
+
+          document.dispatchEvent(new Event('printready'));
+        });
+      });
+
+    </script>
+
+  </body>
+</html>
