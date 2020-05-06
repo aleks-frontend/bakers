@@ -22,14 +22,14 @@
     {{BD_logo-tag-background-colour-back--dlf}}
     {{BD_logo-tag-foreground-colour--dlf}}
     {{BD_logo-tag-foreground-colour-back--dlf}}
- 	{{BD_show-hide-back-underline--dlf}}
-  	{{BD_heading-back--dlf}}
-  	{{BD_heading-side-back-color--dlf}}
-  	{{BD_body-text--dlf}}
-	{{BD_body-text-paragraph-font-size--dlf}}
- 	{{BD_body-text-side-back-colour--dlf}}
-  	{{BD_footer-text--dlf}}
-  	{{BD_delivery-provider-logo-back--dlf}}
+  {{BD_show-hide-back-underline--dlf}}
+   {{BD_heading-back--dlf}}
+   {{BD_heading-side-back-color--dlf}}
+   {{BD_body-text--dlf}}
+ {{BD_body-text-paragraph-font-size--dlf}}
+  {{BD_body-text-side-back-colour--dlf}}
+   {{BD_footer-text--dlf}}
+   {{BD_delivery-provider-logo-back--dlf}}
     -->
 
     <style>
@@ -182,16 +182,20 @@
         color: {{{BD_body-text-side-back-colour--dlf}}};
       }
 
+      .text {
+        font-size: {{BD_body-text-paragraph-font-size--dlf}}{{^BD_body-text-paragraph-font-size--dlf}}15{{/BD_body-text-paragraph-font-size--dlf}}pt;
+      }
+
       .text h1 {
         margin-bottom: 5.1pt;
         font-family: 'Colby CdBld';
-        font-size: 18.3pt;
+        font-size: 1.3em;
         color: {{{BD_body-text-side-back-colour--dlf}}};
       }
 
       .text p {
         font-family: 'Colby CdReg';
-        font-size: {{BD_body-text-paragraph-font-size--dlf}}{{^BD_body-text-paragraph-font-size--dlf}}15{{/BD_body-text-paragraph-font-size--dlf}}pt;
+        font-size: 1em;
         line-height: 1.25em;
         color: {{{BD_body-text-side-back-colour--dlf}}};
       }
@@ -258,6 +262,14 @@
         font-family: 'Colby CdBld';
         font-size: 18.1pt;
         color: var(--everyday-classics);
+      }
+
+      .footer__text h1 {
+        font-size: 18.1pt;
+      }
+
+      .footer__text p {
+        font-size: 16pt;
       }
 
       .logo__container {
